@@ -96,6 +96,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button Black
       objectReference: {fileID: 0}
+    - target: {fileID: 7141874337294757150, guid: c09471ceb511b564fbd30e1677cf83d1, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
