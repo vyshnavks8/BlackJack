@@ -11,9 +11,12 @@ public class LoginCanvas : CanvasBase
     [SerializeField] private Button forgotPasswordButton;
     [SerializeField] private Button loginButton;
     [SerializeField] private Button signUpButton;
+    [SerializeField] private Button backButton;
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase forgotPasswordCanvas;[SerializeField]
     private CanvasBase signUpCanvas;
+    [SerializeField]
+    private CanvasBase welcomeCanvas;
 
     private string loginID;
     private string password;
@@ -27,6 +30,7 @@ public class LoginCanvas : CanvasBase
         forgotPasswordButton.onClick.AddListener(OnForgotPasswordClick);
         rememberToggle.onValueChanged.AddListener(OnRememberToggle);
         signUpButton.onClick.AddListener(OnSignUpClick);
+        backButton.onClick.AddListener(OnBackClick);
     }
 
     protected override void RemoveListener()
@@ -37,6 +41,7 @@ public class LoginCanvas : CanvasBase
         forgotPasswordButton.onClick.RemoveListener(OnForgotPasswordClick);
         rememberToggle.onValueChanged.RemoveListener(OnRememberToggle);
         signUpButton.onClick.RemoveListener(OnSignUpClick);
+        backButton.onClick.RemoveListener(OnBackClick);
     }
 
     private void OnLoginSet(string input)
@@ -64,5 +69,9 @@ public class LoginCanvas : CanvasBase
     private void OnLoginClick()
     {
         SceneManager.LoadScene(SceneKey.Game);
+    }
+    private void OnBackClick()
+    {
+        OnSetCanvasActive(welcomeCanvas);
     }
 }

@@ -1,8 +1,10 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameCanvas : CanvasBase
 {
+    [SerializeField] private float transitionDuration = 0.3f;
     [SerializeField] private GameObject myCards;
     [SerializeField] private Button chatButton;
     [SerializeField] private Button cardsButton;
@@ -42,12 +44,21 @@ public class GameCanvas : CanvasBase
 
     private void OnCardsClick()
     {
-        myCards.SetActive(true);
+        myCards.transform.DOLocalMoveY(-4000, 0).OnComplete(() =>
+        {
+            myCards.SetActive(true);
+            myCards.transform.DOLocalMoveY(0, transitionDuration).SetEase(Ease.OutQuad);
+        });
+       
     }
 
     private void OnCloseCardsClick()
     {
-        myCards.SetActive(false);
+        myCards.transform.DOLocalMoveY(-4000, transitionDuration).SetEase(Ease.InQuad).OnComplete(() =>
+        {
+            myCards.SetActive(false);
+        });
+     
     }
 
     private void OnScoreboardClick()

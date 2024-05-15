@@ -12,6 +12,7 @@ public class SignUpCanvas : CanvasBase
     [SerializeField] private Toggle rememberToggle;
     [SerializeField] private Button signUpButton;
     [SerializeField] private Button loginButton;
+    [SerializeField] private Button backButton;
 
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase loginCanvas;
@@ -28,6 +29,7 @@ public class SignUpCanvas : CanvasBase
         loginButton.onClick.AddListener(OnLoginClick);
         signUpButton.onClick.AddListener(OnSignUpClick);
         rememberToggle.onValueChanged.AddListener(OnRememberToggle);
+        backButton.onClick.AddListener(OnBackClick);
     }
 
 
@@ -38,6 +40,7 @@ public class SignUpCanvas : CanvasBase
         loginButton.onClick.RemoveListener(OnLoginClick);
         signUpButton.onClick.RemoveListener(OnSignUpClick);
         rememberToggle.onValueChanged.RemoveListener(OnRememberToggle);
+        backButton.onClick.RemoveListener(OnBackClick);
     }
 
 
@@ -63,6 +66,10 @@ public class SignUpCanvas : CanvasBase
     }
 
     private void OnLoginClick()
+    {
+        OnSetCanvasActive(loginCanvas);
+    }
+    private void OnBackClick()
     {
         OnSetCanvasActive(loginCanvas);
     }
