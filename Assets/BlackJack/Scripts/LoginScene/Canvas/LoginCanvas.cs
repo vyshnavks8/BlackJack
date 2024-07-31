@@ -7,7 +7,6 @@ public class LoginCanvas : CanvasBase
 {
     [SerializeField] private TMP_InputField loginInput;
     [SerializeField] private TMP_InputField passwordInput;
-    [SerializeField] private Toggle rememberToggle;
     [SerializeField] private Button forgotPasswordButton;
     [SerializeField] private Button loginButton;
     [SerializeField] private Button signUpButton;
@@ -20,7 +19,6 @@ public class LoginCanvas : CanvasBase
 
     private string loginID;
     private string password;
-    private bool remember;
 
     protected override void AddListener()
     {
@@ -28,7 +26,6 @@ public class LoginCanvas : CanvasBase
         passwordInput.onValueChanged.AddListener(OnPasswordSet);
         loginButton.onClick.AddListener(OnLoginClick);
         forgotPasswordButton.onClick.AddListener(OnForgotPasswordClick);
-        rememberToggle.onValueChanged.AddListener(OnRememberToggle);
         signUpButton.onClick.AddListener(OnSignUpClick);
         backButton.onClick.AddListener(OnBackClick);
     }
@@ -39,7 +36,6 @@ public class LoginCanvas : CanvasBase
         passwordInput.onValueChanged.RemoveListener(OnPasswordSet);
         loginButton.onClick.RemoveListener(OnLoginClick);
         forgotPasswordButton.onClick.RemoveListener(OnForgotPasswordClick);
-        rememberToggle.onValueChanged.RemoveListener(OnRememberToggle);
         signUpButton.onClick.RemoveListener(OnSignUpClick);
         backButton.onClick.RemoveListener(OnBackClick);
     }
@@ -52,10 +48,6 @@ public class LoginCanvas : CanvasBase
     private void OnPasswordSet(string input)
     {
         password = input;
-    }
-    private void OnRememberToggle(bool input)
-    {
-        remember = input;
     }
 
     private void OnForgotPasswordClick()

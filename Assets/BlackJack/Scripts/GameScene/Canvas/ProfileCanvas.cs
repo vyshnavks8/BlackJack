@@ -69,8 +69,8 @@ public class ProfileCanvas : CanvasBase
     private void OnLogoutClick()
     {
         var popContent = new PopContent("", "Are you sure you want\nto Logout ?");
-        var buttonContentA = new ButtonContent("yes", OnClickYes);
-        var buttonContentB = new ButtonContent("No", OnClickNo);
+        var buttonContentA = new ButtonContent("No", OnClickNo);
+        var buttonContentB = new ButtonContent("yes", OnClickYes);
         PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
     }
 

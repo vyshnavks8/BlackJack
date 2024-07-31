@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Heading
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ea51b8cfdbb43db488afeab251194237, type: 2}
-  m_sharedMaterial: {fileID: 2768487682149229086, guid: ea51b8cfdbb43db488afeab251194237, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 63d24e0cd063468468ca7339b70fe9e9, type: 2}
+  m_sharedMaterial: {fileID: -485409127032717008, guid: 63d24e0cd063468468ca7339b70fe9e9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,15 +92,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 160
-  m_fontSizeBase: 110
+  m_fontSize: 130
+  m_fontSizeBase: 130
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 17
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

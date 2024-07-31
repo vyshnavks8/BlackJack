@@ -136,7 +136,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -179,6 +179,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1609849069530254480}
     m_Modifications:
+    - target: {fileID: 1583791927507050747, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583791927507050747, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3999154492312289923, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -264,12 +272,44 @@ PrefabInstance:
       value: Input
       objectReference: {fileID: 0}
     - target: {fileID: 6803666451081490398, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803666451081490398, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803666451081490398, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803666451081490398, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
       propertyPath: m_fontSizeBase
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803666451081490398, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281479730
+      objectReference: {fileID: 0}
+    - target: {fileID: 7042758329677127550, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7042758329677127550, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7042758329677127550, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.19607843
       objectReference: {fileID: 0}
     - target: {fileID: 7042758329677127550, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
       propertyPath: m_fontSizeBase
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 7042758329677127550, guid: 34976689b017b744e82c341d7c5b9d7f, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281479730
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

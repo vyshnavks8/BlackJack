@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 32f96cee89390fa47836530c0b13feae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0f844a9fd2248e44a18da532aec871f, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -130,12 +130,44 @@ PrefabInstance:
     m_TransformParent: {fileID: 8453328622539129861}
     m_Modifications:
     - target: {fileID: 1878727086896101057, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
+      propertyPath: m_fontSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878727086896101057, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878727086896101057, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878727086896101057, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878727086896101057, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878727086896101057, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878727086896101057, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878727086896101057, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
       propertyPath: m_VerticalAlignment
       value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 1878727086896101057, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878727086896101057, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2582801797797967286, guid: feaf9aa3172605b479aa281a11c5b8ac, type: 3}
       propertyPath: m_Name

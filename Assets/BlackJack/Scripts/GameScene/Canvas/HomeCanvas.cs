@@ -1,11 +1,8 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HomeCanvas : CanvasBase
 {
-    [SerializeField] private AppDataSO appDataSo;
-    [SerializeField] private TMP_Text userNameText;
     [SerializeField] private Button profileButton;
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button privateGameButton;
@@ -22,13 +19,9 @@ public class HomeCanvas : CanvasBase
     protected override void OnEnable()
     {
         base.OnEnable();
-        SetData();
     }
 
-    private void SetData()
-    {
-        userNameText.text = "Hello <b> " + appDataSo.username;
-    }
+ 
 
     protected override void AddListener()
     {

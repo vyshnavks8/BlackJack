@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PopUpCanvas : MonoBehaviour
 {
+    [SerializeField] private RectTransform parentPivot;
     [SerializeField] private TMP_Text headingText;
     [SerializeField] private TMP_Text dataText;
     [Header("Button A")] [SerializeField] private TMP_Text buttonTextA;
@@ -32,26 +33,26 @@ public class PopUpCanvas : MonoBehaviour
         string buttonNameB, Action callbackB)
     {
         SetPopData(heading, data, buttonNameA, callbackA, buttonNameB, callbackB);
-        gameObject.SetActive(true);
+        parentPivot.gameObject.SetActive(true);
         SetTimerData();
     }
     public void ShowPop(string heading, string data, string buttonNameA, Action callbackA, string buttonNameB, Action callbackB,int timer , Action callbackC)
     {
         SetPopData(heading, data, buttonNameA, callbackA, buttonNameB, callbackB);
-        gameObject.SetActive(true);
+        parentPivot.gameObject.SetActive(true);
         SetTimerData(timer,callbackC);
     }
 
     public void ShowPop(string heading, string data,string buttonName,Action callback)
     {
         SetPopData(heading, data,buttonName,callback);
-        gameObject.SetActive(true);
+        parentPivot.gameObject.SetActive(true);
         SetTimerData();
     }
     public void ShowPop(string heading, string data)
     {
         SetPopData(heading, data);
-        gameObject.SetActive(true);
+        parentPivot.gameObject.SetActive(true);
         SetTimerData();
     }
 
@@ -101,7 +102,7 @@ public class PopUpCanvas : MonoBehaviour
     {
         SetPopData(string.Empty, string.Empty);
         SetTimerData();
-        gameObject.SetActive(false);
+        parentPivot.gameObject.SetActive(false);
     }
     private IEnumerator StartTimer(int time)
     {
