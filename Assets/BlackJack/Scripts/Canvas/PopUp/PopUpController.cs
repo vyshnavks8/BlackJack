@@ -1,41 +1,5 @@
 using System;
 
-public struct PopContent
-{
-    public readonly string Heading;
-    public readonly string Data;
-
-    public PopContent(string heading, string data)
-    {
-        Heading = heading;
-        Data = data;
-    }
-}
-
-public struct ButtonContent
-{
-    public readonly string ButtonText;
-    public readonly Action ButtonCallback;
-
-    public ButtonContent(string buttonText, Action buttonCallback)
-    {
-        ButtonText = buttonText;
-        ButtonCallback = buttonCallback;
-    }
-}
-
-public struct TimedContent
-{
-    public readonly int Time;
-    public readonly Action TimedCallback;
-
-    public TimedContent(int timeValue, Action timedCallback)
-    {
-        Time = timeValue;
-        TimedCallback = timedCallback;
-    }
-}
-
 public static class PopUpController
 {
     public static event Action OnClosePopUp;

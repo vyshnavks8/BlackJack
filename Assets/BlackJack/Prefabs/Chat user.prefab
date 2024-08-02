@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4112612523039015875, guid: 27a97a2a7206c8940954f769b0605d8d, type: 3}
       propertyPath: m_Name
-      value: Chat other Variant
+      value: Chat user
       objectReference: {fileID: 0}
     - target: {fileID: 4663147565069184660, guid: 27a97a2a7206c8940954f769b0605d8d, type: 3}
       propertyPath: m_Padding.m_Left
@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7890166767151334566, guid: 27a97a2a7206c8940954f769b0605d8d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d7fbf6e327b2e7240a172ecbd23d26bd, type: 3}
     - target: {fileID: 8081230652217939434, guid: 27a97a2a7206c8940954f769b0605d8d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

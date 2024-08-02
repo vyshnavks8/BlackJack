@@ -389,6 +389,9 @@ MonoBehaviour:
   rankText: {fileID: 379659649151067064}
   nameText: {fileID: 486667114481141287}
   scoreText: {fileID: 4621699144808288860}
+  bgImage: {fileID: 8116355591728864584}
+  evenColour: {r: 0.8039216, g: 0.8039216, b: 0.8039216, a: 1}
+  oddColour: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &7221907168303330524
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class ProfileCanvas : CanvasBase
     [SerializeField] private TMP_Text mobileInput;
     [SerializeField] private Button editProfileButton;
     [SerializeField] private Button changePasswordButton;
-    [SerializeField] private Button logoutButton;
+    [SerializeField] private Button deleteAccountButton;
     [SerializeField] private Button backButton;
 
     [Header("Transition Canvas")] [SerializeField]
@@ -38,7 +38,7 @@ public class ProfileCanvas : CanvasBase
     {
         editProfileButton.onClick.AddListener(OnEditProfileButtonClick);
         changePasswordButton.onClick.AddListener(OnChangePasswordClick);
-        logoutButton.onClick.AddListener(OnLogoutClick);
+        deleteAccountButton.onClick.AddListener(OnDeleteAccountClick);
         backButton.onClick.AddListener(OnCancelClick);
     }
 
@@ -46,7 +46,7 @@ public class ProfileCanvas : CanvasBase
     {
         editProfileButton.onClick.RemoveListener(OnEditProfileButtonClick);
         changePasswordButton.onClick.RemoveListener(OnChangePasswordClick);
-        logoutButton.onClick.RemoveListener(OnLogoutClick);
+        deleteAccountButton.onClick.RemoveListener(OnDeleteAccountClick);
         backButton.onClick.RemoveListener(OnCancelClick);
     }
 
@@ -66,18 +66,17 @@ public class ProfileCanvas : CanvasBase
         OnSetCanvasActive(changePasswordCanvas);
     }
 
-    private void OnLogoutClick()
+    private void OnDeleteAccountClick()
     {
-        var popContent = new PopContent("", "Are you sure you want\nto Logout ?");
+        var popContent = new PopContent("", "Are you sure you want\nto Delete Account ?");
         var buttonContentA = new ButtonContent("No", OnClickNo);
         var buttonContentB = new ButtonContent("yes", OnClickYes);
         PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
     }
-
     private void OnClickYes()
     {
         PopUpController.ClosePopUp();
-        SceneManager.LoadScene(SceneKey.Login);
+        SceneManager.LoadScene(SceneKey.Splash);
     }
 
     private void OnClickNo()

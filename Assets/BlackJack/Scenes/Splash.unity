@@ -940,48 +940,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce76b7a490bd74f34a2f2752641aea24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rectTransform: {fileID: 912550402}
-  _graphic: {fileID: 912550404}
-  _effectMaterialHash:
-    bytes[0]: 0
-    bytes[1]: 0
-    bytes[2]: 0
-    bytes[3]: 0
-    bytes[4]: 0
-    bytes[5]: 0
-    bytes[6]: 0
-    bytes[7]: 0
-    bytes[8]: 0
-    bytes[9]: 0
-    bytes[10]: 0
-    bytes[11]: 0
-    bytes[12]: 0
-    bytes[13]: 0
-    bytes[14]: 0
-    bytes[15]: 0
-  <parameterIndex>k__BackingField: 0
-  _lastKeepAspectRatio: 1
-  _lastEffectArea: 0
-  m_EffectFactor: 0
-  m_Width: 0.38
-  m_Softness: 0.8
-  m_Color:
-    r: 0.6627451
-    g: 0.5137255
-    b: 0.29411766
-    a: 1
-  m_ColorMode: 0
-  m_TransitionTexture: {fileID: 2800000, guid: 3e04c247fb2604af186173fce0bc62de, type: 3}
+  m_EffectFactor: 1
+  m_Width: 0.087
+  m_Softness: 1
+  m_Color: {r: 0.1764706, g: 0.227451, b: 0.20000002, a: 1}
+  m_ColorMode: 2
+  m_TransitionTexture: {fileID: 0}
   m_EffectArea: 0
   m_KeepAspectRatio: 1
   m_Player:
     play: 1
     initialPlayDelay: 0
-    duration: 2
+    duration: 2.5
     loop: 0
     loopDelay: 0
     updateMode: 0
-    _time: -0
   m_Reverse: 1
 --- !u!114 &912550404
 MonoBehaviour:
@@ -1806,7 +1779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3433962, g: 0.3433962, b: 0.3433962, a: 0.23921569}
+  m_Color: {r: 0.08235294, g: 0.16078432, b: 0.043137256, a: 0.99607843}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

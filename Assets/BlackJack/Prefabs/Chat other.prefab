@@ -275,7 +275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15f42e0f06144dca53be619006d2fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layoutGroup: {fileID: 7760892412572922473}
   chatText: {fileID: 8562262286099711553}
 --- !u!114 &7227569890565568479
 MonoBehaviour:
@@ -507,14 +506,6 @@ PrefabInstance:
     - target: {fileID: 5962399966457582740, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8044827792654873813, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 76.3659
-      objectReference: {fileID: 0}
-    - target: {fileID: 8044827792654873813, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100.2547
       objectReference: {fileID: 0}
     - target: {fileID: 8044827792654873813, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
       propertyPath: m_AnchoredPosition.x

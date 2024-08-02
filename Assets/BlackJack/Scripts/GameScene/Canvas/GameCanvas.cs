@@ -39,9 +39,21 @@ public class GameCanvas : CanvasBase
 
     private void OnBackClick()
     {
+        var popContent = new PopContent("", "Are you sure you want\nto Exit Game ?");
+        var buttonContentA = new ButtonContent("No", OnClickNo);
+        var buttonContentB = new ButtonContent("yes", OnClickYes);
+        PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
+    }
+    private void OnClickYes()
+    {
+        PopUpController.ClosePopUp();
         OnSetCanvasActive(homeCanvas);
     }
 
+    private void OnClickNo()
+    {
+        PopUpController.ClosePopUp();
+    }
     private void OnCardsClick()
     {
         myCards.transform.DOLocalMoveY(-4000, 0).OnComplete(() =>
@@ -63,6 +75,7 @@ public class GameCanvas : CanvasBase
 
     private void OnScoreboardClick()
     {
+        scoreboardCanvas.SetTransitionCanvas(this);
         OnSetCanvasActive(scoreboardCanvas);
     }
 
