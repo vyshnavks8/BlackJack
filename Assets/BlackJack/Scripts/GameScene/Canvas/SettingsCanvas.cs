@@ -8,10 +8,8 @@ public class SettingsCanvas : CanvasBase
     [SerializeField] private Button privacyButton;
     [SerializeField] private Button backButton;
 
-    [Header("Transition Canvas")] [SerializeField]
-    private CanvasBase homeCanvas;[SerializeField]
+    [Header("Transition Canvas")][SerializeField]
     private CanvasBase volumeCanvas;
-
     [SerializeField] private CanvasBase infoCanvas;
 
     protected override void AddListener()
@@ -33,7 +31,7 @@ public class SettingsCanvas : CanvasBase
   
     private void OnBackClick()
     {
-        OnSetCanvasActive(homeCanvas);
+        OnSetCanvasActive(transitionCanvas);
     }
     private void OnVolumeClick()
     {

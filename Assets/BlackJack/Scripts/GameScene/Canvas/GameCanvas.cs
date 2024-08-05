@@ -11,12 +11,14 @@ public class GameCanvas : CanvasBase
     [SerializeField] private Button closeCardsButton;
     [SerializeField] private Button scoreboardButton;
     [SerializeField] private Button backButton;
+    [SerializeField] private Button navOpenButton;
 
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase homeCanvas;
 
     [SerializeField] private CanvasBase chatCanvas;
     [SerializeField] private CanvasBase scoreboardCanvas;
+    [SerializeField] private CanvasBase navMenuCanvas;
 
     protected override void AddListener()
     {
@@ -25,6 +27,7 @@ public class GameCanvas : CanvasBase
         cardsButton.onClick.AddListener(OnCardsClick);
         closeCardsButton.onClick.AddListener(OnCloseCardsClick);
         backButton.onClick.AddListener(OnBackClick);
+        navOpenButton.onClick.AddListener(OnOpenNav);
     }
 
     protected override void RemoveListener()
@@ -34,8 +37,14 @@ public class GameCanvas : CanvasBase
         cardsButton.onClick.RemoveListener(OnCardsClick);
         closeCardsButton.onClick.RemoveListener(OnCloseCardsClick);
         backButton.onClick.RemoveListener(OnBackClick);
+        navOpenButton.onClick.RemoveListener(OnOpenNav);
     }
 
+    private void OnOpenNav()
+    {
+        navMenuCanvas.SetTransitionCanvas(this);
+        OnSetCanvasOverlay(navMenuCanvas, true);
+    }
 
     private void OnBackClick()
     {
@@ -44,6 +53,7 @@ public class GameCanvas : CanvasBase
         var buttonContentB = new ButtonContent("yes", OnClickYes);
         PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
     }
+
     private void OnClickYes()
     {
         PopUpController.ClosePopUp();
@@ -54,6 +64,7 @@ public class GameCanvas : CanvasBase
     {
         PopUpController.ClosePopUp();
     }
+
     private void OnCardsClick()
     {
         myCards.transform.DOLocalMoveY(-4000, 0).OnComplete(() =>
@@ -61,7 +72,6 @@ public class GameCanvas : CanvasBase
             myCards.SetActive(true);
             myCards.transform.DOLocalMoveY(0, transitionDuration).SetEase(Ease.OutQuad);
         });
-       
     }
 
     private void OnCloseCardsClick()
@@ -70,7 +80,6 @@ public class GameCanvas : CanvasBase
         {
             myCards.SetActive(false);
         });
-     
     }
 
     private void OnScoreboardClick()

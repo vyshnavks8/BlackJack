@@ -9,6 +9,7 @@ public class MasterCanvas : MonoBehaviour
     [SerializeField] private CanvasBase startingCanvas;
     [SerializeField] private List<CanvasBase> canvasBase = new();
     private CanvasBase currentCanvas;
+    private CanvasBase currentOverlayCanvas;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class MasterCanvas : MonoBehaviour
         foreach (var canvas in canvasBase)
         {
             canvas.SetCanvasActive += SetCanvasActive;
+            canvas.SetCanvasOverlay += SetCanvasOverlay;
         }
     }
 
@@ -37,8 +39,11 @@ public class MasterCanvas : MonoBehaviour
         foreach (var canvas in canvasBase)
         {
             canvas.SetCanvasActive -= SetCanvasActive;
+            canvas.SetCanvasOverlay -= SetCanvasOverlay;
         }
     }
+
+
 
     private void SetCanvasActive(CanvasBase canvas)
     {
@@ -47,24 +52,47 @@ public class MasterCanvas : MonoBehaviour
             canvas.transform.DOLocalMoveX(4000, 0f).OnComplete(() =>
             {
                 canvas.gameObject.SetActive(true);
-                canvas.transform.DOLocalMoveX(0, transitionDuration).SetEase(Ease.OutQuad).OnComplete(()=>SetCurrentCanvas(canvas));
+                canvas.transform.DOLocalMoveX(0, transitionDuration).SetEase(Ease.OutQuad)
+                    .OnComplete(() => SetCurrentCanvas(canvas));
             });
-    
         }
         else
         {
             canvas.gameObject.SetActive(true);
-            currentCanvas.transform.DOLocalMoveX(4000, transitionDuration).SetEase(Ease.InQuad).OnComplete(()=>SetCurrentCanvas(canvas));
+            currentCanvas.transform.DOLocalMoveX(4000, transitionDuration).SetEase(Ease.InQuad)
+                .OnComplete(() => SetCurrentCanvas(canvas));
         }
- 
     }
 
     private void SetCurrentCanvas(CanvasBase canvas)
     {
         if (currentCanvas != null)
         {
+            currentCanvas.GetRayCaster.enabled = true;
             currentCanvas.gameObject.SetActive(false);
         }
         currentCanvas = canvas;
+        CheckOverlayVisible();
+    }
+
+    private void CheckOverlayVisible()
+    {
+        if (currentOverlayCanvas == null) return;
+        if (currentCanvas.isOverOverlay)
+        {
+            currentOverlayCanvas.GetRayCaster.enabled = false;
+            currentCanvas.GetRayCaster.enabled = true;
+        }
+        else
+        {
+            currentOverlayCanvas.GetRayCaster.enabled = true;
+            currentCanvas.GetRayCaster.enabled = false;
+        }
+    }
+    private void SetCanvasOverlay(CanvasBase canvas, bool active)
+    {
+        currentCanvas.GetRayCaster.enabled = !active;
+        currentOverlayCanvas = active ? canvas : null;
+        canvas.gameObject.SetActive(active);
     }
 }

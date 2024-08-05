@@ -800,6 +800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb6ede0d1ce4268b0d2ce4b18bb12dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycaster: {fileID: 270394412}
+  isOverOverlay: 0
   loginButton: {fileID: 3500451151573526663}
   loginCanvas: {fileID: 557857036}
 --- !u!1 &276387262
@@ -1211,6 +1213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafb968e36f2482cbd284301fbeb746f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycaster: {fileID: 343273597}
+  isOverOverlay: 0
   fullNameInput: {fileID: 1863409631}
   loginInput: {fileID: 1536829412}
   passwordInput: {fileID: 1928444816}
@@ -2140,6 +2144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b0a25cd89299b40a79b7712f2074e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycaster: {fileID: 557857035}
+  isOverOverlay: 0
   loginInput: {fileID: 1685626509}
   passwordInput: {fileID: 409754716}
   forgotPasswordButton: {fileID: 1285716342}
@@ -2508,13 +2514,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1051757334}
+  m_Children: []
   m_Father: {fileID: 1204068828}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 98.5, y: -127.8999}
+  m_AnchoredPosition: {x: 98.5, y: -127.900024}
   m_SizeDelta: {x: 2568.6934, y: 3792.9}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &660331522
@@ -2537,7 +2542,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7b84c825f14f3b844bedf23a5a81ff52, type: 3}
+  m_Sprite: {fileID: 21300000, guid: babaafe46d120144399a03bdae0fce3c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3122,6 +3127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d394c8ba13546dc934ef09bce572053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycaster: {fileID: 784910076}
+  isOverOverlay: 0
   newPasswordInput: {fileID: 1074135790}
   confirmPasswordInput: {fileID: 91945439}
   resetButton: {fileID: 1705093405}
@@ -4913,12 +4920,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051757333}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 660331521}
+  m_Father: {fileID: 1204068828}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5882,6 +5889,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 660331521}
+  - {fileID: 1051757334}
   - {fileID: 295113170}
   - {fileID: 2108106841}
   m_Father: {fileID: 1736131634}
@@ -6049,6 +6057,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26438aee3f784490be13b1693edbb7ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycaster: {fileID: 1302744071}
+  isOverOverlay: 0
   loginInput: {fileID: 897017554}
   submitButton: {fileID: 1413876339}
   backButton: {fileID: 788301141}
@@ -7968,7 +7978,7 @@ MonoBehaviour:
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
-  m_HideMobileInput: 0
+  m_HideMobileInput: 1
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
   m_RegexValue: 
@@ -8797,6 +8807,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582369a515374786bed23b08231052bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycaster: {fileID: 1968650162}
+  isOverOverlay: 0
   otpFieldController: {fileID: 130357066}
   submitButton: {fileID: 1699898173}
   backButton: {fileID: 1882756323}

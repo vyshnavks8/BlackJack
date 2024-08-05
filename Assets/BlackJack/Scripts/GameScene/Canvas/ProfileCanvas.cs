@@ -14,9 +14,7 @@ public class ProfileCanvas : CanvasBase
     [SerializeField] private Button deleteAccountButton;
     [SerializeField] private Button backButton;
 
-    [Header("Transition Canvas")] [SerializeField]
-    private CanvasBase homeCanvas;
-
+    [Header("Transition Canvas")]
     [SerializeField] private CanvasBase editProfileCanvas;
     [SerializeField] private CanvasBase changePasswordCanvas;
 
@@ -57,7 +55,7 @@ public class ProfileCanvas : CanvasBase
 
     private void OnCancelClick()
     {
-        OnSetCanvasActive(homeCanvas);
+        OnSetCanvasActive(transitionCanvas);
     }
 
 
