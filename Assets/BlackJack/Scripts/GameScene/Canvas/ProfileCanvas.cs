@@ -74,7 +74,7 @@ public class ProfileCanvas : CanvasBase
     private void OnClickYes()
     {
         PopUpController.ClosePopUp();
-        SceneManager.LoadScene(SceneKey.Splash);
+        SceneManager.LoadScene(SceneKey.Login);
     }
 
     private void OnClickNo()

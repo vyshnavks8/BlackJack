@@ -10,6 +10,8 @@ public class HomeCanvas : CanvasBase
 
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase privateGameCanvas;
+[SerializeField]
+    private CanvasBase gameCanvas;
 
     [SerializeField]  private CanvasBase navMenuCanvas;
 
@@ -41,12 +43,12 @@ public class HomeCanvas : CanvasBase
 
     private void OnAiGameClick()
     {
-        OnSetCanvasActive(privateGameCanvas);
+        OnSetCanvasActive(gameCanvas);
     }
 
     private void OnPublicGameClick()
     {
-        OnSetCanvasActive(privateGameCanvas);
+        OnSetCanvasActive(gameCanvas);
     }
 
     private void OnPrivateGameClick()

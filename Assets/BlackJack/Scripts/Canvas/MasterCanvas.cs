@@ -10,7 +10,7 @@ public class MasterCanvas : MonoBehaviour
     [SerializeField] private List<CanvasBase> canvasBase = new();
     private CanvasBase currentCanvas;
     private CanvasBase currentOverlayCanvas;
-
+    private bool isTransition;
     private void Start()
     {
         if (init)
@@ -47,6 +47,8 @@ public class MasterCanvas : MonoBehaviour
 
     private void SetCanvasActive(CanvasBase canvas)
     {
+        if(isTransition) return;    
+        isTransition = true;
         if (currentCanvas.transform.GetSiblingIndex() < canvas.transform.GetSiblingIndex())
         {
             canvas.transform.DOLocalMoveX(4000, 0f).OnComplete(() =>
@@ -73,6 +75,7 @@ public class MasterCanvas : MonoBehaviour
         }
         currentCanvas = canvas;
         CheckOverlayVisible();
+        isTransition = false;
     }
 
     private void CheckOverlayVisible()

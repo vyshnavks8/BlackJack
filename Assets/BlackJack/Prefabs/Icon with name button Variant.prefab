@@ -70,11 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7424357053262178980, guid: b5d7205fea2d647459a0bf80eee0ba19, type: 3}
       propertyPath: m_fontSize
-      value: 120
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7424357053262178980, guid: b5d7205fea2d647459a0bf80eee0ba19, type: 3}
       propertyPath: m_fontSizeBase
-      value: 120
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7922481665401447717, guid: b5d7205fea2d647459a0bf80eee0ba19, type: 3}
       propertyPath: m_Pivot.x

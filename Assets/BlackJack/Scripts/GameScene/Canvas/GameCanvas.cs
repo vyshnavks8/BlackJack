@@ -48,7 +48,7 @@ public class GameCanvas : CanvasBase
 
     private void OnBackClick()
     {
-        var popContent = new PopContent("", "Are you sure you want\nto Exit Game ?");
+        var popContent = new PopContent("", "Are you sure you want\nto <size=80><b>EXIT</size></b> Game ?");
         var buttonContentA = new ButtonContent("No", OnClickNo);
         var buttonContentB = new ButtonContent("yes", OnClickYes);
         PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
