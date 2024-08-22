@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace RedDevil.Tween
+namespace Tween
 {
     public class TranslateTween : MonoBehaviour
     {
