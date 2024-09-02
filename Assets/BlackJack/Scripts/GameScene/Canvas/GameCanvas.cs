@@ -1,23 +1,23 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameCanvas : CanvasBase
 {
-    [SerializeField] private float transitionDuration = 0.3f;
-    [SerializeField] private GameObject myCards;
-    [SerializeField] private Button chatButton;
-    [SerializeField] private Button cardsButton;
-    [SerializeField] private Button closeCardsButton;
-    [SerializeField] private Button scoreboardButton;
     [SerializeField] private Button backButton;
     [SerializeField] private Button navOpenButton;
+    [SerializeField] private Button chatButton;
+    [Header("Cards")]
+    [SerializeField] private Button cardsButton;
 
+    [SerializeField] private OverlayCanvas cardCanvas;
+    [Header("Scoreboard")]
+    [SerializeField] private Button scoreboardButton;
+    [SerializeField] private OverlayCanvas scoreboardCanvas;
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase homeCanvas;
 
     [SerializeField] private CanvasBase chatCanvas;
-    [SerializeField] private CanvasBase scoreboardCanvas;
+   // [SerializeField] private CanvasBase scoreboardCanvas;
     [SerializeField] private CanvasBase navMenuCanvas;
 
     protected override void AddListener()
@@ -25,7 +25,6 @@ public class GameCanvas : CanvasBase
         chatButton.onClick.AddListener(OnChatClick);
         scoreboardButton.onClick.AddListener(OnScoreboardClick);
         cardsButton.onClick.AddListener(OnCardsClick);
-        closeCardsButton.onClick.AddListener(OnCloseCardsClick);
         backButton.onClick.AddListener(OnBackClick);
         navOpenButton.onClick.AddListener(OnOpenNav);
     }
@@ -35,7 +34,6 @@ public class GameCanvas : CanvasBase
         chatButton.onClick.RemoveListener(OnChatClick);
         scoreboardButton.onClick.RemoveListener(OnScoreboardClick);
         cardsButton.onClick.RemoveListener(OnCardsClick);
-        closeCardsButton.onClick.RemoveListener(OnCloseCardsClick);
         backButton.onClick.RemoveListener(OnBackClick);
         navOpenButton.onClick.RemoveListener(OnOpenNav);
     }
@@ -48,9 +46,9 @@ public class GameCanvas : CanvasBase
 
     private void OnBackClick()
     {
-        var popContent = new PopContent("", "Are you sure you want\nto <size=80><b>EXIT</size></b> Game ?");
+        var popContent = new PopContent("", "Are you sure you want\nto <size=90><b>EXIT</size></b> Game ?");
         var buttonContentA = new ButtonContent("No", OnClickNo);
-        var buttonContentB = new ButtonContent("yes", OnClickYes);
+        var buttonContentB = new ButtonContent("Yes", OnClickYes);
         PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
     }
 
@@ -67,25 +65,14 @@ public class GameCanvas : CanvasBase
 
     private void OnCardsClick()
     {
-        myCards.transform.DOLocalMoveY(-4000, 0).OnComplete(() =>
-        {
-            myCards.SetActive(true);
-            myCards.transform.DOLocalMoveY(0, transitionDuration).SetEase(Ease.OutQuad);
-        });
+        cardCanvas.ShowOverlay();
     }
-
-    private void OnCloseCardsClick()
-    {
-        myCards.transform.DOLocalMoveY(-4000, transitionDuration).SetEase(Ease.InQuad).OnComplete(() =>
-        {
-            myCards.SetActive(false);
-        });
-    }
-
+    
     private void OnScoreboardClick()
     {
-        scoreboardCanvas.SetTransitionCanvas(this);
-        OnSetCanvasActive(scoreboardCanvas);
+        scoreboardCanvas.ShowOverlay();
+        //scoreboardCanvas.SetTransitionCanvas(this);
+      //  OnSetCanvasActive(scoreboardCanvas);
     }
 
     private void OnChatClick()

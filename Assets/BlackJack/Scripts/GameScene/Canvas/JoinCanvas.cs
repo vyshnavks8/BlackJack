@@ -1,43 +1,45 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PrivateCanvas : CanvasBase
+public class JoinCanvas : CanvasBase
 {
-    [SerializeField] private Button createButton;
+    [SerializeField] private TMP_InputField roomInput;
     [SerializeField] private Button joinButton;
     [SerializeField] private Button backButton;
 
     [Header("Transition Canvas")] [SerializeField]
-    private CanvasBase homeCanvas;
-    [SerializeField] private CanvasBase createCanvas;
-    [SerializeField] private CanvasBase joinCanvas;
+    private CanvasBase privateCanvas;
+
+    [SerializeField] private CanvasBase gameCanvas;
 
     protected override void AddListener()
     {
-        createButton.onClick.AddListener(OnCreateClick);
+        roomInput.onValueChanged.AddListener(OnRoomInput);
         joinButton.onClick.AddListener(OnJoinClick);
         backButton.onClick.AddListener(OnBackClick);
     }
 
     protected override void RemoveListener()
     {
-        createButton.onClick.RemoveListener(OnCreateClick);
+        roomInput.onValueChanged.RemoveListener(OnRoomInput);
         joinButton.onClick.RemoveListener(OnJoinClick);
         backButton.onClick.RemoveListener(OnBackClick);
     }
 
+    private void OnRoomInput(string value)
+    {
+        
+    }
+
     private void OnBackClick()
     {
-        OnSetCanvasActive(homeCanvas);
+        OnSetCanvasActive(privateCanvas);
     }
 
     private void OnJoinClick()
     {
-        OnSetCanvasActive(joinCanvas);
+        OnSetCanvasActive(gameCanvas);
     }
-
-    private void OnCreateClick()
-    {
-        OnSetCanvasActive(createCanvas);
-    }
+    
 }
