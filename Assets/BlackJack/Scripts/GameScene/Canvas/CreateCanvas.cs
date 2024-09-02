@@ -1,43 +1,39 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PrivateCanvas : CanvasBase
+public class CreateCanvas : CanvasBase
 {
-    [SerializeField] private Button createButton;
+   // [SerializeField] private Button createButton;
     [SerializeField] private Button joinButton;
     [SerializeField] private Button backButton;
 
     [Header("Transition Canvas")] [SerializeField]
-    private CanvasBase homeCanvas;
-    [SerializeField] private CanvasBase createCanvas;
-    [SerializeField] private CanvasBase joinCanvas;
+    private CanvasBase privateCanvas;
+
+    [SerializeField] private CanvasBase gameCanvas;
 
     protected override void AddListener()
     {
-        createButton.onClick.AddListener(OnCreateClick);
+      //  createButton.onClick.AddListener(OnCreateClick);
         joinButton.onClick.AddListener(OnJoinClick);
         backButton.onClick.AddListener(OnBackClick);
     }
 
     protected override void RemoveListener()
     {
-        createButton.onClick.RemoveListener(OnCreateClick);
+       // createButton.onClick.RemoveListener(OnCreateClick);
         joinButton.onClick.RemoveListener(OnJoinClick);
         backButton.onClick.RemoveListener(OnBackClick);
     }
 
     private void OnBackClick()
     {
-        OnSetCanvasActive(homeCanvas);
+        OnSetCanvasActive(privateCanvas);
     }
 
     private void OnJoinClick()
     {
-        OnSetCanvasActive(joinCanvas);
+        OnSetCanvasActive(gameCanvas);
     }
-
-    private void OnCreateClick()
-    {
-        OnSetCanvasActive(createCanvas);
-    }
+    
 }
