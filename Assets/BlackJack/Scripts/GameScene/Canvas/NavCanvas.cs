@@ -11,6 +11,7 @@ public class NavCanvas : CanvasBase
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button scoreboardButton;
     [SerializeField] private Button aboutButton;
+    [SerializeField] private Button rulesButton;
     [SerializeField] private Button contactButton;
     [SerializeField] private Button logoutButton;
 
@@ -29,6 +30,7 @@ public class NavCanvas : CanvasBase
         settingsButton.onClick.AddListener(OnSettingsClick);
         scoreboardButton.onClick.AddListener(OnScoreboardClick);
         aboutButton.onClick.AddListener(OnAboutClick);
+        rulesButton.onClick.AddListener(OnRulesClick);
         contactButton.onClick.AddListener(OnContactClick);
         logoutButton.onClick.AddListener(OnLogoutClick);
     }
@@ -41,10 +43,12 @@ public class NavCanvas : CanvasBase
         settingsButton.onClick.RemoveListener(OnSettingsClick);
         scoreboardButton.onClick.RemoveListener(OnScoreboardClick);
         aboutButton.onClick.RemoveListener(OnAboutClick);
+        rulesButton.onClick.RemoveListener(OnRulesClick);
         contactButton.onClick.RemoveListener(OnContactClick);
         logoutButton.onClick.RemoveListener(OnLogoutClick);
     }
 
+   
 
     private void OnProfileClick()
     {
@@ -69,6 +73,12 @@ public class NavCanvas : CanvasBase
         InfoController.UpdateInfo("about",transitionCanvas);
         OnSetCanvasActive(infoCanvas);
     }
+    private void OnRulesClick()
+    {
+        InfoController.UpdateInfo("rules",transitionCanvas);
+        OnSetCanvasActive(infoCanvas);
+    }
+
 
     private void OnContactClick()
     {
