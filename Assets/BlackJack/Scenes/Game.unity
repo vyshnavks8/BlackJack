@@ -6012,8 +6012,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5e09833789c3cf3448562db47f4f0dca, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 399c8d00ca5bac7409f8bfc43bc86ef6, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -6344,12 +6344,14 @@ MonoBehaviour:
   backButton: {fileID: 1242141810}
   navOpenButton: {fileID: 288853210}
   chatButton: {fileID: 713311370}
+  infoButton: {fileID: 1381648603}
   cardsButton: {fileID: 5962399965431499751}
   cardCanvas: {fileID: 1359759670}
   scoreboardButton: {fileID: 495730227}
   scoreboardCanvas: {fileID: 784557592}
   homeCanvas: {fileID: 270394413}
   chatCanvas: {fileID: 1521511243}
+  infoCanvas: {fileID: 320697840}
   navMenuCanvas: {fileID: 323643230}
 --- !u!223 &545653019
 Canvas:
@@ -17168,7 +17170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2577138854125736550, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
       propertyPath: m_Name
-      value: Info
+      value: Info Button
       objectReference: {fileID: 0}
     - target: {fileID: 3219939858121673697, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
       propertyPath: m_Sprite
@@ -17235,6 +17237,17 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &1381648603 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5962399966457582740, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
+  m_PrefabInstance: {fileID: 1381648599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1409020881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20108,6 +20121,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
+  - id: terms
+    heading: Terms & Condition
+    info: "Lorem Ipsum\_is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+      when an unknown printer took a galley of type and scrambled it to make a type
+      specimen book. It has survived not only five centuries, but also the leap into
+      electronic typesetting, remaining essentially unchanged. It was popularised
+      in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+      and more recently with desktop publishing software like Aldus PageMaker including
+      versions of Lorem Ipsum.\n\nLorem Ipsum\_is simply dummy text  make a type
+      specimen book. \nIt has sentially unchanged. It was h desktop publishing software
+      like Aldus \nPageMaker including versions of Lorem Ipsum.\n"
+  - id: privacy
+    heading: Privacy Policy
+    info: "Lorem Ipsum\_is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+      when an unknown printer took a galley of type and scrambled it to make a type
+      specimen book. It has survived not only five centuries, but also the leap into
+      electronic typesetting, remaining essentially unchanged. It was popularised
+      in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+      and more recently with desktop publishing software like Aldus PageMaker including
+      versions of Lorem Ipsum.\n\nLorem Ipsum\_is simply dummy text  make a type
+      specimen book. \nIt has sentially unchanged. It was h desktop publishing software
+      like Aldus \nPageMaker including versions of Lorem Ipsum.\n"
   - id: about
     heading: about
     info: 'Enjoy the thrill of blackjack anytime, anywhere with our online game.
@@ -20132,9 +20169,39 @@ MonoBehaviour:
 
 
 
+      <b><size=90>About Us</size><b>
 
 
-      <b><size=90>Rules of Blackjack</size><b>
+
+      Welcome
+      to PB Blackjack, your premier destination for an immersive online Blackjack
+      experience!
+
+      At PB Blackjack, we''re committed to delivering an authentic
+      and thrilling gaming environment where players can enjoy the classic game of
+      Blackjack from the comfort of their own home. Our platform boasts sleek and
+      intuitive design, ensuring seamless gameplay for both novice and seasoned players
+      alike.
+
+      What sets PB Blackjack apart is our dedication to fair play and
+      transparency. We prioritise security measures to safeguard our players'' information
+      and provide a secure gaming environment. Additionally, our platform offers
+      a wide range of customizable options, allowing players to tailor their gaming
+      experience to their preferences.
+
+      Whether you''re a casual player looking
+      for some entertainment or a serious gambler seeking a challenge, PB Blackjack
+      has something for everyone. Join us today and experience the excitement of
+      Blackjack like never before!
+
+      Remember, while Blackjack is a game of
+      skill and strategy, it''s also about having fun responsibly. Play smart, know
+      your limits, and most importantly, enjoy the thrill of the game!
+
+'
+  - id: rules
+    heading: rules
+    info: '<b><size=90>Rules of Blackjack</size><b>
 
 
 
@@ -20183,63 +20250,7 @@ MonoBehaviour:
       King), they have a Blackjack, and typically win 1.5 times their bet unless
       the dealer also has a Blackjack, resulting in a push.
 
-
-
-      <b><size=90>About
-      Us</size><b>
-
-
-
-      Welcome to PB Blackjack, your premier destination for
-      an immersive online Blackjack experience!
-
-      At PB Blackjack, we''re committed
-      to delivering an authentic and thrilling gaming environment where players can
-      enjoy the classic game of Blackjack from the comfort of their own home. Our
-      platform boasts sleek and intuitive design, ensuring seamless gameplay for
-      both novice and seasoned players alike.
-
-      What sets PB Blackjack apart
-      is our dedication to fair play and transparency. We prioritise security measures
-      to safeguard our players'' information and provide a secure gaming environment.
-      Additionally, our platform offers a wide range of customizable options, allowing
-      players to tailor their gaming experience to their preferences.
-
-      Whether
-      you''re a casual player looking for some entertainment or a serious gambler
-      seeking a challenge, PB Blackjack has something for everyone. Join us today
-      and experience the excitement of Blackjack like never before!
-
-      Remember,
-      while Blackjack is a game of skill and strategy, it''s also about having fun
-      responsibly. Play smart, know your limits, and most importantly, enjoy the
-      thrill of the game!
-
 '
-  - id: terms
-    heading: Terms & Condition
-    info: "Lorem Ipsum\_is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-      when an unknown printer took a galley of type and scrambled it to make a type
-      specimen book. It has survived not only five centuries, but also the leap into
-      electronic typesetting, remaining essentially unchanged. It was popularised
-      in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-      and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.\n\nLorem Ipsum\_is simply dummy text  make a type
-      specimen book. \nIt has sentially unchanged. It was h desktop publishing software
-      like Aldus \nPageMaker including versions of Lorem Ipsum.\n"
-  - id: privacy
-    heading: Privacy Policy
-    info: "Lorem Ipsum\_is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-      when an unknown printer took a galley of type and scrambled it to make a type
-      specimen book. It has survived not only five centuries, but also the leap into
-      electronic typesetting, remaining essentially unchanged. It was popularised
-      in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-      and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.\n\nLorem Ipsum\_is simply dummy text  make a type
-      specimen book. \nIt has sentially unchanged. It was h desktop publishing software
-      like Aldus \nPageMaker including versions of Lorem Ipsum.\n"
   infoCanvas: {fileID: 320697840}
 --- !u!4 &1695078801
 Transform:

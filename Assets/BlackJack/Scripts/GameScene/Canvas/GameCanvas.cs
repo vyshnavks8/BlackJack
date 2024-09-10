@@ -6,6 +6,7 @@ public class GameCanvas : CanvasBase
     [SerializeField] private Button backButton;
     [SerializeField] private Button navOpenButton;
     [SerializeField] private Button chatButton;
+    [SerializeField] private Button infoButton;
     [Header("Cards")]
     [SerializeField] private Button cardsButton;
 
@@ -17,7 +18,7 @@ public class GameCanvas : CanvasBase
     private CanvasBase homeCanvas;
 
     [SerializeField] private CanvasBase chatCanvas;
-   // [SerializeField] private CanvasBase scoreboardCanvas;
+    [SerializeField] private CanvasBase infoCanvas;
     [SerializeField] private CanvasBase navMenuCanvas;
 
     protected override void AddListener()
@@ -27,6 +28,7 @@ public class GameCanvas : CanvasBase
         cardsButton.onClick.AddListener(OnCardsClick);
         backButton.onClick.AddListener(OnBackClick);
         navOpenButton.onClick.AddListener(OnOpenNav);
+        infoButton.onClick.AddListener(OnOpenInfo);
     }
 
     protected override void RemoveListener()
@@ -36,6 +38,13 @@ public class GameCanvas : CanvasBase
         cardsButton.onClick.RemoveListener(OnCardsClick);
         backButton.onClick.RemoveListener(OnBackClick);
         navOpenButton.onClick.RemoveListener(OnOpenNav);
+        infoButton.onClick.RemoveListener(OnOpenInfo);
+    }
+
+    private void OnOpenInfo()
+    {
+        InfoController.UpdateInfo("rules",this);
+        OnSetCanvasActive(infoCanvas);
     }
 
     private void OnOpenNav()

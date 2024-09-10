@@ -75,7 +75,7 @@ public class NavCanvas : CanvasBase
     }
     private void OnRulesClick()
     {
-        InfoController.UpdateInfo("about",transitionCanvas);
+        InfoController.UpdateInfo("rules",transitionCanvas);
         OnSetCanvasActive(infoCanvas);
     }
 
