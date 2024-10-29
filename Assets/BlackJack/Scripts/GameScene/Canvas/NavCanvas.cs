@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,17 +7,20 @@ public class NavCanvas : CanvasBase
     [SerializeField] private RectTransform navParent;
     [SerializeField] private Button navCloseButton;
     [SerializeField] private Button profileButton;
-    [SerializeField] private Button settingsButton;
     [SerializeField] private Button scoreboardButton;
-    [SerializeField] private Button aboutButton;
     [SerializeField] private Button rulesButton;
-    [SerializeField] private Button contactButton;
+    [SerializeField] private Button supportButton;
+    [SerializeField] private Button volumeButton;
+    [SerializeField] private Button aboutButton;
+    [SerializeField] private Button termsButton;
+    [SerializeField] private Button privacyButton;
     [SerializeField] private Button logoutButton;
 
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase profileCanvas;
 
-    [SerializeField] private CanvasBase settingCanvas;
+    [SerializeField] private CanvasBase volumeCanvas;
+    [SerializeField] private CanvasBase supportCanvas;
     [SerializeField] private CanvasBase scoreboardCanvas;
     [SerializeField] private CanvasBase infoCanvas;
     [SerializeField] private CanvasBase gameCanvas;
@@ -27,11 +29,13 @@ public class NavCanvas : CanvasBase
     {
         navCloseButton.onClick.AddListener(OnCloseNav);
         profileButton.onClick.AddListener(OnProfileClick);
-        settingsButton.onClick.AddListener(OnSettingsClick);
         scoreboardButton.onClick.AddListener(OnScoreboardClick);
-        aboutButton.onClick.AddListener(OnAboutClick);
         rulesButton.onClick.AddListener(OnRulesClick);
-        contactButton.onClick.AddListener(OnContactClick);
+        supportButton.onClick.AddListener(OnSupportClick);
+        volumeButton.onClick.AddListener(OnVolumeClick);
+        aboutButton.onClick.AddListener(OnAboutClick);
+        termsButton.onClick.AddListener(OnTermsClick);
+        privacyButton.onClick.AddListener(OnPrivacyClick);
         logoutButton.onClick.AddListener(OnLogoutClick);
     }
 
@@ -40,11 +44,13 @@ public class NavCanvas : CanvasBase
     {
         navCloseButton.onClick.RemoveListener(OnCloseNav);
         profileButton.onClick.RemoveListener(OnProfileClick);
-        settingsButton.onClick.RemoveListener(OnSettingsClick);
         scoreboardButton.onClick.RemoveListener(OnScoreboardClick);
-        aboutButton.onClick.RemoveListener(OnAboutClick);
         rulesButton.onClick.RemoveListener(OnRulesClick);
-        contactButton.onClick.RemoveListener(OnContactClick);
+        supportButton.onClick.RemoveListener(OnSupportClick);
+        volumeButton.onClick.RemoveListener(OnVolumeClick);
+        aboutButton.onClick.RemoveListener(OnAboutClick);
+        termsButton.onClick.RemoveListener(OnTermsClick);
+        privacyButton.onClick.RemoveListener(OnPrivacyClick);
         logoutButton.onClick.RemoveListener(OnLogoutClick);
     }
 
@@ -56,10 +62,10 @@ public class NavCanvas : CanvasBase
         OnSetCanvasActive(profileCanvas);
     }
 
-    private void OnSettingsClick()
+    private void OnSupportClick()
     {
-        settingCanvas.SetTransitionCanvas(transitionCanvas);
-        OnSetCanvasActive(settingCanvas);
+        supportCanvas.SetTransitionCanvas(transitionCanvas);
+        OnSetCanvasActive(supportCanvas);
     }
 
     private void OnScoreboardClick()
@@ -70,18 +76,32 @@ public class NavCanvas : CanvasBase
 
     private void OnAboutClick()
     {
-        InfoController.UpdateInfo("about",transitionCanvas);
+        InfoController.UpdateInfo("about", transitionCanvas);
         OnSetCanvasActive(infoCanvas);
     }
+
     private void OnRulesClick()
     {
-        InfoController.UpdateInfo("rules",transitionCanvas);
+        InfoController.UpdateInfo("rules", transitionCanvas);
         OnSetCanvasActive(infoCanvas);
     }
 
-
-    private void OnContactClick()
+    private void OnVolumeClick()
     {
+        volumeCanvas.SetTransitionCanvas(transitionCanvas);
+        OnSetCanvasActive(volumeCanvas);
+    }
+
+    private void OnTermsClick()
+    {
+        InfoController.UpdateInfo("terms", transitionCanvas);
+        OnSetCanvasActive(infoCanvas);
+    }
+
+    private void OnPrivacyClick()
+    {
+        InfoController.UpdateInfo("privacy", transitionCanvas);
+        OnSetCanvasActive(infoCanvas);
     }
 
     private void OnLogoutClick()

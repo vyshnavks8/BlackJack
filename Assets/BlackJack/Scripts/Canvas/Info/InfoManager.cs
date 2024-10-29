@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,9 +9,10 @@ public class InfoData
     public string heading;
     [TextArea(5, 20)] public string info;
 }
+
 public class InfoManager : MonoBehaviour
 {
-   [SerializeField] private List<InfoData> data=new();
+   [SerializeField] private InfoHolder infoHolder;
    [SerializeField] private InfoCanvas infoCanvas;
     private void OnEnable()
     {
@@ -21,7 +21,7 @@ public class InfoManager : MonoBehaviour
     }
     private void OnUpdateInfo(string id, CanvasBase canvasBase)
     {
-        foreach (var infoData in data.Where(infoData => infoData.id == id))
+        foreach (var infoData in infoHolder.data.Where(infoData => infoData.id == id))
         {
             infoCanvas.UpdateInfo(infoData.heading,infoData.info,canvasBase);
         }

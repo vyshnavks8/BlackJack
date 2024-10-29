@@ -11,11 +11,14 @@ public class LoginCanvas : CanvasBase
     [SerializeField] private Button loginButton;
     [SerializeField] private Button signUpButton;
     [SerializeField] private Button backButton;
+    [SerializeField] private Button infoButton;
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase forgotPasswordCanvas;[SerializeField]
     private CanvasBase signUpCanvas;
     [SerializeField]
     private CanvasBase welcomeCanvas;
+ [SerializeField]
+    private CanvasBase infoCanvas;
 
     private string loginID;
     private string password;
@@ -28,6 +31,7 @@ public class LoginCanvas : CanvasBase
         forgotPasswordButton.onClick.AddListener(OnForgotPasswordClick);
         signUpButton.onClick.AddListener(OnSignUpClick);
         backButton.onClick.AddListener(OnBackClick);
+        infoButton.onClick.AddListener(OnOpenInfo);
     }
 
     protected override void RemoveListener()
@@ -38,6 +42,13 @@ public class LoginCanvas : CanvasBase
         forgotPasswordButton.onClick.RemoveListener(OnForgotPasswordClick);
         signUpButton.onClick.RemoveListener(OnSignUpClick);
         backButton.onClick.RemoveListener(OnBackClick);
+        infoButton.onClick.RemoveListener(OnOpenInfo);
+    }
+
+    private void OnOpenInfo()
+    {
+        InfoController.UpdateInfo("about",this);
+        OnSetCanvasActive(infoCanvas);
     }
 
     private void OnLoginSet(string input)

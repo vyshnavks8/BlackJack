@@ -8,8 +8,6 @@ public class VolumeCanvas : CanvasBase
     [SerializeField] private Button backButton;
     private float music;
     private float effect;
-    [Header("Transition Canvas")] [SerializeField]
-    private CanvasBase setting;
     protected override void AddListener()
     {
         musicSlider.onValueChanged.AddListener(OnMusicToggle);
@@ -25,7 +23,7 @@ public class VolumeCanvas : CanvasBase
     }
     private void OnBackClick()
     {
-        OnSetCanvasActive(setting);
+        OnSetCanvasActive(transitionCanvas);
     }
     private void OnEffectToggle(float value)
     {
