@@ -12,13 +12,13 @@ public class LoginCanvas : CanvasBase
     [SerializeField] private Button signUpButton;
     [SerializeField] private Button backButton;
     [SerializeField] private Button infoButton;
+
     [Header("Transition Canvas")] [SerializeField]
-    private CanvasBase forgotPasswordCanvas;[SerializeField]
-    private CanvasBase signUpCanvas;
-    [SerializeField]
-    private CanvasBase welcomeCanvas;
- [SerializeField]
-    private CanvasBase infoCanvas;
+    private CanvasBase forgotPasswordCanvas;
+
+    [SerializeField] private CanvasBase signUpCanvas;
+    [SerializeField] private CanvasBase welcomeCanvas;
+    [SerializeField] private CanvasBase infoCanvas;
 
     private string loginID;
     private string password;
@@ -47,7 +47,7 @@ public class LoginCanvas : CanvasBase
 
     private void OnOpenInfo()
     {
-        InfoController.UpdateInfo("about",this);
+        InfoController.UpdateInfo("about", this);
         OnSetCanvasActive(infoCanvas);
     }
 
@@ -65,14 +65,17 @@ public class LoginCanvas : CanvasBase
     {
         OnSetCanvasActive(forgotPasswordCanvas);
     }
+
     private void OnSignUpClick()
     {
         OnSetCanvasActive(signUpCanvas);
     }
+
     private void OnLoginClick()
     {
         SceneManager.LoadScene(SceneKey.Game);
     }
+
     private void OnBackClick()
     {
         OnSetCanvasActive(welcomeCanvas);

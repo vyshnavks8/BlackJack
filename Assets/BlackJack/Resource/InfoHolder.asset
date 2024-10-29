@@ -12,4 +12,110 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6358734fc8b74eeab34adcf8bbbf2a71, type: 3}
   m_Name: InfoHolder
   m_EditorClassIdentifier: 
-  data: []
+  data:
+  - id: terms
+    heading: Terms & Condition
+    info: "Lorem Ipsum\_is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+      when an unknown printer took a galley of type and scrambled it to make a type
+      specimen book. It has survived not only five centuries, but also the leap into
+      electronic typesetting, remaining essentially unchanged. It was popularised
+      in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+      and more recently with desktop publishing software like Aldus PageMaker including
+      versions of Lorem Ipsum.\n\nLorem Ipsum\_is simply dummy text  make a type
+      specimen book. \nIt has sentially unchanged. It was h desktop publishing software
+      like Aldus \nPageMaker including versions of Lorem Ipsum.\n"
+  - id: privacy
+    heading: Privacy Policy
+    info: "Lorem Ipsum\_is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+      when an unknown printer took a galley of type and scrambled it to make a type
+      specimen book. It has survived not only five centuries, but also the leap into
+      electronic typesetting, remaining essentially unchanged. It was popularised
+      in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+      and more recently with desktop publishing software like Aldus PageMaker including
+      versions of Lorem Ipsum.\n\nLorem Ipsum\_is simply dummy text  make a type
+      specimen book. \nIt has sentially unchanged. It was h desktop publishing software
+      like Aldus \nPageMaker including versions of Lorem Ipsum.\n"
+  - id: about
+    heading: about
+    info: 'Enjoy the thrill of blackjack anytime, anywhere with our online game.
+      Immerse yourself in realistic graphics, user-friendly interface, and secure
+      play.
+
+      Key Points.
+
+
+
+      1. Realistic graphics.
+
+      2. User-friendly
+      interface.
+
+      3. Secure play.
+
+      4.Convenient access anytime.
+
+      5.
+      Thrilling blackjack experience.
+
+
+
+      <b><size=90>About Us</size><b>
+
+
+
+      Welcome
+      to PB Blackjack, your premier destination for an immersive online Blackjack
+      experience!
+
+      At PB Blackjack, we''re committed to delivering an authentic
+      and thrilling gaming environment where players can enjoy the classic game of
+      Blackjack from the comfort of their own home. Our platform boasts sleek and
+      intuitive design, ensuring seamless gameplay for both novice and seasoned players
+      alike.
+
+      What sets PB Blackjack apart is our dedication to fair play and
+      transparency. We prioritise security measures to safeguard our players'' information
+      and provide a secure gaming environment. Additionally, our platform offers
+      a wide range of customizable options, allowing players to tailor their gaming
+      experience to their preferences.
+
+      Whether you''re a casual player looking
+      for some entertainment or a serious gambler seeking a challenge, PB Blackjack
+      has something for everyone. Join us today and experience the excitement of
+      Blackjack like never before!
+
+      Remember, while Blackjack is a game of
+      skill and strategy, it''s also about having fun responsibly. Play smart, know
+      your limits, and most importantly, enjoy the thrill of the game!
+
+'
+  - id: rules
+    heading: rules
+    info: "<b><size=90>Objective :</size><b> The goal of Blackjack is to beat the
+      dealer's hand without going over 21.\n\n<b><size=90>Card Values :</size><b>
+      Numbered cards (2-10) are worth their face value. Face cards (Jack, Queen,
+      King) are worth 10 points each. Aces can be worth either 1 or 11 points, depending
+      on which value benefits the player's hand.\n\n\n<b><size=90>The Deal :</size><b>
+      Each player is dealt two cards face up, while the dealer receives one card
+      face up and one card face down (the hole card).\n\n\n<b><size=90>Player's Turn
+      :</size><b> Players have the option \n\n* <size=70>Hit :</size> Request an
+      additional card. You can hit as many times as you like, but if the total value
+      exceeds 21, you \"bust\" and lose the game.\n\n* <size=70>Stand :</size> Keep
+      your current hand and end your turn.\n\n* <size=70>Double Down :</size> Double
+      your original bet, receive one additional card, and then automatically stand.\n\n*
+      <size=70>Split :</size> If you have two cards of the same value, you can split
+      them into two separate hands and play each hand individually. You must place
+      an additional bet equal to your original wager.\n\n* <size=70>Surrender :</size>
+      Some casinos allow players to forfeit half their bet and end the round immediately.
+      This is called \"surrender.\"\n\n\n<b><size=90>Dealer's Turn :</size><b> After
+      all players have completed their turns, the dealer reveals the hole card. The
+      dealer must hit until their hand reaches a total of 17 or higher.\n\n\n<b><size=90>Winning
+      :</size><b> Players win if their hand is closer to 21 than the dealer's hand
+      without going over 21. If the player's hand exceeds 21, they bust and lose
+      the round. If the dealer busts and the player doesn't, the player wins. If
+      the player and dealer tie, it's called a push, and the player's bet is returned.\n\n\n<b><size=90>Blackjack
+      :</size><b> If a player's first two cards are an Ace and a 10-point card (10,
+      Jack, Queen, King), they have a Blackjack, and typically win 1.5 times their
+      bet unless the dealer also has a Blackjack, resulting in a push.\n"
