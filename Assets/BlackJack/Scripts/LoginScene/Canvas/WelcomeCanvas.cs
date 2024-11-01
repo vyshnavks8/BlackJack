@@ -7,6 +7,7 @@ public class WelcomeCanvas : CanvasBase
 
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase loginCanvas;
+
     protected override void AddListener()
     {
         loginButton.onClick.AddListener(OnLoginClick);
