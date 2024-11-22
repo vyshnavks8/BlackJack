@@ -7,21 +7,15 @@ namespace RestAPI
 {
     public class WebHelpers : MonoBehaviour
     {
-        // Delegates
-        //Call back for APIs Response
         public delegate void CallbackGet(string aURL, bool aSuccess, object aData);
         public delegate void CallbackPatch(string aURL, long responseCode, bool aSuccess, object aData);
-        //public delegate void CallbackPost(string aURL, bool aSuccess, object aData);
-        // The return data types we support
-        private readonly List<System.Type> supportedTypes = new List<System.Type>
+        private readonly List<System.Type> supportedTypes = new()
         {
             typeof(string),
             typeof(Texture2D),
             typeof(byte[])
         };
-
         public static WebHelpers Instance;
-
         private void Awake()
         {
             if (Instance == null)
@@ -30,21 +24,10 @@ namespace RestAPI
             }
             else if (Instance != this)
             {
-                    Destroy(this);
+                Destroy(this);
             }
-
         }
-
-
-        #region Public Methods
-
-        /// <summary>
-        /// Uses a HTTP GET request with the specified URL.
-        /// </summary>
-        /// <typeparam name="T">Can be any of the supported return types - string, byte[] or Texture2D</typeparam>
-        /// <param name="aURL">Request URL</param>
-        /// <param name="aCallback">Called when the request is complete</param>
-        /// <param name="isHeaderRequired"></param>
+        
         public void Get<T>(string aURL, CallbackGet aCallback,  KeyValuePair<string,string> authToken, bool isHeaderRequired = true)
         {
             // sanity - checks for supported types
@@ -206,7 +189,6 @@ namespace RestAPI
             // create the request
             var req = UnityWebRequest.Post(aURL, aContent);
             req.method = UnityWebRequest.kHttpVerbPOST;
-
             req.SetRequestHeader(authToken.Key,authToken.Value);  
             
             
@@ -293,12 +275,9 @@ namespace RestAPI
         }
         
         
-        #endregion Public Methods
 
 
         #region Private Coroutines
-
-        
         private static IEnumerator _patchRequest<T>(UnityWebRequest aRequest, CallbackPatch aCallback)
         {
             // send off the request and wait

@@ -11,7 +11,7 @@ namespace RestAPI
         
         public static void SetAuthToken(string token)
         {
-            AuthKeyPair = new KeyValuePair<string, string>(AuthKey,"bearer "+token);
+            AuthKeyPair = new KeyValuePair<string, string>(AuthKey,token);
         }
         
         public static void SetAuthToken(string token , string bearer)

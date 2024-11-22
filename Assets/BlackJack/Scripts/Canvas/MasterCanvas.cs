@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MasterCanvas : MonoBehaviour
 {
+    [SerializeField] private bool skipApiCalls;
     [SerializeField] private float transitionDuration = 0.3f;
     [SerializeField] private bool init;
     [SerializeField] private CanvasBase startingCanvas;
@@ -29,6 +30,7 @@ public class MasterCanvas : MonoBehaviour
     {
         foreach (var canvas in canvasBase)
         {
+            canvas.SkipApiCall(skipApiCalls);
             canvas.SetCanvasActive += SetCanvasActive;
             canvas.SetCanvasOverlay += SetCanvasOverlay;
         }

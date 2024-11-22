@@ -14,14 +14,33 @@ public class ProfileCanvas : CanvasBase
     [SerializeField] private Button deleteAccountButton;
     [SerializeField] private Button backButton;
 
-    [Header("Transition Canvas")]
-    [SerializeField] private CanvasBase editProfileCanvas;
+    [Header("Transition Canvas")] [SerializeField]
+    private CanvasBase editProfileCanvas;
+
     [SerializeField] private CanvasBase changePasswordCanvas;
 
     protected override void OnEnable()
     {
         base.OnEnable();
+        GetProfile();
         SetData();
+    }
+
+    private void GetProfile()
+    {
+        APIHandler.Get<GetProfileResponse>(ApiUrl.GetProfile, null, GetProfileCallback);
+    }
+
+    private void GetProfileCallback(bool success, GetProfileResponse response)
+    {
+        if (success)
+        {
+            var userName = response.user.name;
+            var email = response.user.email;
+            var mobile = response.user.mobileNo;
+            appDataSo.SetUserData(userName, email, mobile);
+            SetData();
+        }
     }
 
     private void SetData()
@@ -71,6 +90,7 @@ public class ProfileCanvas : CanvasBase
         var buttonContentB = new ButtonContent("Yes", OnClickYes);
         PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
     }
+
     private void OnClickYes()
     {
         PopUpController.ClosePopUp();

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -73,11 +74,41 @@ public class LoginCanvas : CanvasBase
 
     private void OnLoginClick()
     {
-        SceneManager.LoadScene(SceneKey.Game);
+        if (skipApiCall)
+        {
+            SceneManager.LoadScene(SceneKey.Game);
+            return;
+        }
+        if (!CheckValidInputs()) return;
+        var loginData = new LoginData
+        {
+            email = loginID,
+            password = password
+        };
+        APIHandler.Post<LoginResponse>(ApiUrl.Login, loginData, OnLoginCallback, true);
+    }
+
+    private void OnLoginCallback(bool success, LoginResponse response)
+    {
+        if (success)
+        {
+            SceneManager.LoadScene(SceneKey.Game);
+        }
+        else
+        {
+            NetworkPopUp.ShowPopUp("Login", response.message);
+        }
     }
 
     private void OnBackClick()
     {
         OnSetCanvasActive(welcomeCanvas);
     }
+    private bool CheckValidInputs()
+    {
+        if (BlackjackUtils.IsInputEmpty(loginID, "Email ID/Mobile Number"))     return false;
+        if (BlackjackUtils.IsInputEmpty(password, "Password"))return false;
+        return true;
+    }
+
 }

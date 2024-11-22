@@ -38,11 +38,41 @@ public class OtpCanvas : CanvasBase
 
     private void OnSubmitClick()
     {
-        OnSetCanvasActive(resetPasswordCanvas);
+        if (skipApiCall)
+        {
+            OnSetCanvasActive(resetPasswordCanvas);
+            return;
+        }
+        if (!CheckValidInputs()) return;
+        var otpData = new OtpData
+        {
+            token = ApiData.OtpToken,
+            otp = otp,
+        };
+        APIHandler.Post<OtpResponse>(ApiUrl.Otp, otpData, OnOtpResponseCallback);
+
+    }
+
+    private void OnOtpResponseCallback(bool success, OtpResponse response)
+    {
+        if (success)
+        {
+            
+            OnSetCanvasActive(resetPasswordCanvas);
+        }
+        else
+        {
+            NetworkPopUp.ShowPopUp("OTP", response.message);
+        }
     }
 
     private void OnBackClick()
     {
         OnSetCanvasActive(forgotPasswordCanvas);
+    }
+    private bool CheckValidInputs()
+    {
+        if (BlackjackUtils.IsInputEmpty(otp, "OTP")) return false;
+        return true;
     }
 }

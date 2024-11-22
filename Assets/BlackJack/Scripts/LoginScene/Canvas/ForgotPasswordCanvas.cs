@@ -45,10 +45,42 @@ public class ForgotPasswordCanvas : CanvasBase
 
     private void OnSubmitClick()
     {
-        OnSetCanvasActive(otpCanvas);
+        if (skipApiCall)
+        {
+            OnSetCanvasActive(otpCanvas);
+            return;
+        }
+        if (!CheckValidInputs()) return;
+        var forgotPasswordData = new ForgotPasswordData()
+        {
+            email = loginID,
+        };
+        APIHandler.Post<ForgotPasswordResponse>(ApiUrl.ForgotPassword, forgotPasswordData, OnForgotPasswordCallback);
+       
     }
+
+    private void OnForgotPasswordCallback(bool success, ForgotPasswordResponse response)
+    {
+        if (success)
+        {
+            ApiData.SetOtpToken(response.token);
+            NetworkPopUp.ShowPopUp("Forgot Password", response.message);
+            OnSetCanvasActive(otpCanvas);
+        }
+        else
+        {
+            NetworkPopUp.ShowPopUp("Forgot Password", response.message);
+        }
+            
+    }
+
     private void OnBackClick()
     {
         OnSetCanvasActive(loginCanvas);
+    }
+    private bool CheckValidInputs()
+    {
+        if (BlackjackUtils.IsInputEmpty(loginID, "Email ID/Mobile Number")) return false;
+        return true;
     }
 }
