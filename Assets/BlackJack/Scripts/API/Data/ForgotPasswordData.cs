@@ -4,7 +4,6 @@ public class ForgotPasswordData
 }
 public class ForgotPasswordResponse : BaseResponse
 {
-    public string message;
     public int otp;
 }
 

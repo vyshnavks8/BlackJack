@@ -6871,8 +6871,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2135363391}
   - {fileID: 675236685}
+  - {fileID: 2135363391}
   - {fileID: 1747084397}
   m_Father: {fileID: 572980278}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10706,7 +10706,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycaster: {fileID: 781642488}
   isOverOverlay: 1
-  appDataSo: {fileID: 11400000, guid: 2e373501fa59e8c4e988e1d0ac88b1e1, type: 2}
   nameInput: {fileID: 2101605657}
   emailInput: {fileID: 1834515534}
   mobileInput: {fileID: 1409020883}
@@ -19657,7 +19656,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycaster: {fileID: 1420591008}
   isOverOverlay: 1
-  appDataSo: {fileID: 11400000, guid: 2e373501fa59e8c4e988e1d0ac88b1e1, type: 2}
   nameInput: {fileID: 1646913065}
   emailInput: {fileID: 732564372}
   mobileInput: {fileID: 623351650}

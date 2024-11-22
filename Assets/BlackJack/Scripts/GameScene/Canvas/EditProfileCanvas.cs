@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class EditProfileCanvas : CanvasBase
 {
-    [SerializeField] private AppDataSO appDataSo;
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private TMP_InputField emailInput;
     [SerializeField] private TMP_InputField mobileInput;
@@ -26,9 +25,9 @@ public class EditProfileCanvas : CanvasBase
 
     private void SetData()
     {
-        nameInput.text = appDataSo.username;
-        emailInput.text = appDataSo.email;
-        mobileInput.text = appDataSo.mobile;
+        nameInput.text = AppData.username;
+        emailInput.text = AppData.email;
+        mobileInput.text = AppData.mobile;
     }
     
 
@@ -76,7 +75,25 @@ public class EditProfileCanvas : CanvasBase
 
     private void OnResetClick()
     {
-        appDataSo.SetUserData(username,email,mobile);
-        OnSetCanvasActive(profileCanvas);
+        var data = new EditProfileData
+        {
+            name = username,
+            email = email,
+            mobileNo = mobile,
+        };
+        APIHandler.Put<EditProfileResponse>(ApiUrl.Profile, data, GetProfileCallback);
+    }
+
+    private void GetProfileCallback(bool success, EditProfileResponse data)
+    {
+        if (success)
+        {
+            NetworkPopUp.ShowPopUp("Edit Profile", data.message);
+            OnSetCanvasActive(profileCanvas);
+        }
+        else
+        {
+            NetworkPopUp.ShowPopUp("Edit Profile", data.message);
+        }
     }
 }

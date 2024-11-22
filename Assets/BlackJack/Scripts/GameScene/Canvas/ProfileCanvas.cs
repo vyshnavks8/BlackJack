@@ -1,12 +1,10 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ProfileCanvas : CanvasBase
 {
-    [SerializeField] private AppDataSO appDataSo;
     [SerializeField] private TMP_Text nameInput;
     [SerializeField] private TMP_Text emailInput;
     [SerializeField] private TMP_Text mobileInput;
@@ -23,33 +21,15 @@ public class ProfileCanvas : CanvasBase
     protected override void OnEnable()
     {
         base.OnEnable();
-        GetProfile();
+        BlackJackApi.GetProfile();
         SetData();
+       
     }
-
-    private void GetProfile()
-    {
-        APIHandler.Get<GetProfileResponse>(ApiUrl.GetProfile, null, GetProfileCallback);
-        APIHandler.SendWithMethod<GetProfileResponse>(ApiUrl.GetProfile, null,UnityWebRequest.kHttpVerbDELETE, GetProfileCallback);
-    }
-
-    private void GetProfileCallback(bool success, GetProfileResponse response)
-    {
-        if (success)
-        {
-            var userName = response.user.name;
-            var email = response.user.email;
-            var mobile = response.user.mobileNo;
-            appDataSo.SetUserData(userName, email, mobile);
-            SetData();
-        }
-    }
-
     private void SetData()
     {
-        nameInput.text = appDataSo.username;
-        emailInput.text = appDataSo.email;
-        mobileInput.text = appDataSo.mobile;
+        nameInput.text = AppData.username;
+        emailInput.text = AppData.email;
+        mobileInput.text = AppData.mobile;
     }
 
 
@@ -59,6 +39,7 @@ public class ProfileCanvas : CanvasBase
         changePasswordButton.onClick.AddListener(OnChangePasswordClick);
         deleteAccountButton.onClick.AddListener(OnDeleteAccountClick);
         backButton.onClick.AddListener(OnCancelClick);
+        AppData.OnUpdateUserData += SetData;
     }
 
     protected override void RemoveListener()
@@ -67,6 +48,7 @@ public class ProfileCanvas : CanvasBase
         changePasswordButton.onClick.RemoveListener(OnChangePasswordClick);
         deleteAccountButton.onClick.RemoveListener(OnDeleteAccountClick);
         backButton.onClick.RemoveListener(OnCancelClick);
+        AppData.OnUpdateUserData -= SetData;
     }
 
     private void OnEditProfileButtonClick()
@@ -96,7 +78,20 @@ public class ProfileCanvas : CanvasBase
     private void OnClickYes()
     {
         PopUpController.ClosePopUp();
-        SceneManager.LoadScene(SceneKey.Login);
+        APIHandler.Delete<DeleteProfileResponse>(ApiUrl.DeleteProfile,null,OnDeleteAccountCallback);
+       
+    }
+
+    private void OnDeleteAccountCallback(bool success, DeleteProfileResponse response)
+    {
+        if (response.success)
+        {
+            SceneManager.LoadScene(SceneKey.Login);
+        }
+        else
+        {
+            NetworkPopUp.ShowPopUp("Delete Profile",response.message);
+        }
     }
 
     private void OnClickNo()

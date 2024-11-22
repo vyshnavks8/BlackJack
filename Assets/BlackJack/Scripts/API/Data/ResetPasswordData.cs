@@ -5,5 +5,4 @@ public class ResetPasswordData
 }
 public class ResetPasswordResponse : BaseResponse
 {
-    public string message;
 }

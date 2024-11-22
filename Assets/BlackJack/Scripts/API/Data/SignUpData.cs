@@ -7,6 +7,5 @@ public class SignUpData
 }
 public class SignUpResponse : BaseResponse
 {
-    public string message;
 }
 

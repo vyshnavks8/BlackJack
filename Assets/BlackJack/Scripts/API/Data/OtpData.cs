@@ -6,5 +6,4 @@ public class OtpData
 
 public class OtpResponse : BaseResponse
 {
-    public string message;
 }
