@@ -31,6 +31,19 @@ namespace RestAPI
            // LogSystem.LogEvent("[][] requesting url {0}, requestParams {1}", url, jsonData);
             WebHelpers.Instance.Post<string>(serviceUrl, bytesContent, "application/json",  callback,AuthKeyPair);
         }
+        
+        protected static void WebRequestMethod(string serviceUrl, string jsonData, string method, WebHelpers.CallbackGet callback)
+        {
+
+            if (string.IsNullOrEmpty(jsonData))
+            {
+                jsonData = "{}";
+            }
+
+            var bytesContent = System.Text.Encoding.UTF8.GetBytes(jsonData);
+            // LogSystem.LogEvent("[][] requesting url {0}, requestParams {1}", url, jsonData);
+            WebHelpers.Instance.SendWithMethod<string>(serviceUrl, bytesContent, "application/json",  callback,AuthKeyPair, method);
+        }
 
         protected static void WebRequest(string serviceUrl, WWWForm formData, WebHelpers.CallbackGet callback)
         {
@@ -59,11 +72,27 @@ namespace RestAPI
             
             
             Debug.LogFormat("[][] requesting url {0}", serviceUrl);
-            WebHelpers.Instance.Get<string>(serviceUrl,bytesContent, "application/json" , callback);
+            WebHelpers.Instance.Get<string>(serviceUrl,bytesContent, "application/json" , callback, AuthKeyPair);
         }
         
         
         protected static void WebRequestPatch(string serviceUrl, string jsonData, WebHelpers.CallbackPatch callback)
+        {
+
+            if (string.IsNullOrEmpty(jsonData))
+            {
+                jsonData = "{}";
+            }
+
+            var bytesContent = System.Text.Encoding.UTF8.GetBytes(jsonData);
+            // LogSystem.LogEvent("[][] requesting url {0}, requestParams {1}", url, jsonData);
+            WebHelpers.Instance.Patch<string>(serviceUrl, bytesContent, "application/json",  callback, AuthKeyPair);
+        }
+        
+        
+        
+        
+        protected static void WebRequestPut(string serviceUrl, string jsonData, WebHelpers.CallbackPatch callback)
         {
 
             if (string.IsNullOrEmpty(jsonData))

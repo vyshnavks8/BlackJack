@@ -10,6 +10,13 @@ public class APIHandler : ApiBase
         var json = JsonConvert.SerializeObject(requestData);
         WebRequest(url, json, (_, success, data) => HandleCallback(success, data, callBack,setAuth));
     }
+    
+    public static void SendWithMethod<T>(string url,object requestData,string method, Action<bool,T> callBack,bool setAuth=false) where T : BaseResponse
+    {
+        var json = JsonConvert.SerializeObject(requestData);
+        WebRequestMethod(url, json, method, (_, success, data) => HandleCallback(success, data, callBack,setAuth));
+    }
+    
     public static void Get<T>(string url,object requestData, Action<bool,T> callBack,bool setAuth=false) where T : BaseResponse
     {
         var json=string.Empty;

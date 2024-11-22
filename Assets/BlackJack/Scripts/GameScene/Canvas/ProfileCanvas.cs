@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -29,6 +30,7 @@ public class ProfileCanvas : CanvasBase
     private void GetProfile()
     {
         APIHandler.Get<GetProfileResponse>(ApiUrl.GetProfile, null, GetProfileCallback);
+        APIHandler.SendWithMethod<GetProfileResponse>(ApiUrl.GetProfile, null,UnityWebRequest.kHttpVerbDELETE, GetProfileCallback);
     }
 
     private void GetProfileCallback(bool success, GetProfileResponse response)
