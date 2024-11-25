@@ -23,5 +23,9 @@ public static class BlackjackUtils
         NetworkPopUp.ShowPopUp("Invalid Input",$"{message} is empty");
         return true;
     }
+    public static void ShareOnlineGameCode()
+    {
+        new NativeShare().SetTitle("Join Black jack private game").SetSubject("JOIN GAME CODE : " + AppData.onlineGameCode).Share();
+    }
 
 }

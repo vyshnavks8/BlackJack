@@ -1,4 +1,4 @@
-public class LoginData
+public class LoginDataEmail
 {
     public string email;
     public string password;

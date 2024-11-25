@@ -96,7 +96,7 @@ public class LoginCanvas : CanvasBase
         if (!CheckValidInputs()) return;
         if (email)
         {
-            var loginData = new LoginData
+            var loginData = new LoginDataEmail
             {
                 email = emailID,
                 password = password

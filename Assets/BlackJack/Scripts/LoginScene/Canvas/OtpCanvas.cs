@@ -13,8 +13,6 @@ public class OtpCanvas : CanvasBase
 
     [SerializeField] private CanvasBase forgotPasswordCanvas;
     [SerializeField] private CanvasBase infoCanvas;
-    private string otp;
-
 
     protected override void AddListener()
     {
@@ -46,8 +44,8 @@ public class OtpCanvas : CanvasBase
         if (!CheckValidInputs()) return;
         var otpData = new OtpData
         {
-            token = ApiData.OtpToken,
-            otp = otp,
+            token = ApiData.ForgotPasswordToken,
+            otp = otpFieldController.Otp,
         };
         APIHandler.Post<OtpResponse>(ApiUrl.Otp, otpData, OnOtpResponseCallback);
 
@@ -72,7 +70,7 @@ public class OtpCanvas : CanvasBase
     }
     private bool CheckValidInputs()
     {
-        if (BlackjackUtils.IsInputEmpty(otp, "OTP")) return false;
+        if (BlackjackUtils.IsInputEmpty(otpFieldController.Otp, "OTP")) return false;
         return true;
     }
 }

@@ -59,7 +59,7 @@ public class ResetPasswordCanvas : CanvasBase
         if (!CheckValidInputs()) return;
         var resetPasswordData = new ResetPasswordData
         {
-            token = ApiData.ResetPasswordToken,
+            token = ApiData.ForgotPasswordToken,
             newPassword = newPassword,
         };
         APIHandler.Post<ResetPasswordResponse>(ApiUrl.ResetPassword, resetPasswordData, OnResetPasswordCallback);
