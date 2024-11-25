@@ -25,7 +25,9 @@ public static class BlackjackUtils
     }
     public static void ShareOnlineGameCode()
     {
-        new NativeShare().SetTitle("Join Black jack private game").SetSubject("JOIN GAME CODE : " + AppData.onlineGameCode).Share();
+        new NativeShare().SetTitle("Join Black jack private game").SetText("Pot BlackJack \n " +
+                                                                           AppData.username +" is inviting to play private game \n \n"+
+                                                                           "JOIN GAME CODE : " + AppData.onlineGameCode).Share();
     }
 
 }
