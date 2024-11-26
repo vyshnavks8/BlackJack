@@ -10,11 +10,16 @@ public class HomeCanvas : CanvasBase
 
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase privateGameCanvas;
-[SerializeField]
-    private CanvasBase gameCanvas;
 
-    [SerializeField]  private CanvasBase navMenuCanvas;
+    [SerializeField] private CanvasBase gameCanvas;
 
+    [SerializeField] private CanvasBase navMenuCanvas;
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        BlackJackApi.GetProfile();
+    }
 
     protected override void AddListener()
     {
@@ -28,7 +33,7 @@ public class HomeCanvas : CanvasBase
     private void OnOpenNav()
     {
         navMenuCanvas.SetTransitionCanvas(this);
-        OnSetCanvasOverlay(navMenuCanvas,true);
+        OnSetCanvasOverlay(navMenuCanvas, true);
     }
 
 

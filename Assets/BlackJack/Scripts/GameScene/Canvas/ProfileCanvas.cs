@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ProfileCanvas : CanvasBase
 {
-    [SerializeField] private AppDataSO appDataSo;
     [SerializeField] private TMP_Text nameInput;
     [SerializeField] private TMP_Text emailInput;
     [SerializeField] private TMP_Text mobileInput;
@@ -14,21 +13,23 @@ public class ProfileCanvas : CanvasBase
     [SerializeField] private Button deleteAccountButton;
     [SerializeField] private Button backButton;
 
-    [Header("Transition Canvas")]
-    [SerializeField] private CanvasBase editProfileCanvas;
+    [Header("Transition Canvas")] [SerializeField]
+    private CanvasBase editProfileCanvas;
+
     [SerializeField] private CanvasBase changePasswordCanvas;
 
     protected override void OnEnable()
     {
         base.OnEnable();
+        BlackJackApi.GetProfile();
         SetData();
+       
     }
-
     private void SetData()
     {
-        nameInput.text = appDataSo.username;
-        emailInput.text = appDataSo.email;
-        mobileInput.text = appDataSo.mobile;
+        nameInput.text = AppData.username;
+        emailInput.text = AppData.email;
+        mobileInput.text = AppData.mobile;
     }
 
 
@@ -38,6 +39,7 @@ public class ProfileCanvas : CanvasBase
         changePasswordButton.onClick.AddListener(OnChangePasswordClick);
         deleteAccountButton.onClick.AddListener(OnDeleteAccountClick);
         backButton.onClick.AddListener(OnCancelClick);
+        AppData.OnUpdateUserData += SetData;
     }
 
     protected override void RemoveListener()
@@ -46,6 +48,7 @@ public class ProfileCanvas : CanvasBase
         changePasswordButton.onClick.RemoveListener(OnChangePasswordClick);
         deleteAccountButton.onClick.RemoveListener(OnDeleteAccountClick);
         backButton.onClick.RemoveListener(OnCancelClick);
+        AppData.OnUpdateUserData -= SetData;
     }
 
     private void OnEditProfileButtonClick()
@@ -71,10 +74,24 @@ public class ProfileCanvas : CanvasBase
         var buttonContentB = new ButtonContent("Yes", OnClickYes);
         PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
     }
+
     private void OnClickYes()
     {
         PopUpController.ClosePopUp();
-        SceneManager.LoadScene(SceneKey.Login);
+        APIHandler.Delete<DeleteProfileResponse>(ApiUrl.DeleteProfile,null,OnDeleteAccountCallback);
+       
+    }
+
+    private void OnDeleteAccountCallback(bool success, DeleteProfileResponse response)
+    {
+        if (response.success)
+        {
+            SceneManager.LoadScene(SceneKey.Login);
+        }
+        else
+        {
+            NetworkPopUp.ShowPopUp("Delete Profile",response.message);
+        }
     }
 
     private void OnClickNo()

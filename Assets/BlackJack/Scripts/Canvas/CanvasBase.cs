@@ -18,6 +18,12 @@ public abstract class CanvasBase : MonoBehaviour
         }
     }
 
+    protected bool skipApiCall { get; private set; }
+
+    public void SkipApiCall(bool skip)
+    {
+        skipApiCall = skip;
+    }
     protected virtual  void OnEnable()
     {
         AddListener();

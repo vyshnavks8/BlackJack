@@ -12,6 +12,7 @@ public class JoinCanvas : CanvasBase
     private CanvasBase privateCanvas;
 
     [SerializeField] private CanvasBase gameCanvas;
+    private string gameCode;
 
     protected override void AddListener()
     {
@@ -29,7 +30,7 @@ public class JoinCanvas : CanvasBase
 
     private void OnRoomInput(string value)
     {
-        
+        gameCode = value;
     }
 
     private void OnBackClick()
@@ -39,7 +40,31 @@ public class JoinCanvas : CanvasBase
 
     private void OnJoinClick()
     {
-        OnSetCanvasActive(gameCanvas);
+        if (skipApiCall)
+        {
+            OnSetCanvasActive(gameCanvas);
+            return;
+        }
+
+        if (!CheckValidInputs()) return;
+        APIHandler.Get<JoinGameResponse>(ApiUrl.JoinGame + gameCode, null, OnCreateGameCallback);
     }
-    
+
+    private bool CheckValidInputs()
+    {
+        if (BlackjackUtils.IsInputEmpty(gameCode, "Game Code")) return false;
+        return true;
+    }
+
+    private void OnCreateGameCallback(bool success, JoinGameResponse response)
+    {
+        if (success)
+        {
+            OnSetCanvasActive(gameCanvas);
+        }
+        else
+        {
+            NetworkPopUp.ShowPopUp("Join Private Game", response.message);
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,8 +21,10 @@ public class LoginCanvas : CanvasBase
     [SerializeField] private CanvasBase welcomeCanvas;
     [SerializeField] private CanvasBase infoCanvas;
 
-    private string loginID;
+    private string emailID;
+    private string mobileID;
     private string password;
+    private bool email;
 
     protected override void AddListener()
     {
@@ -53,7 +56,18 @@ public class LoginCanvas : CanvasBase
 
     private void OnLoginSet(string input)
     {
-        loginID = input;
+        if (BlackjackUtils.IsValidEmail(input))
+        {
+            emailID = input;
+            mobileID = string.Empty;
+            email = true;
+        }
+        else
+        {
+            emailID = string.Empty;
+            mobileID = input;
+            email = false;
+        }
     }
 
     private void OnPasswordSet(string input)
@@ -73,11 +87,60 @@ public class LoginCanvas : CanvasBase
 
     private void OnLoginClick()
     {
-        SceneManager.LoadScene(SceneKey.Game);
+        if (skipApiCall)
+        {
+            SceneManager.LoadScene(SceneKey.Game);
+            return;
+        }
+
+        if (!CheckValidInputs()) return;
+        if (email)
+        {
+            var loginData = new LoginDataEmail
+            {
+                email = emailID,
+                password = password
+            };
+            APIHandler.Post<LoginResponse>(ApiUrl.Login, loginData, OnLoginCallback, true);
+        }
+        else
+        {
+            var loginData = new LoginDataMobile
+            {
+                mobileNo = mobileID,
+                password = password
+            };
+            APIHandler.Post<LoginResponse>(ApiUrl.Login, loginData, OnLoginCallback, true);
+        }
     }
+
+    private void OnLoginCallback(bool success, LoginResponse response)
+    {
+        if (success)
+        {
+            BlackJackApi.GetProfile();
+            SceneManager.LoadScene(SceneKey.Game);
+        }
+        else
+        {
+            NetworkPopUp.ShowPopUp("Login", response.message);
+        }
+    }
+
 
     private void OnBackClick()
     {
         OnSetCanvasActive(welcomeCanvas);
+    }
+
+    private bool CheckValidInputs()
+    {
+        if (string.IsNullOrEmpty(emailID) && string.IsNullOrEmpty(mobileID))
+        {
+            NetworkPopUp.ShowPopUp("Invalid Input","Email ID/ Mobile Number");
+            return false;
+        }
+        if (BlackjackUtils.IsInputEmpty(password, "Password")) return false;
+        return true;
     }
 }

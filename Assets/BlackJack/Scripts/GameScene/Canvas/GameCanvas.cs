@@ -6,7 +6,7 @@ public class GameCanvas : CanvasBase
     [SerializeField] private Button backButton;
     [SerializeField] private Button navOpenButton;
     [SerializeField] private Button chatButton;
-    [SerializeField] private Button infoButton;
+    [SerializeField] private Button shareButton;
     [Header("Cards")]
     [SerializeField] private Button cardsButton;
 
@@ -28,7 +28,7 @@ public class GameCanvas : CanvasBase
         cardsButton.onClick.AddListener(OnCardsClick);
         backButton.onClick.AddListener(OnBackClick);
         navOpenButton.onClick.AddListener(OnOpenNav);
-        infoButton.onClick.AddListener(OnOpenInfo);
+        shareButton.onClick.AddListener(OnShareClick);
     }
 
     protected override void RemoveListener()
@@ -38,13 +38,12 @@ public class GameCanvas : CanvasBase
         cardsButton.onClick.RemoveListener(OnCardsClick);
         backButton.onClick.RemoveListener(OnBackClick);
         navOpenButton.onClick.RemoveListener(OnOpenNav);
-        infoButton.onClick.RemoveListener(OnOpenInfo);
+        shareButton.onClick.RemoveListener(OnShareClick);
     }
 
-    private void OnOpenInfo()
+    private void OnShareClick()
     {
-        InfoController.UpdateInfo("rules",this);
-        OnSetCanvasActive(infoCanvas);
+        BlackjackUtils.ShareOnlineGameCode();
     }
 
     private void OnOpenNav()
