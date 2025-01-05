@@ -76,6 +76,7 @@ public class MasterCanvas : MonoBehaviour
             currentCanvas.gameObject.SetActive(false);
         }
         currentCanvas = canvas;
+        currentCanvas.Ready();
         CheckOverlayVisible();
         isTransition = false;
     }

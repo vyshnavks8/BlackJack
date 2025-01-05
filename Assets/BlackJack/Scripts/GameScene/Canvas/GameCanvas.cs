@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,19 +8,29 @@ public class GameCanvas : CanvasBase
     [SerializeField] private Button navOpenButton;
     [SerializeField] private Button chatButton;
     [SerializeField] private Button shareButton;
-    [Header("Cards")]
-    [SerializeField] private Button cardsButton;
+    [Header("Cards")] [SerializeField] private Button cardsButton;
 
     [SerializeField] private OverlayCanvas cardCanvas;
-    [Header("Scoreboard")]
-    [SerializeField] private Button scoreboardButton;
+
+    [Header("Scoreboard")] [SerializeField]
+    private Button scoreboardButton;
+
     [SerializeField] private OverlayCanvas scoreboardCanvas;
+
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase homeCanvas;
 
     [SerializeField] private CanvasBase chatCanvas;
     [SerializeField] private CanvasBase infoCanvas;
     [SerializeField] private CanvasBase navMenuCanvas;
+    public event Action OnStartGame;
+    public event Action OnExitGame;
+
+    public override void Ready()
+    {
+        base.Ready();
+        OnStartGame?.Invoke();
+    }
 
     protected override void AddListener()
     {
@@ -62,8 +73,14 @@ public class GameCanvas : CanvasBase
 
     private void OnClickYes()
     {
+        GotoHome();
+    }
+
+    public void GotoHome()
+    {
         PopUpController.ClosePopUp();
         OnSetCanvasActive(homeCanvas);
+        OnExitGame?.Invoke();
     }
 
     private void OnClickNo()
@@ -75,12 +92,10 @@ public class GameCanvas : CanvasBase
     {
         cardCanvas.ShowOverlay();
     }
-    
+
     private void OnScoreboardClick()
     {
         scoreboardCanvas.ShowOverlay();
-        //scoreboardCanvas.SetTransitionCanvas(this);
-      //  OnSetCanvasActive(scoreboardCanvas);
     }
 
     private void OnChatClick()

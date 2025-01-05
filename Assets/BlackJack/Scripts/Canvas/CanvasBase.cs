@@ -48,4 +48,9 @@ public abstract class CanvasBase : MonoBehaviour
     {
         transitionCanvas=canvas;
     }
+
+    public virtual void Ready()
+    {
+        
+    }
 }
