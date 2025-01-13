@@ -7,6 +7,10 @@ public class CreateCanvas : CanvasBase
     [SerializeField] private TMP_InputField gameCodeInput;
     [SerializeField] private Button joinButton;
     [SerializeField] private Button backButton;
+    [SerializeField] private Button dealerTimeInfoButton;
+    [SerializeField] private Button playerTimeInfoButton;
+    [SerializeField] private Button noPlayerInfoButton;
+    
 
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase privateCanvas;
@@ -20,6 +24,25 @@ public class CreateCanvas : CanvasBase
         gameCodeInput.onValueChanged.AddListener(OnGameCodeSet);
         joinButton.onClick.AddListener(OnJoinClick);
         backButton.onClick.AddListener(OnBackClick);
+        
+        dealerTimeInfoButton.onClick.AddListener(OnDealerTimeInfoClick);
+        playerTimeInfoButton.onClick.AddListener(OnPlayerTimeInfoClick);
+        noPlayerInfoButton.onClick.AddListener(OnNoPlayerInfoClick);
+    }
+
+    private void OnNoPlayerInfoClick()
+    {
+       NetworkPopUp.ShowPopUp(null,"No of player message");
+    }
+
+    private void OnPlayerTimeInfoClick()
+    {
+        NetworkPopUp.ShowPopUp(null,"NPlayer Decision Timer message");
+    }
+
+    private void OnDealerTimeInfoClick()
+    {
+        NetworkPopUp.ShowPopUp(null,"Dealer Declare Times Around the Table message");
     }
 
 
@@ -28,6 +51,10 @@ public class CreateCanvas : CanvasBase
         gameCodeInput.onValueChanged.RemoveListener(OnGameCodeSet);
         joinButton.onClick.RemoveListener(OnJoinClick);
         backButton.onClick.RemoveListener(OnBackClick);
+        
+        dealerTimeInfoButton.onClick.RemoveListener(OnDealerTimeInfoClick);
+        playerTimeInfoButton.onClick.RemoveListener(OnPlayerTimeInfoClick);
+        noPlayerInfoButton.onClick.RemoveListener(OnNoPlayerInfoClick);
     }
 
     private void OnGameCodeSet(string input)

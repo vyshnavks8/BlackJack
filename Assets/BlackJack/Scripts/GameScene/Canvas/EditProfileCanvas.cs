@@ -9,7 +9,8 @@ public class EditProfileCanvas : CanvasBase
     [SerializeField] private Button resetButton;
     [SerializeField] private Button cancelButton;
     [SerializeField] private Button backButton;
-
+    [Header("Profile Image")] [SerializeField]
+    private TMP_Text profileImagText;
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase profileCanvas;
 
@@ -28,6 +29,7 @@ public class EditProfileCanvas : CanvasBase
         nameInput.text = AppData.username;
         emailInput.text = AppData.email;
         mobileInput.text = AppData.mobile;
+        profileImagText.text = AppData.username[0].ToString();
     }
     
 

@@ -52,13 +52,13 @@ public class PopUpManager : MonoBehaviour
         popUpPanel.ShowPop(heading, data);
     }
 
-    private void ShowPopUpSingle(PopContent popContent, ButtonContent buttonContent)
+    private void ShowPopUpSingle(PopContent popContent, ButtonContent buttonContent,ButtonType popUpButtonType=ButtonType.ButtonA)
     {
         var heading = popContent.Heading;
         var data = popContent.Data;
         var b1 = buttonContent.ButtonText;
         var c1 = buttonContent.ButtonCallback;
-        popUpPanel.ShowPop(heading, data, b1, c1);
+        popUpPanel.ShowPop(heading, data, b1, c1, popUpButtonType);
     }
 
 

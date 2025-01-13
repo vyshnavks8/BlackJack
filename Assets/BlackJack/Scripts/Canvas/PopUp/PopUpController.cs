@@ -5,7 +5,7 @@ public static class PopUpController
     public static event Action OnClosePopUp;
     public static event Action<PopContent, ButtonContent, ButtonContent> OnShowPopUpDual;
     public static event Action<PopContent, ButtonContent, ButtonContent, TimedContent> OnShowPopUpDualTimed;
-    public static event Action<PopContent, ButtonContent> OnShowPopUpSingle;
+    public static event Action<PopContent, ButtonContent,ButtonType> OnShowPopUpSingle;
     public static event Action<PopContent> OnShowPopUpNoButton;
 
 
@@ -20,9 +20,9 @@ public static class PopUpController
         OnShowPopUpDualTimed?.Invoke(popContent, buttonContentA, buttonContentB, timedContent);
     }
 
-    public static void ShowPopUp(PopContent popContent, ButtonContent buttonContent)
+    public static void ShowPopUp(PopContent popContent, ButtonContent buttonContent,ButtonType buttonType=ButtonType.ButtonA)
     {
-        OnShowPopUpSingle?.Invoke(popContent, buttonContent);
+        OnShowPopUpSingle?.Invoke(popContent, buttonContent,buttonType);
     }
 
     public static void ShowPopUp(PopContent popContent)

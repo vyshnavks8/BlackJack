@@ -4,7 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+public enum ButtonType
+{
+    ButtonA,
+    ButtonB,
+}
 public class PopUpCanvas : MonoBehaviour
 {
     [SerializeField] private RectTransform parentPivot;
@@ -29,8 +33,7 @@ public class PopUpCanvas : MonoBehaviour
         buttonB.onClick.RemoveListener(OnClickCloseButton);
     }
 
-    public void ShowPop(string heading, string data, string buttonNameA, Action callbackA,
-        string buttonNameB, Action callbackB)
+    public void ShowPop(string heading, string data, string buttonNameA, Action callbackA, string buttonNameB, Action callbackB)
     {
         SetPopData(heading, data, buttonNameA, callbackA, buttonNameB, callbackB);
         parentPivot.gameObject.SetActive(true);
@@ -42,13 +45,22 @@ public class PopUpCanvas : MonoBehaviour
         parentPivot.gameObject.SetActive(true);
         SetTimerData(timer,callbackC);
     }
-
-    public void ShowPop(string heading, string data,string buttonName,Action callback)
+    //pop up with SingleButton
+    public void ShowPop(string heading, string data,string buttonName,Action callback,ButtonType buttonType=ButtonType.ButtonA)
     {
-        SetPopData(heading, data,buttonName,callback);
+        switch (buttonType)
+        {
+            case ButtonType.ButtonA:
+                SetPopData(heading, data,buttonName,callback);
+                break;
+            case ButtonType.ButtonB:
+                SetPopData(heading, data,null,null, buttonName, callback);
+                break;
+        }
         parentPivot.gameObject.SetActive(true);
         SetTimerData();
     }
+    // Pop without Button
     public void ShowPop(string heading, string data)
     {
         SetPopData(heading, data);

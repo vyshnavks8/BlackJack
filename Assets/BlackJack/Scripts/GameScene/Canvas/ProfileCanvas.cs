@@ -13,6 +13,9 @@ public class ProfileCanvas : CanvasBase
     [SerializeField] private Button deleteAccountButton;
     [SerializeField] private Button backButton;
 
+    [Header("Profile Image")] [SerializeField]
+    private TMP_Text profileImagText;
+
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase editProfileCanvas;
 
@@ -23,13 +26,14 @@ public class ProfileCanvas : CanvasBase
         base.OnEnable();
         BlackJackApi.GetProfile();
         SetData();
-       
     }
+
     private void SetData()
     {
         nameInput.text = AppData.username;
         emailInput.text = AppData.email;
         mobileInput.text = AppData.mobile;
+        profileImagText.text = AppData.username[0].ToString();
     }
 
 
@@ -78,8 +82,7 @@ public class ProfileCanvas : CanvasBase
     private void OnClickYes()
     {
         PopUpController.ClosePopUp();
-        APIHandler.Delete<DeleteProfileResponse>(ApiUrl.DeleteProfile,null,OnDeleteAccountCallback);
-       
+        APIHandler.Delete<DeleteProfileResponse>(ApiUrl.DeleteProfile, null, OnDeleteAccountCallback);
     }
 
     private void OnDeleteAccountCallback(bool success, DeleteProfileResponse response)
@@ -90,7 +93,7 @@ public class ProfileCanvas : CanvasBase
         }
         else
         {
-            NetworkPopUp.ShowPopUp("Delete Profile",response.message);
+            NetworkPopUp.ShowPopUp("Delete Profile", response.message);
         }
     }
 
