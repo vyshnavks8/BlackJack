@@ -118,6 +118,7 @@ public class LoginCanvas : CanvasBase
     {
         if (success)
         {
+            BlackJackSave.SetLoginToken(response.token);
             BlackJackApi.GetProfile();
             SceneManager.LoadScene(SceneKey.Game);
         }

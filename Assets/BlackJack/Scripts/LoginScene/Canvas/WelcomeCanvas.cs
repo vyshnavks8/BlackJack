@@ -1,4 +1,6 @@
+using RestAPI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WelcomeCanvas : CanvasBase
@@ -21,6 +23,27 @@ public class WelcomeCanvas : CanvasBase
 
     private void OnLoginClick()
     {
-        OnSetCanvasActive(loginCanvas);
+        var token = BlackJackSave.GetLogin();
+        if (!string.IsNullOrEmpty(token))
+        {
+            ApiBase.SetAuthToken(token);
+            BlackJackApi.GetProfile(OnGetProfile);
+        }
+        else
+        {
+            OnSetCanvasActive(loginCanvas);
+        }
+    }
+
+    private void OnGetProfile(bool valid)
+    {
+        if (valid)
+        {
+            SceneManager.LoadScene(SceneKey.Game);
+        }
+        else
+        {
+            OnSetCanvasActive(loginCanvas);
+        }
     }
 }
