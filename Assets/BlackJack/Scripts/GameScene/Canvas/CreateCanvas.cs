@@ -37,7 +37,7 @@ public class CreateCanvas : CanvasBase
 
     private void OnPlayerTimeInfoClick()
     {
-        NetworkPopUp.ShowPopUp(null,"NPlayer Decision Timer message");
+        NetworkPopUp.ShowPopUp(null,"Player Decision Timer message");
     }
 
     private void OnDealerTimeInfoClick()
@@ -75,10 +75,10 @@ public class CreateCanvas : CanvasBase
             return;
         }
 
-        if (!CheckValidInputs()) return;
+        //if (!CheckValidInputs()) return;
         var createGameData = new CreateGameData
         {
-            gameDetails = gameCode,
+            gameDetails = AppData.username,
         };
         APIHandler.Post<CreateGameResponse>(ApiUrl.CreateGame, createGameData, OnCreateGameCallback);
     }

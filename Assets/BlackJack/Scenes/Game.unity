@@ -535,11 +535,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3427402757038245793, guid: a6530d3584f6149bb8a35c5003e821e7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 90
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3427402757038245793, guid: a6530d3584f6149bb8a35c5003e821e7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -90
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 3480557608837012747, guid: a6530d3584f6149bb8a35c5003e821e7, type: 3}
       propertyPath: m_text
@@ -587,11 +587,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7883580861712253608, guid: a6530d3584f6149bb8a35c5003e821e7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 180
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7883580861712253608, guid: a6530d3584f6149bb8a35c5003e821e7, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 180
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7883580861712253608, guid: a6530d3584f6149bb8a35c5003e821e7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13356,6 +13356,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Game Code
       objectReference: {fileID: 0}
+    - target: {fileID: 6432973713328001078, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6432973713328001078, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
+      propertyPath: m_fontColorGradientPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 75d92f47f4d036949a2314259f18add2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
