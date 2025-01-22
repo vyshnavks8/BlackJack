@@ -119,12 +119,20 @@ public class LoginCanvas : CanvasBase
         if (success)
         {
             BlackJackSave.SetLoginToken(response.token);
-            BlackJackApi.GetProfile();
-            SceneManager.LoadScene(SceneKey.Game);
+            BlackJackApi.GetProfile(OnRecievedProfile);
+           
         }
         else
         {
             NetworkPopUp.ShowPopUp("Login", response.message);
+        }
+    }
+
+    private void OnRecievedProfile(bool success)
+    {
+        if (success)
+        {
+            SceneManager.LoadScene(SceneKey.Game);
         }
     }
 

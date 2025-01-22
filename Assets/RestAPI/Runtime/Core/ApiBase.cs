@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace RestAPI
 {
@@ -42,7 +43,15 @@ namespace RestAPI
 
             var bytesContent = System.Text.Encoding.UTF8.GetBytes(jsonData);
             // LogSystem.LogEvent("[][] requesting url {0}, requestParams {1}", url, jsonData);
-            WebHelpers.Instance.SendWithMethod<string>(serviceUrl, bytesContent, "application/json",  callback,AuthKeyPair, method);
+            if (method == UnityWebRequest.kHttpVerbGET)
+            {
+                WebRequestGet(serviceUrl,callback);
+            }
+            else
+            {
+                WebHelpers.Instance.SendWithMethod<string>(serviceUrl, bytesContent, "application/json",  callback,AuthKeyPair, method);
+            }
+           
         }
 
         protected static void WebRequest(string serviceUrl, WWWForm formData, WebHelpers.CallbackGet callback)
