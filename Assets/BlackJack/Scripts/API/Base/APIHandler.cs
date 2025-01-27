@@ -48,8 +48,15 @@ public class APIHandler : ApiBase
     {
         if (!success)
         {
-            var response = JsonConvert.DeserializeObject<T>(data.ToString());
-            callBack?.Invoke(false, response);
+            try
+            {
+                var response = JsonConvert.DeserializeObject<T>(data.ToString());
+                callBack?.Invoke(true, response);
+            }
+            catch (JsonReaderException e)
+            {
+                callBack?.Invoke(false, null);
+            }
         }
         else
         {
@@ -62,5 +69,4 @@ public class APIHandler : ApiBase
             callBack?.Invoke(response.success, response);
         }
     }
-    
 }

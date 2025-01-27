@@ -51,7 +51,7 @@ public class BlackJackPlayer
     private void ShowScore()
     {
         Score = BlackJackGameUtility.CalculatePlayerScore(cards);
-        blackJackPlayerUI.ShowScore(Score.ToString());
+        //blackJackPlayerUI.ShowScore(Score.ToString());
         OnScoreChanged?.Invoke(Score);
     }
 

@@ -48,11 +48,13 @@ public class HomeCanvas : CanvasBase
 
     private void OnAiGameClick()
     {
+        AppData.SetOnlineGameCode(null);
         OnSetCanvasActive(gameCanvas);
     }
 
     private void OnPublicGameClick()
     {
+        AppData.SetOnlineGameCode(null);
         OnSetCanvasActive(gameCanvas);
     }
 

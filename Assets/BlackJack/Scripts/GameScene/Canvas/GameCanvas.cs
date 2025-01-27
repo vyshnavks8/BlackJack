@@ -1,9 +1,11 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameCanvas : CanvasBase
 {
+    [SerializeField] private TMP_Text codeText;
     [SerializeField] private Button backButton;
     [SerializeField] private Button navOpenButton;
     [SerializeField] private Button chatButton;
@@ -29,6 +31,7 @@ public class GameCanvas : CanvasBase
     public override void Ready()
     {
         base.Ready();
+        codeText.text = "GAME CODE : " + AppData.onlineGameCode;
         OnStartGame?.Invoke();
     }
 

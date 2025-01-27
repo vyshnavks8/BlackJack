@@ -60,6 +60,7 @@ public class JoinCanvas : CanvasBase
     {
         if (success)
         {
+            AppData.SetOnlineGameCode(gameCode);
             OnSetCanvasActive(gameCanvas);
         }
         else
