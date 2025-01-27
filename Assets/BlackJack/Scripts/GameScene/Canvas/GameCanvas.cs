@@ -31,8 +31,20 @@ public class GameCanvas : CanvasBase
     public override void Ready()
     {
         base.Ready();
-        codeText.text = "GAME CODE : " + AppData.onlineGameCode;
+        SetGameCode();
         OnStartGame?.Invoke();
+    }
+
+    private void SetGameCode()
+    {
+        if (!string.IsNullOrEmpty(AppData.onlineGameCode))
+        {
+            codeText.text = "GAME CODE : " + AppData.onlineGameCode;
+        }
+        else
+        {
+            codeText.text = "";
+        }
     }
 
     protected override void AddListener()
