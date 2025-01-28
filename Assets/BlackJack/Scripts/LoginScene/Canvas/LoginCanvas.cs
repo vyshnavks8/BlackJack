@@ -152,7 +152,8 @@ public class LoginCanvas : CanvasBase
         if (BlackjackUtils.IsInputEmpty(password, "Password")) return false;
         return true;
     }
-    public override void Close()
+
+    protected override void Close()
     {
         loginInput.text = null;
         passwordInput.text = null;

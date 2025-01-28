@@ -1,4 +1,4 @@
-using UnityEditor;
+
 using UnityEngine;
 
 public static class BlackJackSave
@@ -14,12 +14,9 @@ public static class BlackJackSave
     {
         return PlayerPrefs.GetString(LOGIN_TOKEN);
     }
-#if UNITY_EDITOR
-    [MenuItem("Helper/Clear SaveData")]
-    public static void ClearSaves()
+    public static void ClearLoginData()
     {
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteKey(LOGIN_TOKEN);
     }
-#endif
     
 }

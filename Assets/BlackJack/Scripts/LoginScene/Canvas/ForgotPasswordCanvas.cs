@@ -120,7 +120,7 @@ public class ForgotPasswordCanvas : CanvasBase
         return true;
     }
 
-    public override void Close()
+    protected override void Close()
     {
         loginInput.text = null;
     }

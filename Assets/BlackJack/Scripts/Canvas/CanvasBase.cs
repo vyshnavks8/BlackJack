@@ -55,7 +55,7 @@ public abstract class CanvasBase : MonoBehaviour
         
     }
 
-    public virtual void Close()
+    protected virtual void Close()
     {
         
     }

@@ -98,4 +98,11 @@ public class EditProfileCanvas : CanvasBase
             NetworkPopUp.ShowPopUp("Edit Profile", data.message);
         }
     }
+
+    protected override void Close()
+    {
+        nameInput.text = null;
+        emailInput.text = null;
+        mobileInput.text = null;
+    }
 }

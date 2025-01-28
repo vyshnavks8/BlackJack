@@ -68,4 +68,9 @@ public class JoinCanvas : CanvasBase
             NetworkPopUp.ShowPopUp("Join Private Game", response.message);
         }
     }
+
+    protected override void Close()
+    {
+       roomInput.text = null;
+    }
 }

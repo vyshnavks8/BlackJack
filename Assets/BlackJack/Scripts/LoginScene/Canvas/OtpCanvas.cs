@@ -73,7 +73,8 @@ public class OtpCanvas : CanvasBase
         if (BlackjackUtils.IsInputEmpty(otpFieldController.Otp, "OTP")) return false;
         return true;
     }
-    public override void Close()
+
+    protected override void Close()
     {
         otpFieldController.ClearOtpBox();
     }

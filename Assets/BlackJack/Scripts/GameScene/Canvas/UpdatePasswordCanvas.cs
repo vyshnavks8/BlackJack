@@ -54,4 +54,10 @@ public class UpdatePasswordCanvas : CanvasBase
     {
         OnSetCanvasActive(profileCanvas);
     }
+
+    protected override void Close()
+    {
+        newPasswordInput.text = null;
+        confirmPasswordInput.text = null;
+    }
 }

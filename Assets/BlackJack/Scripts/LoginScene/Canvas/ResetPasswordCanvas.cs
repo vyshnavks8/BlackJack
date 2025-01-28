@@ -92,7 +92,7 @@ public class ResetPasswordCanvas : CanvasBase
         return true;
     }
 
-    public override void Close()
+    protected override void Close()
     {
         newPasswordInput.text = null;
         confirmPasswordInput.text = null;
