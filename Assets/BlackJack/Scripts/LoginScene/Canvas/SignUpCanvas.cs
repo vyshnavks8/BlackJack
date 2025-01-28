@@ -158,4 +158,11 @@ public class SignUpCanvas : CanvasBase
     {
         OnSetCanvasActive(loginCanvas);
     }
+    public override void Close()
+    {
+        fullNameInput.text = null;
+        loginInput.text = null;
+        passwordInput.text = null;
+        confirmPasswordInput.text = null;
+    }
 }

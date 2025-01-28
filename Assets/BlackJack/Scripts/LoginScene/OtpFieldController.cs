@@ -36,4 +36,14 @@ public class OtpFieldController : MonoBehaviour
             box.SetOtpText(index < input.Length ? input[index].ToString() : string.Empty);
         }
     }
+
+    public void ClearOtpBox()
+    {
+        foreach (var box in otpBox)
+        {
+            box.SetOtpText(string.Empty);
+        }
+
+        otp = null;
+    }
 }

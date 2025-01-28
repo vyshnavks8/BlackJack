@@ -56,6 +56,7 @@ public class ResetPasswordCanvas : CanvasBase
             OnSetCanvasActive(loginCanvas);
             return;
         }
+
         if (!CheckValidInputs()) return;
         var resetPasswordData = new ResetPasswordData
         {
@@ -63,7 +64,6 @@ public class ResetPasswordCanvas : CanvasBase
             newPassword = newPassword,
         };
         APIHandler.Post<ResetPasswordResponse>(ApiUrl.ResetPassword, resetPasswordData, OnResetPasswordCallback);
-       
     }
 
     private void OnResetPasswordCallback(bool success, ResetPasswordResponse response)
@@ -82,12 +82,19 @@ public class ResetPasswordCanvas : CanvasBase
     private bool CheckValidInputs()
     {
         if (BlackjackUtils.IsInputEmpty(newPassword, "Password")) return false;
-        if (BlackjackUtils.IsInputEmpty(confirmPassword, "Confirm Password"))return false;
+        if (BlackjackUtils.IsInputEmpty(confirmPassword, "Confirm Password")) return false;
         if (newPassword != confirmPassword)
         {
-            NetworkPopUp.ShowPopUp("Mismatch password","password doesnt match");
+            NetworkPopUp.ShowPopUp("Mismatch password", "password doesnt match");
             return false;
         }
+
         return true;
+    }
+
+    public override void Close()
+    {
+        newPasswordInput.text = null;
+        confirmPasswordInput.text = null;
     }
 }

@@ -31,6 +31,7 @@ public abstract class CanvasBase : MonoBehaviour
     protected virtual void OnDisable()
     {
         RemoveListener();
+        Close();
     }
 
     protected abstract void AddListener();
@@ -50,6 +51,11 @@ public abstract class CanvasBase : MonoBehaviour
     }
 
     public virtual void Ready()
+    {
+        
+    }
+
+    public virtual void Close()
     {
         
     }

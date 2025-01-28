@@ -20,6 +20,7 @@ public class ForgotPasswordCanvas : CanvasBase
     private string mobileID;
     private bool email;
 
+
     protected override void AddListener()
     {
         loginInput.onValueChanged.AddListener(OnLoginSet);
@@ -117,5 +118,10 @@ public class ForgotPasswordCanvas : CanvasBase
         }
 
         return true;
+    }
+
+    public override void Close()
+    {
+        loginInput.text = null;
     }
 }
