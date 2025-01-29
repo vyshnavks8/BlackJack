@@ -12,8 +12,7 @@ public class APIHandler : ApiBase
         SendWithMethod(url, requestData, UnityWebRequest.kHttpVerbPOST, callBack, setAuth);
     }
 
-    public static void Get<T>(string url, object requestData, Action<bool, T> callBack, bool setAuth = false)
-        where T : BaseResponse
+    public static void Get<T>(string url, object requestData, Action<bool, T> callBack, bool setAuth = false) where T : BaseResponse
     {
         SendWithMethod(url, requestData, UnityWebRequest.kHttpVerbGET, callBack, setAuth);
     }
@@ -30,7 +29,7 @@ public class APIHandler : ApiBase
         SendWithMethod(url, requestData, UnityWebRequest.kHttpVerbDELETE, callBack, setAuth);
     }
 
-    public static void SendWithMethod<T>(string url, object requestData, string method, Action<bool, T> callBack,
+    private static void SendWithMethod<T>(string url, object requestData, string method, Action<bool, T> callBack,
         bool setAuth = false) where T : BaseResponse
     {
         var json = string.Empty;

@@ -17,6 +17,11 @@ public static class BlackjackUtils
     
         return valid;
     }
+
+    public static bool IsValidMobile(string mobile)
+    {
+        return mobile.Length is >= 10 and <= 13;
+    }
     public static bool IsInputEmpty(string input,string message)
     {
         if (!string.IsNullOrEmpty(input)) return false;

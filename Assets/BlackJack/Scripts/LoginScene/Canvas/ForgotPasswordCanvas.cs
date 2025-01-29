@@ -87,16 +87,24 @@ public class ForgotPasswordCanvas : CanvasBase
             APIHandler.Post<ForgotPasswordResponse>(ApiUrl.ForgotPassword, forgotPasswordData, OnForgotPasswordCallback,
                 true);
         }
+        LoadingController.ShowLoading();
     }
 
     private void OnForgotPasswordCallback(bool success, ForgotPasswordResponse response)
     {
+        LoadingController.HideLoading();
         if (success)
         {
-            ApiData.SetForgotPasswordToken(response.token);
-            Debug.Log("OTP " + response.otp);
-            NetworkPopUp.ShowPopUp("Forgot Password", response.message);
-            OnSetCanvasActive(otpCanvas);
+            if (response.success)
+            {
+                ApiData.SetForgotPasswordToken(response.token);
+                Debug.Log("OTP " + response.otp);
+                OnSetCanvasActive(otpCanvas);
+            }
+            else
+            {
+                NetworkPopUp.ShowPopUp("Forgot Password", response.message);
+            }
         }
         else
         {

@@ -64,14 +64,22 @@ public class ResetPasswordCanvas : CanvasBase
             newPassword = newPassword,
         };
         APIHandler.Post<ResetPasswordResponse>(ApiUrl.ResetPassword, resetPasswordData, OnResetPasswordCallback);
+        LoadingController.ShowLoading();
     }
 
     private void OnResetPasswordCallback(bool success, ResetPasswordResponse response)
     {
+        LoadingController.HideLoading();
         if (success)
         {
-            NetworkPopUp.ShowPopUp("Reset Password", response.message);
-            OnSetCanvasActive(loginCanvas);
+            if (response.success)
+            {
+                OnSetCanvasActive(loginCanvas);
+            }
+            else
+            {
+                NetworkPopUp.ShowPopUp("Reset Password", response.message);
+            }
         }
         else
         {

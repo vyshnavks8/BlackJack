@@ -61,13 +61,14 @@ public class SignUpCanvas : CanvasBase
         InfoController.UpdateInfo("about", this);
         OnSetCanvasActive(infoCanvas);
     }
+
     private void OnFullNameSet(string input)
     {
         fullName = input;
     }
+
     private void OnLoginSet(string input)
     {
-        
         if (BlackjackUtils.IsValidEmail(input))
         {
             emailID = input;
@@ -84,6 +85,7 @@ public class SignUpCanvas : CanvasBase
     {
         password = input;
     }
+
     private void OnConfirmPasswordSet(string input)
     {
         confirmPassword = input;
@@ -93,7 +95,7 @@ public class SignUpCanvas : CanvasBase
     {
         remember = input;
     }
-    
+
 
     private void OnSignUpClick()
     {
@@ -102,6 +104,7 @@ public class SignUpCanvas : CanvasBase
             OnSetCanvasActive(loginCanvas);
             return;
         }
+
         if (!CheckValidInputs()) return;
         if (password == confirmPassword)
         {
@@ -113,41 +116,50 @@ public class SignUpCanvas : CanvasBase
                 password = password
             };
             APIHandler.Post<SignUpResponse>(ApiUrl.SignUp, signUpData, OnSignUpCallback);
+            LoadingController.ShowLoading();
         }
-      
     }
 
-    private bool CheckValidInputs()
-    {
-        if (BlackjackUtils.IsInputEmpty(fullName, "Display name"))     return false;
-        if (string.IsNullOrEmpty(emailID) && string.IsNullOrEmpty(mobileID))
-        {
-            NetworkPopUp.ShowPopUp("Invalid Input","Email ID/ Mobile Number");
-            return false;
-        }
-        if (BlackjackUtils.IsInputEmpty(password, "Password"))return false;
-        if (BlackjackUtils.IsInputEmpty(confirmPassword, "Confirm Password"))return false;
-        if (password != confirmPassword)
-        {
-            NetworkPopUp.ShowPopUp("Mismatch password","password doesnt match");
-            return false;
-        }
-        return true;
-    }
-
- 
     private void OnSignUpCallback(bool success, SignUpResponse response)
     {
+        LoadingController.HideLoading();
         if (success)
         {
-            NetworkPopUp.ShowPopUp("Sign up", response.message);
-            OnSetCanvasActive(loginCanvas);
+            if (response.success)
+            {
+                OnSetCanvasActive(loginCanvas);
+            }
+            else
+            {
+                NetworkPopUp.ShowPopUp("Sign up", response.message);
+            }
         }
         else
         {
             NetworkPopUp.ShowPopUp("Sign up", response.message);
         }
     }
+
+    private bool CheckValidInputs()
+    {
+        if (BlackjackUtils.IsInputEmpty(fullName, "Display name")) return false;
+        if (string.IsNullOrEmpty(emailID) && string.IsNullOrEmpty(mobileID))
+        {
+            NetworkPopUp.ShowPopUp("Invalid Input", "Email ID/ Mobile Number");
+            return false;
+        }
+
+        if (BlackjackUtils.IsInputEmpty(password, "Password")) return false;
+        if (BlackjackUtils.IsInputEmpty(confirmPassword, "Confirm Password")) return false;
+        if (password != confirmPassword)
+        {
+            NetworkPopUp.ShowPopUp("Mismatch password", "password doesnt match");
+            return false;
+        }
+
+        return true;
+    }
+
 
     private void OnLoginClick()
     {

@@ -16,7 +16,6 @@ public class CreateCanvas : CanvasBase
     private CanvasBase privateCanvas;
 
     [SerializeField] private CanvasBase gameCanvas;
-    private string gameCode;
     private string generatedCode;
 
     protected override void AddListener()
@@ -59,7 +58,7 @@ public class CreateCanvas : CanvasBase
 
     private void OnGameCodeSet(string input)
     {
-        gameCode = input;
+       // gameCode = input;
     }
 
     private void OnBackClick()
@@ -74,30 +73,31 @@ public class CreateCanvas : CanvasBase
             OnSetCanvasActive(gameCanvas);
             return;
         }
-
-        //if (!CheckValidInputs()) return;
         var createGameData = new CreateGameData
         {
             gameDetails = AppData.username,
         };
         APIHandler.Post<CreateGameResponse>(ApiUrl.CreateGame, createGameData, OnCreateGameCallback);
-    }
-
-    private bool CheckValidInputs()
-    {
-        if (BlackjackUtils.IsInputEmpty(gameCode, "Game Code")) return false;
-        return true;
+        LoadingController.ShowLoading();
     }
 
     private void OnCreateGameCallback(bool success, CreateGameResponse response)
     {
+        LoadingController.HideLoading();
         if (success)
         {
-            OnSetCanvasActive(gameCanvas);
-            AppData.SetOnlineGameCode(response.gameCode);
-            var shareButton = new ButtonContent("Share Code", OnClickShareCode);
-            NetworkPopUp.ShowPopUp("Create Private Game",
-                response.message + "\n" + "JOIN GAME CODE : " + response.gameCode, shareButton);
+            if (response.success)
+            {
+                OnSetCanvasActive(gameCanvas);
+                AppData.SetOnlineGameCode(response.gameCode);
+                var shareButton = new ButtonContent("Share Code", OnClickShareCode);
+                NetworkPopUp.ShowPopUp("Create Private Game", response.message + "\n" + "JOIN GAME CODE : " + response.gameCode, shareButton);
+            }
+            else
+            {
+                NetworkPopUp.ShowPopUp("Create Private Game", response.message);
+            }
+            
         }
         else
         {

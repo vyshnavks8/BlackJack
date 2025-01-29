@@ -26,6 +26,7 @@ public class WelcomeCanvas : CanvasBase
         var token = BlackJackSave.GetLogin();
         if (!string.IsNullOrEmpty(token))
         {
+            LoadingController.ShowLoading();
             ApiBase.SetAuthToken(token);
             BlackJackApi.GetProfile(OnGetProfile);
         }
@@ -37,6 +38,7 @@ public class WelcomeCanvas : CanvasBase
 
     private void OnGetProfile(bool valid)
     {
+        LoadingController.HideLoading();
         if (valid)
         {
             SceneManager.LoadScene(SceneKey.Game);

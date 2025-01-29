@@ -48,6 +48,28 @@ public class JoinCanvas : CanvasBase
 
         if (!CheckValidInputs()) return;
         APIHandler.Get<JoinGameResponse>(ApiUrl.JoinGame + gameCode, null, OnCreateGameCallback);
+        LoadingController.ShowLoading();
+    }
+    private void OnCreateGameCallback(bool success, JoinGameResponse response)
+    {
+        LoadingController.HideLoading();
+        if (success)
+        {
+            if (response.success)
+            {
+                AppData.SetOnlineGameCode(gameCode);
+                OnSetCanvasActive(gameCanvas);
+            }
+            else
+            {
+                NetworkPopUp.ShowPopUp("Join Private Game", response.message);
+            }
+          
+        }
+        else
+        {
+            NetworkPopUp.ShowPopUp("Join Private Game", response.message);
+        }
     }
 
     private bool CheckValidInputs()
@@ -56,19 +78,7 @@ public class JoinCanvas : CanvasBase
         return true;
     }
 
-    private void OnCreateGameCallback(bool success, JoinGameResponse response)
-    {
-        if (success)
-        {
-            AppData.SetOnlineGameCode(gameCode);
-            OnSetCanvasActive(gameCanvas);
-        }
-        else
-        {
-            NetworkPopUp.ShowPopUp("Join Private Game", response.message);
-        }
-    }
-
+  
     protected override void Close()
     {
        roomInput.text = null;

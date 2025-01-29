@@ -48,15 +48,24 @@ public class OtpCanvas : CanvasBase
             otp = otpFieldController.Otp,
         };
         APIHandler.Post<OtpResponse>(ApiUrl.Otp, otpData, OnOtpResponseCallback);
+        LoadingController.ShowLoading();
 
     }
 
     private void OnOtpResponseCallback(bool success, OtpResponse response)
     {
+        LoadingController.HideLoading();
         if (success)
         {
-            
-            OnSetCanvasActive(resetPasswordCanvas);
+            if (response.success)
+            {
+                OnSetCanvasActive(resetPasswordCanvas);
+            }
+            else
+            {
+                NetworkPopUp.ShowPopUp("OTP", response.message);
+            }
+           
         }
         else
         {

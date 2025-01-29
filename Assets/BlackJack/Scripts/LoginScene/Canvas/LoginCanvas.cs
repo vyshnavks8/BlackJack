@@ -112,15 +112,25 @@ public class LoginCanvas : CanvasBase
             };
             APIHandler.Post<LoginResponse>(ApiUrl.Login, loginData, OnLoginCallback, true);
         }
+
+        LoadingController.ShowLoading();
     }
 
     private void OnLoginCallback(bool success, LoginResponse response)
     {
+        LoadingController.HideLoading();
         if (success)
         {
-            BlackJackSave.SetLoginToken(response.token);
-            BlackJackApi.GetProfile(OnRecievedProfile);
-           
+            if (response.success)
+            {
+                BlackJackSave.SetLoginToken(response.token);
+                BlackJackApi.GetProfile(OnRecievedProfile);
+                LoadingController.ShowLoading();
+            }
+            else
+            {
+                NetworkPopUp.ShowPopUp("Login", response.message);
+            }
         }
         else
         {
@@ -130,6 +140,7 @@ public class LoginCanvas : CanvasBase
 
     private void OnRecievedProfile(bool success)
     {
+        LoadingController.HideLoading();
         if (success)
         {
             SceneManager.LoadScene(SceneKey.Game);
@@ -146,9 +157,10 @@ public class LoginCanvas : CanvasBase
     {
         if (string.IsNullOrEmpty(emailID) && string.IsNullOrEmpty(mobileID))
         {
-            NetworkPopUp.ShowPopUp("Invalid Input","Email ID/ Mobile Number");
+            NetworkPopUp.ShowPopUp("Invalid Input", "Email ID/ Mobile Number");
             return false;
         }
+
         if (BlackjackUtils.IsInputEmpty(password, "Password")) return false;
         return true;
     }
