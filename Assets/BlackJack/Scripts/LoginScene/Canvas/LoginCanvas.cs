@@ -169,5 +169,9 @@ public class LoginCanvas : CanvasBase
     {
         loginInput.text = null;
         passwordInput.text = null;
+        emailID = null;
+        mobileID = null;
+        password = null;
+        email = false;
     }
 }

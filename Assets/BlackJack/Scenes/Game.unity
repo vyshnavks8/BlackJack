@@ -13211,6 +13211,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Enter code
       objectReference: {fileID: 0}
+    - target: {fileID: 5897028504639729196, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6432973713328001078, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_text
       value: Game Code
@@ -29676,6 +29680,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Share Button
       objectReference: {fileID: 0}
+    - target: {fileID: 2577138854125736550, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3219939858121673697, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -33122,7 +33130,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 462.7334, y: -0.000030517578}
+  m_AnchoredPosition: {x: 462.7334, y: -0.000022888184}
   m_SizeDelta: {x: 831.7, y: 203.3}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1660057539 &9223372036854775807

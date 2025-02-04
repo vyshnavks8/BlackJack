@@ -98,6 +98,7 @@ public class ForgotPasswordCanvas : CanvasBase
             if (response.success)
             {
                 ApiData.SetForgotPasswordToken(response.token);
+                NetworkPopUp.ShowPopUp("Forgot Password", response.message);
                 Debug.Log("OTP " + response.otp);
                 OnSetCanvasActive(otpCanvas);
             }
@@ -131,5 +132,8 @@ public class ForgotPasswordCanvas : CanvasBase
     protected override void Close()
     {
         loginInput.text = null;
+        emailID = null;
+        mobileID = null;
+        email = false;
     }
 }

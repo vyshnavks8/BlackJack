@@ -177,5 +177,10 @@ public class SignUpCanvas : CanvasBase
         loginInput.text = null;
         passwordInput.text = null;
         confirmPasswordInput.text = null;
+        fullName = null;
+        password = null;
+        confirmPassword = null;
+        emailID = null;
+        mobileID = null;
     }
 }

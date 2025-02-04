@@ -104,5 +104,7 @@ public class ResetPasswordCanvas : CanvasBase
     {
         newPasswordInput.text = null;
         confirmPasswordInput.text = null;
+        newPassword = null;
+        confirmPassword = null;
     }
 }
