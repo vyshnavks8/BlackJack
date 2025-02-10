@@ -9,6 +9,13 @@ public class ChipUI : MonoBehaviour
     [SerializeField] private ChipDataSO chipDataSO;
     [SerializeField] private Image chipImage;
     [SerializeField] private TMP_Text chipValueText;
+    [SerializeField] private bool autoHighlight;
+
+    private void Awake()
+    {
+        if (!autoHighlight) return;
+        chipImage.DOColor(Color.gray, 0.3f).SetLoops(-1, LoopType.Yoyo);
+    }
 
     public void SetChipValue(int chipValue)
     {
@@ -17,8 +24,13 @@ public class ChipUI : MonoBehaviour
         chipValueText.text = chipValue.ToString();
     }
 
-    public void MoveTo(RectTransform moveLocation,Action completed)
+    public void SetChipText(int chipValue)
     {
-        transform.DOMove(moveLocation.position, 0.5f).OnComplete(()=>completed?.Invoke());
+        chipValueText.text = chipValue.ToString();
+    }
+
+    public void MoveTo(RectTransform moveLocation, Action completed)
+    {
+        transform.DOMove(moveLocation.position, 0.5f).OnComplete(() => completed?.Invoke());
     }
 }

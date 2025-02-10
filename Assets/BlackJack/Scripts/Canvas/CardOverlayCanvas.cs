@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,6 @@ public class CardOverlayCanvas : OverlayCanvas
 
     private void Awake()
     {
-        
     }
 
     protected override void AddListener()

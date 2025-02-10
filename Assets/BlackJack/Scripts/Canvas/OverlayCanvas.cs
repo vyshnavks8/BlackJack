@@ -1,10 +1,12 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class OverlayCanvas : MonoBehaviour
 {
     [SerializeField] private float transitionDuration = 0.3f;
     [SerializeField] private GameObject pivot;
+    [SerializeField] private UnityEvent afterHide;
     protected virtual  void OnEnable()
     {
         AddListener();
@@ -31,6 +33,7 @@ public abstract class OverlayCanvas : MonoBehaviour
         pivot.transform.DOLocalMoveY(-4000, transitionDuration).SetEase(Ease.InQuad).OnComplete(() =>
         {
             pivot.SetActive(false);
+            afterHide?.Invoke();
         });
     }
 }

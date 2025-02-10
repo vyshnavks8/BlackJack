@@ -67,8 +67,11 @@ public class BetMenuUI : MonoBehaviour
         betAmount = chipDataSO.GetChipAmount(selectedID);
         chipUI.SetChipValue(betAmount);
     }
-    
 
+    public void SetBetAmount(int amount)
+    {
+        betAmount = amount;
+    }
     private void SetButtonInteractable()
     {
         if (ReachedMax)
