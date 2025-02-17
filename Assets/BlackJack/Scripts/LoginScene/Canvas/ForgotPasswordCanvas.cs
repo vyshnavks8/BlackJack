@@ -97,6 +97,7 @@ public class ForgotPasswordCanvas : CanvasBase
         {
             if (response.success)
             {
+                AppData.SetForgotPasswordID(email ? emailID : mobileID);
                 ApiData.SetForgotPasswordToken(response.token);
                 NetworkPopUp.ShowPopUp("Forgot Password", response.message);
                 Debug.Log("OTP " + response.otp);

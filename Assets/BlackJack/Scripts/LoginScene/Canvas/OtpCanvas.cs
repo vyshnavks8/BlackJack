@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class OtpCanvas : CanvasBase
 {
     [SerializeField] private OtpFieldController otpFieldController;
+    [SerializeField] private TMP_Text message;
     [SerializeField] private Button submitButton;
     [SerializeField] private Button backButton;
     [SerializeField] private Button infoButton;
@@ -19,6 +21,13 @@ public class OtpCanvas : CanvasBase
         submitButton.onClick.AddListener(OnSubmitClick);
         backButton.onClick.AddListener(OnBackClick);
         infoButton.onClick.AddListener(OnOpenInfo);
+        InitMessage();
+    }
+
+    private void InitMessage()
+    {
+        message.text =
+            $"A code has been sent to {AppData.forgotPasswordID}. Please enter the code to reset your password!";
     }
 
     protected override void RemoveListener()
@@ -41,6 +50,7 @@ public class OtpCanvas : CanvasBase
             OnSetCanvasActive(resetPasswordCanvas);
             return;
         }
+
         if (!CheckValidInputs()) return;
         var otpData = new OtpData
         {
@@ -49,7 +59,6 @@ public class OtpCanvas : CanvasBase
         };
         APIHandler.Post<OtpResponse>(ApiUrl.Otp, otpData, OnOtpResponseCallback);
         LoadingController.ShowLoading();
-
     }
 
     private void OnOtpResponseCallback(bool success, OtpResponse response)
@@ -65,7 +74,6 @@ public class OtpCanvas : CanvasBase
             {
                 NetworkPopUp.ShowPopUp("OTP", response.message);
             }
-           
         }
         else
         {
@@ -77,6 +85,7 @@ public class OtpCanvas : CanvasBase
     {
         OnSetCanvasActive(forgotPasswordCanvas);
     }
+
     private bool CheckValidInputs()
     {
         if (BlackjackUtils.IsInputEmpty(otpFieldController.Otp, "OTP")) return false;

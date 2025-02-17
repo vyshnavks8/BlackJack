@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6509804, g: 0.22745098, b: 0.18039216, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -226,3 +226,4 @@ MonoBehaviour:
   chipDataSO: {fileID: 11400000, guid: bb1fb1110a866fd4abc928c5352b9d7a, type: 2}
   chipImage: {fileID: 1799912932021861113}
   chipValueText: {fileID: 7260343913055031001}
+  autoHighlight: 0
