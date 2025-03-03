@@ -15,28 +15,14 @@ MonoBehaviour:
   data:
   - id: terms
     heading: Terms & Condition
-    info: "Lorem Ipsum\_is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-      when an unknown printer took a galley of type and scrambled it to make a type
-      specimen book. It has survived not only five centuries, but also the leap into
-      electronic typesetting, remaining essentially unchanged. It was popularised
-      in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-      and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.\n\nLorem Ipsum\_is simply dummy text  make a type
-      specimen book. \nIt has sentially unchanged. It was h desktop publishing software
-      like Aldus \nPageMaker including versions of Lorem Ipsum.\n"
+    info: A legal agreement between the app developer and users that outlines the
+      rules and guidelines for using the app. It includes details about user rights,
+      restrictions, liability, and dispute resolution.
   - id: privacy
     heading: Privacy Policy
-    info: "Lorem Ipsum\_is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-      when an unknown printer took a galley of type and scrambled it to make a type
-      specimen book. It has survived not only five centuries, but also the leap into
-      electronic typesetting, remaining essentially unchanged. It was popularised
-      in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-      and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.\n\nLorem Ipsum\_is simply dummy text  make a type
-      specimen book. \nIt has sentially unchanged. It was h desktop publishing software
-      like Aldus \nPageMaker including versions of Lorem Ipsum.\n"
+    info: A statement explaining how the app collects, uses, stores, and protects
+      users' personal data. It outlines what information is collected, why it's collected,
+      and how users can manage or delete their data.
   - id: about
     heading: about
     info: 'Enjoy the thrill of blackjack anytime, anywhere with our online game.

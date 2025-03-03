@@ -106,7 +106,7 @@ public class NavCanvas : CanvasBase
 
     private void OnLogoutClick()
     {
-        var popContent = new PopContent("", "Are you sure you want\nto <size=90><b>Logout</size></b> ?");
+        var popContent = new PopContent("", "Are you sure you want\nto <size=150><b>Logout</size></b> ?");
         var buttonContentA = new ButtonContent("No", OnClickNo);
         var buttonContentB = new ButtonContent("Yes", OnClickYes);
         PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);

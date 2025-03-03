@@ -17,7 +17,7 @@ public class FinishState : BlackJackState
     private IEnumerator Wait()
     {
         yield return new WaitForSeconds(waitTime);
-        var popContent = new PopContent("", "Do you want\nto <size=90><b>Replay</size></b> Game ?");
+        var popContent = new PopContent("", "Do you want\nto <size=150><b>Replay</size></b> Game ?");
         var buttonContentA = new ButtonContent("No", OnClickNo);
         var buttonContentB = new ButtonContent("Yes", OnClickYes);
         PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);

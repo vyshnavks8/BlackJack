@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chips:
   - ChipValue: 1
-    ChipColour: {r: 0.6509804, g: 0.22745098, b: 0.18039216, a: 1}
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
   - ChipValue: 2
-    ChipColour: {r: 0.6509804, g: 0.22692497, b: 0.18039216, a: 1}
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
   - ChipValue: 5
-    ChipColour: {r: 0.6509804, g: 0.22745098, b: 0.18039216, a: 1}
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
   - ChipValue: 10
-    ChipColour: {r: 0.6509804, g: 0.22745098, b: 0.18039216, a: 1}
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
   - ChipValue: 20
-    ChipColour: {r: 0.6509804, g: 0.22745098, b: 0.18039216, a: 1}
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
   - ChipValue: 50
-    ChipColour: {r: 0.6509804, g: 0.22745098, b: 0.18039216, a: 1}
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
   - ChipValue: 100
-    ChipColour: {r: 0.6509804, g: 0.22745098, b: 0.18039216, a: 1}
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}

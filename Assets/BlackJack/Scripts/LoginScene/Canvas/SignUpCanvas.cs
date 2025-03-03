@@ -111,7 +111,7 @@ public class SignUpCanvas : CanvasBase
             var signUpData = new SignUpData
             {
                 name = fullName,
-                email = emailID,
+                email = emailID.ToLower(),
                 mobileNo = mobileID,
                 password = password
             };
@@ -145,7 +145,7 @@ public class SignUpCanvas : CanvasBase
         if (BlackjackUtils.IsInputEmpty(fullName, "Display name")) return false;
         if (string.IsNullOrEmpty(emailID) && string.IsNullOrEmpty(mobileID))
         {
-            NetworkPopUp.ShowPopUp("Invalid Input", "Email ID/ Mobile Number");
+            BlackjackUtils.ShowEmpty( "Email ID/ Cell");
             return false;
         }
 

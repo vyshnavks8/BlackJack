@@ -98,7 +98,7 @@ public class LoginCanvas : CanvasBase
         {
             var loginData = new LoginDataEmail
             {
-                email = emailID,
+                email = emailID.ToLower(),
                 password = password
             };
             APIHandler.Post<LoginResponse>(ApiUrl.Login, loginData, OnLoginCallback, true);
@@ -157,7 +157,7 @@ public class LoginCanvas : CanvasBase
     {
         if (string.IsNullOrEmpty(emailID) && string.IsNullOrEmpty(mobileID))
         {
-            NetworkPopUp.ShowPopUp("Invalid Input", "Email ID/ Mobile Number");
+            BlackjackUtils.ShowEmpty( "Email ID/ Cell");
             return false;
         }
 

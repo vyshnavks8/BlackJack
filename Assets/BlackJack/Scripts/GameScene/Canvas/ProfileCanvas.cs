@@ -73,7 +73,7 @@ public class ProfileCanvas : CanvasBase
 
     private void OnDeleteAccountClick()
     {
-        var popContent = new PopContent("", "Are you sure you want\nto <size=90><b>Delete</b></size> Account ?");
+        var popContent = new PopContent("", "Are you sure you want\nto <size=150><b>Delete</b></size> Account ?");
         var buttonContentA = new ButtonContent("No", OnClickNo);
         var buttonContentB = new ButtonContent("Yes", OnClickYes);
         PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
