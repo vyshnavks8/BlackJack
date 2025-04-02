@@ -19,13 +19,18 @@ public class JoinCanvas : CanvasBase
         roomInput.onValueChanged.AddListener(OnRoomInput);
         joinButton.onClick.AddListener(OnJoinClick);
         backButton.onClick.AddListener(OnBackClick);
+        NetworkCallbackManager.onJoinedRoom += OnJoinRoom;
+        NetworkCallbackManager.onJoinRoomFailed += OnJoinRoomFailed;
     }
+
 
     protected override void RemoveListener()
     {
         roomInput.onValueChanged.RemoveListener(OnRoomInput);
         joinButton.onClick.RemoveListener(OnJoinClick);
         backButton.onClick.RemoveListener(OnBackClick);
+        NetworkCallbackManager.onJoinedRoom -= OnJoinRoom;
+        NetworkCallbackManager.onJoinRoomFailed -= OnJoinRoomFailed;
     }
 
     private void OnRoomInput(string value)
@@ -42,7 +47,10 @@ public class JoinCanvas : CanvasBase
     {
         if (skipApiCall)
         {
-            OnSetCanvasActive(gameCanvas);
+            if (gameCode==null) return;
+            LoadingController.ShowLoading();
+            NetworkManager.JoinRoom(gameCode);
+            AppData.SetOnlineGameCode(gameCode);
             return;
         }
 
@@ -50,6 +58,7 @@ public class JoinCanvas : CanvasBase
         APIHandler.Get<JoinGameResponse>(ApiUrl.JoinGame + gameCode, null, OnCreateGameCallback);
         LoadingController.ShowLoading();
     }
+
     private void OnCreateGameCallback(bool success, JoinGameResponse response)
     {
         LoadingController.HideLoading();
@@ -57,19 +66,31 @@ public class JoinCanvas : CanvasBase
         {
             if (response.success)
             {
+                LoadingController.ShowLoading();
+                NetworkManager.JoinRoom(gameCode);
                 AppData.SetOnlineGameCode(gameCode);
-                OnSetCanvasActive(gameCanvas);
             }
             else
             {
                 NetworkPopUp.ShowPopUp("Join Private Game", response.message);
             }
-          
         }
         else
         {
             NetworkPopUp.ShowPopUp("Join Private Game", response.message);
         }
+    }
+
+    private void OnJoinRoom()
+    {
+        LoadingController.HideLoading();
+        OnSetCanvasActive(gameCanvas);
+    }
+
+    private void OnJoinRoomFailed(short code, string message)
+    {
+        LoadingController.HideLoading();
+        NetworkPopUp.ShowPopUp("Join Private Game", message);
     }
 
     private bool CheckValidInputs()
@@ -78,9 +99,9 @@ public class JoinCanvas : CanvasBase
         return true;
     }
 
-  
+
     protected override void Close()
     {
-       roomInput.text = null;
+        roomInput.text = null;
     }
 }

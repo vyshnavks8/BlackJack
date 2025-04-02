@@ -3,21 +3,59 @@ using RedDevil.PlayingCards;
 
 public class InitialState : BlackJackState
 {
+    private bool deckInit;
+
+    public override void AddListener()
+    {
+        stateMachine.NetworkEventSender.OnInitDeck += OnInitDeck;
+    }
+
+
+    public override void RemoveListener()
+    {
+        stateMachine.NetworkEventSender.OnInitDeck -= OnInitDeck;
+    }
+
+    private void OnInitDeck(Deck deck)
+    {
+        SetDeck(deck);
+        UpdateState();
+    }
+
+    private void SetDeck(Deck deck)
+    {
+        stateMachine.Context.deck = deck;
+        deckInit = true;
+    }
+
     public override void EnterState()
     {
-        var deck = CardSystem.GenerateDeck(false);
-        deck.Shuffle();
-        stateMachine.Context.deck = deck;
+        AddListener();
+        if (AppData.gameType == GameType.AI)
+        {
+            var deck = CardSystem.GenerateDeck(false);
+            deck.Shuffle();
+            SetDeck(deck);
+        }
+        else
+        {
+            if (!NetworkManager.IsMasterClient) return;
+            var deck = CardSystem.GenerateDeck(false);
+            deck.Shuffle();
+            stateMachine.NetworkEventSender.InitDeck(deck);
+        }
     }
 
     public override void UpdateState()
     {
+        if (!deckInit) return;
         PlaceCards(true, FinishedFirstRound);
     }
 
     public override void ExitState()
     {
-        stateMachine.Context.playerCounter=0;
+        stateMachine.Context.playerCounter = 0;
+        RemoveListener();
     }
 
     private void FinishedFirstRound()
@@ -33,7 +71,7 @@ public class InitialState : BlackJackState
 
     private void PlaceCards(bool showDealer, Action callback)
     {
-        stateMachine.Context.PlacePlayerCard(finished => OnCompleted(finished, showDealer, callback),true);
+        stateMachine.Context.PlacePlayerCard(finished => OnCompleted(finished, showDealer, callback), true);
     }
 
     private void OnCompleted(bool finished, bool showDealer, Action callback)

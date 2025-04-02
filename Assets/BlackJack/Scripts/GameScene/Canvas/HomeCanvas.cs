@@ -21,19 +21,19 @@ public class HomeCanvas : CanvasBase
         BlackJackApi.GetProfile();
     }
 
+    private void OnOpenNav()
+    {
+        navMenuCanvas.SetTransitionCanvas(this);
+        OnSetCanvasOverlay(navMenuCanvas, true);
+    }
+
     protected override void AddListener()
     {
         privateGameButton.onClick.AddListener(OnPrivateGameClick);
         publicGameButton.onClick.AddListener(OnPublicGameClick);
         aiGameButton.onClick.AddListener(OnAiGameClick);
-
         navOpenButton.onClick.AddListener(OnOpenNav);
-    }
-
-    private void OnOpenNav()
-    {
-        navMenuCanvas.SetTransitionCanvas(this);
-        OnSetCanvasOverlay(navMenuCanvas, true);
+        NetworkCallbackManager.onConnectedToMaster += OnConnected;
     }
 
 
@@ -43,23 +43,49 @@ public class HomeCanvas : CanvasBase
         publicGameButton.onClick.RemoveListener(OnPublicGameClick);
         aiGameButton.onClick.RemoveListener(OnAiGameClick);
         navOpenButton.onClick.RemoveListener(OnOpenNav);
+        NetworkCallbackManager.onConnectedToMaster -= OnConnected;
     }
 
 
     private void OnAiGameClick()
     {
         AppData.SetOnlineGameCode(null);
+        AppData.SetGameType(GameType.AI);
+        GameNetworkData.SetGameType(NetworkGameType.None);
         OnSetCanvasActive(gameCanvas);
     }
 
     private void OnPublicGameClick()
     {
         AppData.SetOnlineGameCode(null);
-        OnSetCanvasActive(gameCanvas);
+        AppData.SetGameType(GameType.Online);
+        GameNetworkData.SetGameType(NetworkGameType.Random);
+        NetworkManager.ConnectUsingSettings();
+        LoadingController.ShowLoading();
     }
 
     private void OnPrivateGameClick()
     {
-        OnSetCanvasActive(privateGameCanvas);
+        AppData.SetGameType(GameType.Online);
+        GameNetworkData.SetGameType(NetworkGameType.Friends);
+        NetworkManager.ConnectUsingSettings();
+        LoadingController.ShowLoading();
+      
+    }
+
+    private void OnConnected()
+    {
+        LoadingController.HideLoading();
+        GameNetworkData.SetPlayerData();
+        switch (GameNetworkData.GetGameType)
+        {
+            case NetworkGameType.Random:
+                OnSetCanvasActive(gameCanvas);
+                break;
+            case NetworkGameType.Friends:
+                 OnSetCanvasActive(privateGameCanvas);
+                break;
+        }
+       
     }
 }

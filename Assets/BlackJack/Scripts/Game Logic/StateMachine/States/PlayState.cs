@@ -48,6 +48,7 @@ public class PlayState : BlackJackState
                 {
                     UpdateState();
                 }
+
                 break;
         }
     }
@@ -97,8 +98,16 @@ public class PlayState : BlackJackState
     private void StartPlay()
     {
         stateMachine.Context.StartPlayerTimer(OnTimerFinishPlay);
-       var bot= stateMachine.Context.CheckBotPlay(OnPlayerChoice);
-        stateMachine.Context.GameMenu.ShowPlayMenuUI(!bot);
+        var bot = stateMachine.Context.CheckBotPlay(OnPlayerChoice);
+        if (AppData.gameType == GameType.AI)
+        {
+            stateMachine.Context.GameMenu.ShowPlayMenuUI(!bot);
+        }
+        else
+        {
+            var player = stateMachine.Context.GetCurrentPlayer();
+            stateMachine.Context.GameMenu.ShowPlayMenuUI(player.IsLocalNetworkPlayer());
+        }
     }
 
     private void StopPlay()

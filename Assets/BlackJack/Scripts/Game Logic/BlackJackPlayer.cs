@@ -11,10 +11,12 @@ public class BlackJackPlayer
     public Transform cardPosition => blackJackPlayerUI.transform;
     public List<Card> cards = new();
     public event Action<int> OnScoreChanged;
+    public int NetworkID { get; private set; }
     public int Score { get; private set; }
     public int BetAmount { get; private set; }
     public float TimeAllowed { get; private set; }
     public PlayerType PlayerType { get; private set; }
+    
 
     public bool IsSoftTotal()
     {
@@ -119,5 +121,10 @@ public class BlackJackPlayer
         PlayerType = playerType;
         TimeAllowed = i;
         blackJackPlayerUI.SeData(playerType, i);
+    }
+
+    public void SetNetworkData(int id)
+    {
+        NetworkID = id;
     }
 }

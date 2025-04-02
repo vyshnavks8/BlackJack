@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class BetState : BlackJackState
 {
     private const int defaultAmount = 1;
@@ -5,11 +7,14 @@ public class BetState : BlackJackState
     public override void AddListener()
     {
         stateMachine.Context.GameMenu.OnBet += OnBet;
+        stateMachine.NetworkEventSender.OnPlaceChipAmount += OnPlaceChipAmount;
     }
+
 
     public override void RemoveListener()
     {
         stateMachine.Context.GameMenu.OnBet -= OnBet;
+        stateMachine.NetworkEventSender.OnPlaceChipAmount -= OnPlaceChipAmount;
         stateMachine.Context.StopCheckBot();
     }
 
@@ -33,6 +38,19 @@ public class BetState : BlackJackState
 
     private void OnBet(int amount)
     {
+        if (AppData.gameType == GameType.AI)
+        {
+            StopBet();
+            stateMachine.Context.PlacePlayerChip(amount, OnCompletedBet);
+        }
+        else
+        {
+            stateMachine.NetworkEventSender.PlacePlayerChip(amount);
+        }
+    }
+
+    private void OnPlaceChipAmount(int amount)
+    {
         StopBet();
         stateMachine.Context.PlacePlayerChip(amount, OnCompletedBet);
     }
@@ -53,7 +71,15 @@ public class BetState : BlackJackState
     {
         stateMachine.Context.StartPlayerTimer(OnTimerFinishBet);
         var bot = stateMachine.Context.CheckBotBet(OnBet);
-        stateMachine.Context.GameMenu.ShowBetMenuUI(!bot);
+        if (AppData.gameType == GameType.AI)
+        {
+            stateMachine.Context.GameMenu.ShowBetMenuUI(!bot);
+        }
+        else
+        {
+            var player = stateMachine.Context.GetCurrentPlayer();
+            stateMachine.Context.GameMenu.ShowBetMenuUI(player.IsLocalNetworkPlayer());
+        }
     }
 
     private void StopBet()
@@ -64,6 +90,19 @@ public class BetState : BlackJackState
 
     private void OnTimerFinishBet()
     {
-        OnBet(defaultAmount);
+        if (AppData.gameType == GameType.AI)
+        {
+            OnBet(defaultAmount);
+        }
+        else
+        {
+            var player = stateMachine.Context.GetCurrentPlayer();
+            if (player.IsLocalNetworkPlayer())
+            {
+                OnBet(defaultAmount);
+            }
+        }
+
+      
     }
 }

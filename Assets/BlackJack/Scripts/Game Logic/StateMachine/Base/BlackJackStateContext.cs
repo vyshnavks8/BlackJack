@@ -134,6 +134,7 @@ public class BlackJackStateContext : MonoBehaviour
         currentPlayers[playerCounter].StartTimer(completed);
     }
 
+   
     public void StopPlayerTimer()
     {
         if (playerCounter >= currentPlayers.Count) return;
@@ -146,7 +147,10 @@ public class BlackJackStateContext : MonoBehaviour
         currentPlayers = blackJackPlayers;
         totalPlayers = blackJackPlayers;
     }
-
+    public BlackJackPlayer GetCurrentPlayer()
+    {
+        return currentPlayers[playerCounter];
+    }
     public bool CheckBotBet(Action<int> bet)
     {
         var blackJackPlayer = currentPlayers[playerCounter];

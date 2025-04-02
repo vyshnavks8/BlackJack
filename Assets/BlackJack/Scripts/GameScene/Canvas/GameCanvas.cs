@@ -32,7 +32,10 @@ public class GameCanvas : CanvasBase
     {
         base.Ready();
         SetGameCode();
-        OnStartGame?.Invoke();
+        if (GameNetworkData.GetGameType == NetworkGameType.None)
+        {
+            OnStartGame?.Invoke();
+        }
     }
 
     private void SetGameCode()
@@ -93,6 +96,10 @@ public class GameCanvas : CanvasBase
 
     public void GotoHome()
     {
+        if (GameNetworkData.GetGameType != NetworkGameType.None)
+        {
+            NetworkManager.Disconnect();
+        }
         PopUpController.ClosePopUp();
         OnSetCanvasActive(homeCanvas);
         OnExitGame?.Invoke();

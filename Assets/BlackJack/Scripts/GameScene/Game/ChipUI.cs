@@ -19,8 +19,6 @@ public class ChipUI : MonoBehaviour
 
     public void SetChipValue(int chipValue)
     {
-        var colour = chipDataSO.GetChipColour(chipValue);
-        chipImage.color = colour;
         chipValueText.text = chipValue.ToString();
     }
 

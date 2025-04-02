@@ -1,3 +1,4 @@
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ public class PrivateCanvas : CanvasBase
         createButton.onClick.AddListener(OnCreateClick);
         joinButton.onClick.AddListener(OnJoinClick);
         backButton.onClick.AddListener(OnBackClick);
+        NetworkCallbackManager.onDisconnected += OnDisconnect;
     }
 
     protected override void RemoveListener()
@@ -24,20 +26,36 @@ public class PrivateCanvas : CanvasBase
         createButton.onClick.RemoveListener(OnCreateClick);
         joinButton.onClick.RemoveListener(OnJoinClick);
         backButton.onClick.RemoveListener(OnBackClick);
+        NetworkCallbackManager.onDisconnected -= OnDisconnect;
     }
-
+   
     private void OnBackClick()
-    {
-        OnSetCanvasActive(homeCanvas);
+    { 
+        LoadingController.ShowLoading();
+        GameNetworkData.SetPrivateGameType(PrivateGameType.None);
+        NetworkManager.Disconnect();
     }
 
     private void OnJoinClick()
     {
+        GameNetworkData.SetPrivateGameType(PrivateGameType.Join);
         OnSetCanvasActive(joinCanvas);
     }
 
     private void OnCreateClick()
     {
+        GameNetworkData.SetPrivateGameType(PrivateGameType.Create);
         OnSetCanvasActive(createCanvas);
     }
+    private void OnDisconnect(DisconnectCause cause)
+    {
+        LoadingController.HideLoading();
+        switch (cause)
+        {
+            case DisconnectCause.DisconnectByClientLogic:
+                OnSetCanvasActive(homeCanvas);
+                break;
+        }
+    }
+
 }

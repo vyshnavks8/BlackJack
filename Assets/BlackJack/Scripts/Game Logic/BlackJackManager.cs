@@ -13,17 +13,42 @@ public class BlackJackManager : MonoBehaviour
     [SerializeField] private GameCanvas gameCanvas;
     [SerializeField] private GameType gameType;
     [SerializeField, Range(5, 100)] private float gameTime = 10;
+    private bool gameStarted;
 
     private void OnEnable()
     {
+        Init();
+        AppData.OnUpdateGameType += OnGameTypeUpdate;
         gameCanvas.OnStartGame += StartGame;
         gameCanvas.OnExitGame += StopGame;
     }
 
+
+    private void Init()
+    {
+        InitPlayerUI();
+    }
+
     private void OnDisable()
     {
+        AppData.OnUpdateGameType -= OnGameTypeUpdate;
         gameCanvas.OnStartGame -= StartGame;
         gameCanvas.OnExitGame -= StopGame;
+    }
+
+    public void SetNetworkPlayer(int playerCount, List<int> playersList)
+    {
+        currentPlayerCount = playerCount;
+        var currentPlayers = BlackJackGameUtility.GetPlayers(currentPlayerCount, players);
+        for (var index = 0; index < currentPlayers.Count; index++)
+        {
+            var player = currentPlayers[index];
+            player.SetNetworkData(playersList[index]);
+        }
+    }
+    private void OnGameTypeUpdate(GameType type)
+    {
+        gameType = type;
     }
 
     public void ExitGame()
@@ -33,6 +58,7 @@ public class BlackJackManager : MonoBehaviour
 
     public void StartGame()
     {
+        gameStarted = true;
         var currentPlayers = BlackJackGameUtility.GetPlayers(currentPlayerCount, players);
         SetPlayerData(currentPlayers);
         stateMachine.Init(dealer, currentPlayers);
@@ -47,12 +73,18 @@ public class BlackJackManager : MonoBehaviour
 
     public void StopGame()
     {
+        if (!gameStarted) return;
+        gameStarted = false;
+        InitPlayerUI();
+        stateMachine.ResetData();
+    }
+
+    private void InitPlayerUI()
+    {
         foreach (var player in players)
         {
             player.ShowProfile(false);
         }
-
-        stateMachine.ResetData();
     }
 
     private void SetPlayerData(List<BlackJackPlayer> currentPlayers)

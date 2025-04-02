@@ -9,6 +9,7 @@ public static class NetworkManager
     private static readonly Hashtable CustomTable = new();
     public static bool IsMasterClient => PhotonNetwork.IsMasterClient;
     public static Player LocalPlayer => PhotonNetwork.LocalPlayer;
+    public static Room CurrentRoom => PhotonNetwork.CurrentRoom;
     public static string GenerateRoomCode()
     {
         var random = Random.Range(11111, 99999);
@@ -43,7 +44,7 @@ public static class NetworkManager
     public static void CreateRoom(string roomName, byte maxPlayersPerRoom)
     {
         if (!PhotonNetwork.IsConnected) return;
-        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+        PhotonNetwork.CreateRoom(roomName, new RoomOptions {  MaxPlayers = maxPlayersPerRoom });
     }
 
     public static void JoinRoom(string roomName)
@@ -74,6 +75,10 @@ public static class NetworkManager
     {
         CustomTable[key] = data;
         LocalPlayer.SetCustomProperties(CustomTable);
+    }
+    public static object GetPlayerProperties(Player player,string key)
+    {
+        return player.CustomProperties[key];
     }
     public static void RaiseEvent(object data, byte eventCode, ReceiverGroup group, bool reliable = true)
     {

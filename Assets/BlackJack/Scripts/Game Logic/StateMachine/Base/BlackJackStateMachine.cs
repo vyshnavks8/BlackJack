@@ -4,7 +4,9 @@ using UnityEngine;
 public class BlackJackStateMachine : MonoBehaviour
 {
     [SerializeField] private BlackJackStateContext context;
+    [SerializeField] private GameNetworkEventSender networkEventSender;
     public BlackJackStateContext Context => context;
+    public GameNetworkEventSender NetworkEventSender => networkEventSender;
     public List<BlackJackState> state = new();
     private int currentState;
 
