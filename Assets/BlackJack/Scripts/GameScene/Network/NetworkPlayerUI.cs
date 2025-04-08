@@ -9,7 +9,10 @@ public class NetworkPlayerUI : MonoBehaviour
 
     public void SetData(Sprite icon,string playerName)
     {
-        playerIconImage.sprite = icon;
+        if (icon != null)
+        {
+            playerIconImage.sprite = icon;
+        }
         playerNameText.text = playerName;
     }
 }

@@ -10,6 +10,7 @@ public class GameNetworkEventSender : MonoBehaviour
 {
     [SerializeField] GameNetworkManager gameNetworkManager;
     public event Action<int> OnPlaceChipAmount;
+    public event Action<PlayerChoice> OnPlayerChoice;
     public event Action<Deck> OnInitDeck;
 
     private void OnEnable()
@@ -38,9 +39,12 @@ public class GameNetworkEventSender : MonoBehaviour
                 break;
             case NetworkEventCode.PlaceBet:
                 PlacePlayerChipEvent(eventData.CustomData);
-                break; 
+                break;
             case NetworkEventCode.InitDeck:
                 InitDeckEvent(eventData.CustomData);
+                break; 
+            case NetworkEventCode.PlaceChoice:
+                PlacePlayerChoiceEvent(eventData.CustomData);
                 break;
         }
     }
@@ -75,6 +79,7 @@ public class GameNetworkEventSender : MonoBehaviour
     private void StartGame()
     {
         if (!NetworkManager.IsMasterClient) return;
+        NetworkManager.CurrentRoom.IsOpen = false;
         var hashtable = new Hashtable
         {
             { 0, gameNetworkManager.playersList.Count },
@@ -100,6 +105,7 @@ public class GameNetworkEventSender : MonoBehaviour
         NetworkManager.RaiseEvent(hashtable, NetworkEventCode.PlaceBet, ReceiverGroup.All);
     }
 
+
     private void PlacePlayerChipEvent(object eventData)
     {
         var dataTable = (Hashtable)eventData;
@@ -107,6 +113,20 @@ public class GameNetworkEventSender : MonoBehaviour
         OnPlaceChipAmount?.Invoke(chipAmount);
     }
 
+    public void PlacePlayerChoice(PlayerChoice choice)
+    {
+        var hashtable = new Hashtable
+        {
+            { 0, choice },
+        };
+        NetworkManager.RaiseEvent(hashtable, NetworkEventCode.PlaceChoice, ReceiverGroup.All);
+    }
+    private void PlacePlayerChoiceEvent(object eventData)
+    {
+        var dataTable = (Hashtable)eventData;
+        var playerChoice = (PlayerChoice)dataTable[0];
+        OnPlayerChoice?.Invoke(playerChoice);
+    }
     public void InitDeck(Deck deck)
     {
         var data = JsonConvert.SerializeObject(deck);

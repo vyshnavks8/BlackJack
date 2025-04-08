@@ -11,29 +11,38 @@ public class FinishState : BlackJackState
     {
         waitToFinish = Wait();
         StartCoroutine(waitToFinish);
-
     }
 
     private IEnumerator Wait()
     {
         yield return new WaitForSeconds(waitTime);
-        var popContent = new PopContent("", "Do you want\nto <size=150><b>Replay</size></b> Game ?");
-        var buttonContentA = new ButtonContent("No", OnClickNo);
-        var buttonContentB = new ButtonContent("Yes", OnClickYes);
-        PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
-        
+        if (AppData.gameType == GameType.AI)
+        {
+            var popContent = new PopContent("", "Do you want\nto <size=150><b>Replay</size></b> Game ?");
+            var buttonContentA = new ButtonContent("No", OnExitGame);
+            var buttonContentB = new ButtonContent("Yes", OnRestartGame);
+            PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
+        }
+        else
+        {
+            var popContent = new PopContent("", "Go to\n <size=150><b>Main Menu</size></b>");
+            //  var buttonContentA = new ButtonContent("No", OnExitGame);
+            var buttonContentB = new ButtonContent("Yes", OnExitGame);
+            PopUpController.ShowPopUp(popContent, buttonContentB,ButtonType.ButtonB);
+        }
     }
 
-    private void OnClickYes()
+    private void OnRestartGame()
     {
         PopUpController.ClosePopUp();
         blackJackManager.RestartGame();
     }
 
-    private void OnClickNo()
+    private void OnExitGame()
     {
         PopUpController.ClosePopUp();
         blackJackManager.ExitGame();
+        
     }
 
     public override void UpdateState()

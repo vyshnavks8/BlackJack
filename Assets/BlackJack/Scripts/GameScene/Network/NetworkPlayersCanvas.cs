@@ -39,6 +39,12 @@ public class NetworkPlayersCanvas : MonoBehaviour
         var playerUI = Instantiate(networkPlayerUI, playerListPivot);
         playerUI.SetData(data.playerIcon, data.playerName);
         networkPlayersDictionary.Add(id, playerUI);
+        ActivateStartButton();
+    }
+
+    private void ActivateStartButton()
+    {
+        startButton.interactable = networkPlayersDictionary.Count > 1;
     }
 
     public void RemovePlayer(int id)
@@ -46,6 +52,7 @@ public class NetworkPlayersCanvas : MonoBehaviour
         networkPlayersDictionary.TryGetValue(id, out var playerUI);
         if (playerUI != null) Destroy(playerUI.gameObject);
         networkPlayersDictionary.Remove(id);
+        ActivateStartButton();
     }
 
     public void ClearPlayers()

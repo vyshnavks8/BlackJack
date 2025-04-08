@@ -7,14 +7,14 @@ public class BetState : BlackJackState
     public override void AddListener()
     {
         stateMachine.Context.GameMenu.OnBet += OnBet;
-        stateMachine.NetworkEventSender.OnPlaceChipAmount += OnPlaceChipAmount;
+        stateMachine.NetworkEventSender.OnPlaceChipAmount += PlaceChipAmount;
     }
 
 
     public override void RemoveListener()
     {
         stateMachine.Context.GameMenu.OnBet -= OnBet;
-        stateMachine.NetworkEventSender.OnPlaceChipAmount -= OnPlaceChipAmount;
+        stateMachine.NetworkEventSender.OnPlaceChipAmount -= PlaceChipAmount;
         stateMachine.Context.StopCheckBot();
     }
 
@@ -40,8 +40,7 @@ public class BetState : BlackJackState
     {
         if (AppData.gameType == GameType.AI)
         {
-            StopBet();
-            stateMachine.Context.PlacePlayerChip(amount, OnCompletedBet);
+            PlaceChipAmount(amount);
         }
         else
         {
@@ -49,7 +48,7 @@ public class BetState : BlackJackState
         }
     }
 
-    private void OnPlaceChipAmount(int amount)
+    private void PlaceChipAmount(int amount)
     {
         StopBet();
         stateMachine.Context.PlacePlayerChip(amount, OnCompletedBet);

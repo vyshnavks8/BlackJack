@@ -5,11 +5,13 @@ public class PlayState : BlackJackState
     public override void AddListener()
     {
         stateMachine.Context.GameMenu.OnPlayerChoice += OnPlayerChoice;
+        stateMachine.NetworkEventSender.OnPlayerChoice += SetPlayerChoice;
     }
 
     public override void RemoveListener()
     {
         stateMachine.Context.GameMenu.OnPlayerChoice -= OnPlayerChoice;
+        stateMachine.NetworkEventSender.OnPlayerChoice -= SetPlayerChoice;
         stateMachine.Context.StopCheckBot();
     }
 
@@ -29,6 +31,18 @@ public class PlayState : BlackJackState
 
 
     private void OnPlayerChoice(PlayerChoice playerChoice)
+    {
+        if (AppData.gameType == GameType.AI)
+        {
+            SetPlayerChoice(playerChoice);
+        }
+        else
+        {
+            stateMachine.NetworkEventSender.PlacePlayerChoice(playerChoice);
+        }
+    }
+
+    private void SetPlayerChoice(PlayerChoice playerChoice)
     {
         StopPlay();
         selectedPlayerChoice = playerChoice;
@@ -118,6 +132,18 @@ public class PlayState : BlackJackState
 
     private void OnTimerFinishPlay()
     {
-        OnPlayerChoice(PlayerChoice.Stand);
+        if (AppData.gameType == GameType.AI)
+        {
+            OnPlayerChoice(PlayerChoice.Stand);
+        }
+        else
+        {
+            var player = stateMachine.Context.GetCurrentPlayer();
+            if (player.IsLocalNetworkPlayer())
+            {
+                OnPlayerChoice(PlayerChoice.Stand);
+            }
+        }
+       
     }
 }

@@ -27,6 +27,7 @@ public class GameCanvas : CanvasBase
     [SerializeField] private CanvasBase navMenuCanvas;
     public event Action OnStartGame;
     public event Action OnExitGame;
+    
 
     public override void Ready()
     {

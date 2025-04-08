@@ -8,9 +8,12 @@ public class GameNetworkManager : MonoBehaviour
     [SerializeField] public NetworkPlayersCanvas networkPlayersCanvas;
     [SerializeField] public BlackJackManager blackJackManager;
     [SerializeField, HideInInspector] public List<int> playersList = new();
-public event Action SyncPlayerList;
+    public event Action SyncPlayerList;
+
     private void OnEnable()
     {
+        NetworkCallbackManager.onMasterClientSwitched += OnMasterClientSwitched;
+        NetworkCallbackManager.onDisconnected += OnDisconnect;
         NetworkCallbackManager.onJoinedRoom += OnJoinRoom;
         NetworkCallbackManager.onPlayerEnteredRoom += OnPlayerEnterRoom;
         NetworkCallbackManager.onPlayerLeftRoom += OnPlayerLeftRoom;
@@ -19,11 +22,17 @@ public event Action SyncPlayerList;
 
     private void OnDisable()
     {
+        NetworkCallbackManager.onMasterClientSwitched -= OnMasterClientSwitched;
+        NetworkCallbackManager.onDisconnected -= OnDisconnect;
         NetworkCallbackManager.onJoinedRoom -= OnJoinRoom;
         NetworkCallbackManager.onPlayerEnteredRoom -= OnPlayerEnterRoom;
         NetworkCallbackManager.onPlayerLeftRoom -= OnPlayerLeftRoom;
     }
 
+    private void OnMasterClientSwitched(Player player)
+    {
+        networkPlayersCanvas.ShowCanvas(player.ActorNumber == NetworkManager.LocalPlayer.ActorNumber);
+    }
 
     private void OnJoinRoom()
     {
@@ -49,5 +58,17 @@ public event Action SyncPlayerList;
         networkPlayersCanvas.AddPlayer(player.ActorNumber, data);
         playersList.Add(player.ActorNumber);
         SyncPlayerList?.Invoke();
+    }
+
+    private void OnDisconnect(DisconnectCause cause)
+    {
+        LoadingController.HideLoading();
+        switch (cause)
+        {
+            case DisconnectCause.DisconnectByClientLogic:
+                playersList.Clear();
+                networkPlayersCanvas.HideCanvas();
+                break;
+        }
     }
 }

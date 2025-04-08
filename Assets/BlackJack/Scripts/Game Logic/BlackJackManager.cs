@@ -46,6 +46,7 @@ public class BlackJackManager : MonoBehaviour
             player.SetNetworkData(playersList[index]);
         }
     }
+
     private void OnGameTypeUpdate(GameType type)
     {
         gameType = type;
@@ -53,11 +54,17 @@ public class BlackJackManager : MonoBehaviour
 
     public void ExitGame()
     {
+     
         gameCanvas.GotoHome();
     }
 
     public void StartGame()
     {
+        if (GameType.AI == gameType)
+        {
+            currentPlayerCount = 5;
+        }
+
         gameStarted = true;
         var currentPlayers = BlackJackGameUtility.GetPlayers(currentPlayerCount, players);
         SetPlayerData(currentPlayers);
