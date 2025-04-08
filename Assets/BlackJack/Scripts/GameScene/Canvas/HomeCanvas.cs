@@ -81,6 +81,7 @@ public class HomeCanvas : CanvasBase
         {
             case NetworkGameType.Random:
                 OnSetCanvasActive(gameCanvas);
+                NetworkManager.JoinRandomOrCreateRoom(5);
                 break;
             case NetworkGameType.Friends:
                  OnSetCanvasActive(privateGameCanvas);
