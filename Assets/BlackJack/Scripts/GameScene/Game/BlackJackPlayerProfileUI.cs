@@ -10,6 +10,9 @@ public class BlackJackPlayerProfileUI : MonoBehaviour
     [SerializeField] private Sprite botSprite;
     [SerializeField] private CoolDownTimerUI timerUI;
     [SerializeField] private Image iconImage;
+    [SerializeField] private Image bgImage;
+    [SerializeField] private Color dealerColor;
+    [SerializeField] private Color playerColor;
 
     private float time;
 
@@ -42,6 +45,16 @@ public class BlackJackPlayerProfileUI : MonoBehaviour
     public void StopTurn()
     {
         OnFinishTurn();
+    }
+
+    public void SetDealerStyle()
+    {
+        bgImage.color = dealerColor;
+    }
+
+    public void SetPlayerStyle()
+    {
+        bgImage.color = playerColor;
     }
 
     private void OnFinishTurn()

@@ -1,12 +1,17 @@
-public class PlayState : BlackJackState
+using UnityEngine;
+
+public class BetOrPassState : BlackJackState
 {
+    [SerializeField] private BetState  betState;
     private PlayerChoice selectedPlayerChoice = PlayerChoice.None;
+    private int passCounter = 0;
 
     public override void AddListener()
     {
         stateMachine.Context.GameMenu.OnPlayerChoice += OnPlayerChoice;
         stateMachine.NetworkEventSender.OnPlayerChoice += SetPlayerChoice;
     }
+
 
     public override void RemoveListener()
     {
@@ -17,18 +22,9 @@ public class PlayState : BlackJackState
 
     public override void EnterState()
     {
-        stateMachine.Context.playerCounter = 0;
-        var wonPlayer = stateMachine.Context.GetWonPlayer();
-        foreach (var player in wonPlayer)
-        {
-            player.ShowStatus();
-            stateMachine.Context.AddToRemovedPlayer(player);
-            stateMachine.Context.RemoveFromCurrentPlayer(player);
-        }
-
+        stateMachine.Context.IncrementNextPlayer();
         AddListener();
     }
-
 
     private void OnPlayerChoice(PlayerChoice playerChoice)
     {
@@ -48,15 +44,16 @@ public class PlayState : BlackJackState
         selectedPlayerChoice = playerChoice;
         switch (selectedPlayerChoice)
         {
-            case PlayerChoice.Hit:
+            case PlayerChoice.Bet:
                 UpdateState();
                 break;
-            case PlayerChoice.Stand:
+            case PlayerChoice.Pass:
                 selectedPlayerChoice = PlayerChoice.None;
-                stateMachine.Context.playerCounter += 1;
-                if (stateMachine.Context.IsMaxPlayerCounter())
+                stateMachine.Context.IncrementNextPlayer();
+                passCounter += 1;
+                if (passCounter == stateMachine.Context.currentPlayers.Count - 1)
                 {
-                    stateMachine.SwitchState();
+                    // stateMachine.SwitchState(); // restart game
                 }
                 else
                 {
@@ -75,75 +72,57 @@ public class PlayState : BlackJackState
             return;
         }
 
-        PlaceCards();
+        StartBet();
     }
 
-
-    private void OnCompleted(bool completed)
-    {
-        var status = stateMachine.Context.CheckCurrentPlayerStatus();
-        if (status is PlayerStatus.Won or PlayerStatus.Busted)
-        {
-            stateMachine.Context.ShowCurrentPlayerStatus();
-            stateMachine.Context.playerCounter += 1;
-            if (stateMachine.Context.IsMaxPlayerCounter())
-            {
-                stateMachine.SwitchState();
-                return;
-            }
-        }
-
-        StartPlay();
-    }
 
     public override void ExitState()
     {
-        stateMachine.Context.playerCounter = 0;
+        passCounter = 0;
         StopPlay();
         RemoveListener();
     }
 
 
-    private void PlaceCards()
+    private void StartBet()
     {
-        stateMachine.Context.PlacePlayerCard(OnCompleted);
+          stateMachine.SwitchState(betState);
     }
 
     private void StartPlay()
     {
         stateMachine.Context.StartPlayerTimer(OnTimerFinishPlay);
-        var bot = stateMachine.Context.CheckBotPlay(OnPlayerChoice);
+        var bot = stateMachine.Context.CheckBotPlaySelect(OnPlayerChoice);
         if (AppData.gameType == GameType.AI)
         {
-            stateMachine.Context.GameMenu.ShowPlayMenuUI(!bot);
+            stateMachine.Context.GameMenu.ShowPlaySelectMenuUI(!bot);
         }
         else
         {
             var player = stateMachine.Context.GetCurrentPlayer();
-            stateMachine.Context.GameMenu.ShowPlayMenuUI(player.IsLocalNetworkPlayer());
+            stateMachine.Context.GameMenu.ShowPlaySelectMenuUI(player.IsLocalNetworkPlayer());
         }
     }
 
     private void StopPlay()
     {
         stateMachine.Context.StopPlayerTimer();
-        stateMachine.Context.GameMenu.ShowPlayMenuUI(false);
+        stateMachine.Context.GameMenu.ShowPlaySelectMenuUI(false);
     }
 
     private void OnTimerFinishPlay()
     {
         if (AppData.gameType == GameType.AI)
         {
-            OnPlayerChoice(PlayerChoice.Stand);
+            OnPlayerChoice(PlayerChoice.Pass);
         }
         else
         {
             var player = stateMachine.Context.GetCurrentPlayer();
             if (player.IsLocalNetworkPlayer())
             {
-                OnPlayerChoice(PlayerChoice.Stand);
+                OnPlayerChoice(PlayerChoice.Pass);
             }
         }
-       
     }
 }

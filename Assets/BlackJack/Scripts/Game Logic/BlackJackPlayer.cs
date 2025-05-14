@@ -44,6 +44,11 @@ public class BlackJackPlayer
         ShowScore();
     }
 
+    public void UpdateBetAmount(int amount)
+    {
+        BetAmount = amount;
+        blackJackPlayerUI.UpdateChip(amount);
+    }
     public void SetBet(int amount, Action callback = null)
     {
         BetAmount = amount;
@@ -53,7 +58,7 @@ public class BlackJackPlayer
     private void ShowScore()
     {
         Score = BlackJackGameUtility.CalculatePlayerScore(cards);
-        //blackJackPlayerUI.ShowScore(Score.ToString());
+        blackJackPlayerUI.ShowScore(Score.ToString());
         OnScoreChanged?.Invoke(Score);
     }
 

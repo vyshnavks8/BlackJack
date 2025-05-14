@@ -34,6 +34,15 @@ public static class BlackJackGameUtility
                 positionsToAdd.Add(PlayerPosition.BottomLeft);
                 positionsToAdd.Add(PlayerPosition.TopLeft);
                 break;
+            case 6 :
+                positionsToAdd.Add(PlayerPosition.Top);
+                positionsToAdd.Add(PlayerPosition.TopRight);
+                positionsToAdd.Add(PlayerPosition.BottomRight);
+                positionsToAdd.Add(PlayerPosition.Bottom);
+                positionsToAdd.Add(PlayerPosition.BottomLeft);
+                positionsToAdd.Add(PlayerPosition.TopLeft);
+                break;
+                
         }
         return players.Where(player => positionsToAdd.Contains(player.playerPosition)).ToList();
     }

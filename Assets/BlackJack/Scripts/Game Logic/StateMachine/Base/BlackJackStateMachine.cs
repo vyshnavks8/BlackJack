@@ -8,29 +8,27 @@ public class BlackJackStateMachine : MonoBehaviour
     public BlackJackStateContext Context => context;
     public GameNetworkEventSender NetworkEventSender => networkEventSender;
     public List<BlackJackState> state = new();
-    private int currentState;
-
-    public void SwitchState()
+    //private int currentState;
+    public BlackJackState startState;
+    public BlackJackState currentState;
+ 
+    public void SwitchState(BlackJackState newState)
     {
-        if (state[currentState] != null)
+        if (currentState != null)
         {
-            state[currentState].ExitState();
+            currentState.ExitState();
         }
 
-        currentState += 1;
-        if (currentState > state.Count)
-        {
-            return;
-        }
+        currentState = newState;
 
-        state[currentState].EnterState();
-        state[currentState].UpdateState();
+        currentState.EnterState();
+        currentState.UpdateState();
     }
 
-    public void Init(BlackJackPlayer dealer, List<BlackJackPlayer> currentPlayers)
+    public void Init(List<BlackJackPlayer> currentPlayers)
     {
         Context.GameMenu.HideUI();
-        Context.SetPlayer(dealer,currentPlayers);
+        Context.SetPlayer(currentPlayers);
         InitStates();
     }
 
@@ -40,13 +38,13 @@ public class BlackJackStateMachine : MonoBehaviour
         {
             blackJackState.Init(this);
         }
+        
     }
 
     public void GotoStartState()
     {
-        currentState = 0;
-        state[currentState].EnterState();
-        state[currentState].UpdateState();
+       SwitchState(startState);
+        
     }
 
     public void ResetData()
@@ -55,7 +53,6 @@ public class BlackJackStateMachine : MonoBehaviour
         {
             blackJackState.RemoveListener();
         }
-        currentState = 0;
         context.ResetData();
     }
 }

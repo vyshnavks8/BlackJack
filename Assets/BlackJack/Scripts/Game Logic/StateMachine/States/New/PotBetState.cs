@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class BetState : BlackJackState
+public class PotBetState : BlackJackState
 {
     private const int defaultAmount = 1;
+    [SerializeField] private InitialCardPlaceState initialCardPlaceState;
 
     public override void AddListener()
     {
@@ -20,7 +21,6 @@ public class BetState : BlackJackState
 
     public override void EnterState()
     {
-        stateMachine.Context.playerCounter = 0;
         AddListener();
         StartBet();
     }
@@ -31,7 +31,6 @@ public class BetState : BlackJackState
 
     public override void ExitState()
     {
-        stateMachine.Context.playerCounter = 0;
         RemoveListener();
         stateMachine.Context.GameMenu.ShowBetMenuUI(false);
     }
@@ -56,14 +55,7 @@ public class BetState : BlackJackState
 
     private void OnCompletedBet(bool obj)
     {
-        stateMachine.Context.playerCounter += 1;
-        if (stateMachine.Context.IsMaxPlayerCounter())
-        {
-            stateMachine.SwitchState();
-            return;
-        }
-
-        StartBet();
+        stateMachine.SwitchState(initialCardPlaceState);
     }
 
     private void StartBet()
@@ -101,7 +93,5 @@ public class BetState : BlackJackState
                 OnBet(defaultAmount);
             }
         }
-
-      
     }
 }

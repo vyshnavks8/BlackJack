@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class BlackJackManager : MonoBehaviour
 {
-    [SerializeField] private BlackJackPlayer dealer;
+    [SerializeField] private  InputAction startGameKey;
     [SerializeField] private BlackJackPlayer[] players;
-    [SerializeField, Range(1, 5)] private int currentPlayerCount;
+    [SerializeField, Range(3, 6)] private int MaxAIPlayers = 3;
+    [SerializeField, Range(1, 6)] private int currentPlayerCount;
     [SerializeField] private BlackJackStateMachine stateMachine;
     [SerializeField] private GameCanvas gameCanvas;
     [SerializeField] private GameType gameType;
@@ -21,20 +23,31 @@ public class BlackJackManager : MonoBehaviour
         AppData.OnUpdateGameType += OnGameTypeUpdate;
         gameCanvas.OnStartGame += StartGame;
         gameCanvas.OnExitGame += StopGame;
+        startGameKey.Enable();
+        startGameKey.started += StartGameByKey;
     }
-
+    private void OnDisable()
+    {
+        AppData.OnUpdateGameType -= OnGameTypeUpdate;
+        gameCanvas.OnStartGame -= StartGame;
+        gameCanvas.OnExitGame -= StopGame;
+        startGameKey.Disable();
+        startGameKey.started -= StartGameByKey;
+    }
+    private void StartGameByKey(InputAction.CallbackContext obj)
+    {
+        if (obj.started&& !gameStarted)
+        {
+            StartGame();
+        }
+    }
 
     private void Init()
     {
         InitPlayerUI();
     }
 
-    private void OnDisable()
-    {
-        AppData.OnUpdateGameType -= OnGameTypeUpdate;
-        gameCanvas.OnStartGame -= StartGame;
-        gameCanvas.OnExitGame -= StopGame;
-    }
+
 
     public void SetNetworkPlayer(int playerCount, List<int> playersList)
     {
@@ -54,7 +67,6 @@ public class BlackJackManager : MonoBehaviour
 
     public void ExitGame()
     {
-     
         gameCanvas.GotoHome();
     }
 
@@ -62,13 +74,13 @@ public class BlackJackManager : MonoBehaviour
     {
         if (GameType.AI == gameType)
         {
-            currentPlayerCount = 5;
+            currentPlayerCount = MaxAIPlayers;
         }
-
         gameStarted = true;
         var currentPlayers = BlackJackGameUtility.GetPlayers(currentPlayerCount, players);
         SetPlayerData(currentPlayers);
-        stateMachine.Init(dealer, currentPlayers);
+        stateMachine.Context.SetFirstGame(true);
+        stateMachine.Init(currentPlayers);
         stateMachine.GotoStartState();
     }
 
@@ -131,7 +143,6 @@ public class BlackJackGameManagerEditor : Editor
         {
             manager.StartGame();
         }
-
         if (GUILayout.Button("Restart Game"))
         {
             manager.RestartGame();

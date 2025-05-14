@@ -94,6 +94,9 @@ MonoBehaviour:
   botSprite: {fileID: 21300000, guid: 386b09e98f31b4b47b517327a59044dc, type: 3}
   timerUI: {fileID: 2130214050386900774}
   iconImage: {fileID: 8965766207058967787}
+  bgImage: {fileID: 2166444992807196676}
+  dealerColor: {r: 0, g: 0.99215686, b: 0.78431374, a: 1}
+  playerColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2130214050386900774
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,4 +4,6 @@ public enum PlayerChoice
     Hit,
     Stand,
     Double,
+    Bet,
+    Pass,
 }

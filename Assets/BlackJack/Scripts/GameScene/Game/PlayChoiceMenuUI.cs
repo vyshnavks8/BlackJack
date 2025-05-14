@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayMenuUI : MonoBehaviour
+public class PlayChoiceMenuUI : MonoBehaviour
 {
     [SerializeField] private Button hitButton;
     [SerializeField] private Button standButton;

@@ -13,17 +13,23 @@ MonoBehaviour:
   m_Name: ChipData
   m_EditorClassIdentifier: 
   chips:
-  - ChipValue: 1
-    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
-  - ChipValue: 2
-    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
-  - ChipValue: 5
-    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
   - ChipValue: 10
     ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
   - ChipValue: 20
     ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
+  - ChipValue: 30
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
+  - ChipValue: 40
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
   - ChipValue: 50
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
+  - ChipValue: 60
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
+  - ChipValue: 70
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
+  - ChipValue: 80
+    ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
+  - ChipValue: 90
     ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}
   - ChipValue: 100
     ChipColour: {r: 0.91764706, g: 0.7137255, b: 0.20784314, a: 1}

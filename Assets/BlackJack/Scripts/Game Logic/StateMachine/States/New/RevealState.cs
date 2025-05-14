@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class RevealState : BlackJackState
 {
+    [SerializeField] private CheckWinState checkWinState;
     private bool cardsReveled;
 
     public override void AddListener()
     {
+        if (stateMachine.Context.Dealer == null) return;
         stateMachine.Context.Dealer.OnScoreChanged += OnScoreChanged;
     }
 
     public override void RemoveListener()
     {
+        if (stateMachine.Context.Dealer == null) return;
         stateMachine.Context.Dealer.OnScoreChanged -= OnScoreChanged;
     }
 
@@ -24,7 +27,7 @@ public class RevealState : BlackJackState
     public override void UpdateState()
     {
         if (!cardsReveled) return;
-        stateMachine.SwitchState();
+        stateMachine.SwitchState(checkWinState);
     }
 
     public override void ExitState()
@@ -35,13 +38,6 @@ public class RevealState : BlackJackState
     private void OnScoreChanged(int score)
     {
         cardsReveled = true;
-        if (score <= 16)
-        {
-            stateMachine.Context.PlaceDealerCard(true);
-        }
-        else
-        {
-            UpdateState();
-        }
+        UpdateState();
     }
 }

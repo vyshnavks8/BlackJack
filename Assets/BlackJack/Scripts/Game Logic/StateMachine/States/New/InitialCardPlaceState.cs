@@ -1,10 +1,12 @@
 using System;
 using RedDevil.PlayingCards;
+using UnityEngine;
+using UnityEngine.Serialization;
 
-public class InitialState : BlackJackState
+public class InitialCardPlaceState : BlackJackState
 {
     private bool deckInit;
-
+    [SerializeField] private BetOrPassState betOrPassState;
     public override void AddListener()
     {
         stateMachine.NetworkEventSender.OnInitDeck += OnInitDeck;
@@ -49,40 +51,50 @@ public class InitialState : BlackJackState
     public override void UpdateState()
     {
         if (!deckInit) return;
-        PlaceCards(true, FinishedFirstRound);
+        stateMachine.Context.IncrementNextPlayer();
+        PlaceCards(true, FinishedRound);
     }
 
     public override void ExitState()
     {
-        stateMachine.Context.playerCounter = 0;
+        stateMachine.Context.cardPlaceCounter = 0;
         RemoveListener();
     }
 
-    private void FinishedFirstRound()
+    private void FinishedRound()
     {
-        stateMachine.Context.playerCounter = 0;
-        PlaceCards(false, OnFinishSecondRound);
+        stateMachine.SwitchState(betOrPassState);
     }
 
-    private void OnFinishSecondRound()
-    {
-        stateMachine.SwitchState();
-    }
 
     private void PlaceCards(bool showDealer, Action callback)
     {
-        stateMachine.Context.PlacePlayerCard(finished => OnCompleted(finished, showDealer, callback), true);
+        var showCard = false;
+        if (AppData.gameType == GameType.AI)
+        {
+            if (!stateMachine.Context.IsCurrentPlayerBot)
+            {
+                showCard = true;
+            }
+        }
+        else
+        {
+            //Network
+        }
+        
+        stateMachine.Context.PlacePlayerCard(completed => OnCompleted(completed, showDealer, callback), true, showCard);
     }
 
-    private void OnCompleted(bool finished, bool showDealer, Action callback)
+    private void OnCompleted(bool completed, bool showDealer, Action callback)
     {
-        if (finished)
+        if (completed)
         {
             PlaceCards(showDealer, callback);
         }
         else
         {
             stateMachine.Context.PlaceDealerCard(showDealer, _ => callback?.Invoke());
+          
         }
     }
 }

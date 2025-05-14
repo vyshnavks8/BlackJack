@@ -18,25 +18,35 @@ public class BlackJackPlayerUI : MonoBehaviour
     [Header("HAND")]
     [SerializeField] private TMP_Text score;
     [SerializeField] private TMP_Text status;
+ 
     private readonly List<CardUI> cards = new();
     private readonly List<ChipUI> chips = new();
-
+    private ChipUI chipInstance;
     public void AddCard(Card card, bool visible = true)
     {
         var cardInstance = Instantiate(cardUI, cardHolder);
         cardInstance.SetData(card, visible);
         cards.Add(cardInstance);
     }
-
     public void PlaceChip(int value, Action completed)
     {
-        var chipInstance = Instantiate(chipUI, chipHolder);
+      
+        chipInstance = Instantiate(chipUI, chipHolder);
         chipInstance.transform.position = chipOrigin.position;
         chipInstance.SetChipValue(value);
         chipInstance.MoveTo(chipLocation, completed);
         chips.Add(chipInstance);
     }
 
+    public void UpdateChip(int value)
+    {
+        chipInstance.SetChipValue(value);
+    }
+
+    public void MoveChip(RectTransform rect,Action completed)
+    {
+        chipInstance.MoveTo(rect, completed);
+    }
     public void RevealCard(Action cardRevealed)
     {
         foreach (var cardInstance in cards)
@@ -95,4 +105,16 @@ public class BlackJackPlayerUI : MonoBehaviour
     {
         profileUI.SetData(playerType,i);
     }
+
+    public void SetDealerStyle()
+    {
+       profileUI.SetDealerStyle();
+    }
+
+    public void SetPlayerStyle()
+    {
+        profileUI.SetPlayerStyle();
+    }
+
+   
 }

@@ -1,18 +1,21 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GameMenuUI : MonoBehaviour
 {
     [SerializeField] private Image bg;
     [SerializeField] private BetMenuUI betMenuUI;
-    [SerializeField] private PlayMenuUI playMenuUI;
+    [SerializeField] private PlayChoiceMenuUI playChoiceMenuUI;
+    [SerializeField] private PlaySelectMenuUI playSelectMenuUI;
     public event Action<PlayerChoice> OnPlayerChoice;
     public event Action<int> OnBet;
 
     private void OnEnable()
     {
-        playMenuUI.OnPlayerChoice += PlayerChoice;
+        playChoiceMenuUI.OnPlayerChoice += PlayerChoice;
+        playSelectMenuUI.OnPlayerChoice += PlayerChoice;
         betMenuUI.OnBet += Bet;
     }
 
@@ -20,7 +23,8 @@ public class GameMenuUI : MonoBehaviour
     private void OnDisable()
     {
         betMenuUI.OnBet -= Bet;
-        playMenuUI.OnPlayerChoice -= PlayerChoice;
+        playChoiceMenuUI.OnPlayerChoice -= PlayerChoice;
+        playSelectMenuUI.OnPlayerChoice -= PlayerChoice;
     }
 
 
@@ -34,9 +38,15 @@ public class GameMenuUI : MonoBehaviour
         OnPlayerChoice?.Invoke(choice);
     }
 
-    public void ShowPlayMenuUI(bool show)
+    public void ShowPlayChoiceMenuUI(bool show)
     {
-        playMenuUI.ShowUI(show);
+        playChoiceMenuUI.ShowUI(show);
+        ShowBG(show);
+    }
+
+    public void ShowPlaySelectMenuUI(bool show)
+    {
+        playSelectMenuUI.ShowUI(show);
         ShowBG(show);
     }
 
@@ -54,7 +64,8 @@ public class GameMenuUI : MonoBehaviour
     public void HideUI()
     {
         ShowBG(false);
-        playMenuUI.ShowUI(false);
+        playChoiceMenuUI.ShowUI(false);
+        playSelectMenuUI.ShowUI(false);
         betMenuUI.ShowUI(false);
     }
 }
