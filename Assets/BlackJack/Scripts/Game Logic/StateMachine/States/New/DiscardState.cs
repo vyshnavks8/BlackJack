@@ -1,20 +1,32 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class DiscardState : BlackJackState
 {
     [SerializeField] private DealerCardPlaceState dealerCardPlace;
     [SerializeField] private FinishState finishState;
-
+    [SerializeField] private float waitTime=2;
+    private BlackJackPlayer player;
+    private IEnumerator waitForDiscard;
     public override void EnterState()
     {
+        player = stateMachine.Context.GetCurrentPlayer();
     }
 
     public override void UpdateState()
     {
-        var player = stateMachine.Context.GetCurrentPlayer();
         player.HideStatus();
         player.ClearCards();
-        stateMachine.Context.DiscardPlayerCard(OnCompleteDiscardPlayer);
+        waitForDiscard = Wait(() => { stateMachine.Context.DiscardPlayerCard(OnCompleteDiscardPlayer); });
+        StartCoroutine(waitForDiscard);
+    }
+
+    private IEnumerator Wait(Action action)
+    {
+        yield return new WaitForSeconds(waitTime);
+        action?.Invoke();
+        StopCoroutine(waitForDiscard);
     }
 
     private void OnCompleteDiscardPlayer()

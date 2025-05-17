@@ -23,7 +23,7 @@ public class BlackJackPlayerUI : MonoBehaviour
     private readonly List<ChipUI> chips = new();
     private ChipUI chipInstance;
     public RectTransform ChipLocation =>chipLocation;
-
+private int revealCount = 0;
     public void AddCard(Card card, bool visible = true)
     {
         var cardInstance = Instantiate(cardUI, cardHolder);
@@ -53,7 +53,17 @@ public class BlackJackPlayerUI : MonoBehaviour
     {
         foreach (var cardInstance in cards)
         {
-            cardInstance.RevealCard(cardRevealed);
+            cardInstance.RevealCard(()=>OnCardsRevealed(cardRevealed));
+        }
+    }
+
+    private void OnCardsRevealed(Action cardRevealed)
+    {
+        revealCount += 1;
+        if (revealCount == cards.Count)
+        {
+            cardRevealed?.Invoke();
+            revealCount = 0;
         }
     }
 

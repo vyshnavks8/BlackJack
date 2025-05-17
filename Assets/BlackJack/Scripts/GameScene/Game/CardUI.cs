@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using PlayingCards;
 using RedDevil.PlayingCards;
@@ -12,7 +13,7 @@ public class CardUI : MonoBehaviour
     private Card CardData;
     private bool cardVisible;
     private const float duration = 0.5f;
-
+    private IEnumerator wait;
     public void SetData(Card card, bool visible)
     {
         cardVisible = visible;
@@ -26,10 +27,22 @@ public class CardUI : MonoBehaviour
 
     public void RevealCard(Action finished = null)
     {
-        if (cardVisible) return;
+        if (cardVisible)
+        {
+            wait = WaitFor(duration+duration, finished);
+            StartCoroutine(wait);
+            return;
+        }
         transform
             .DOLocalRotate(new Vector3(0f, -90f, 0f), duration, RotateMode.LocalAxisAdd)
             .OnComplete(() => OnCompleteHalf(finished));
+    }
+
+    private IEnumerator WaitFor(float time, Action finished)
+    {
+        yield return new WaitForSeconds(time);
+        finished?.Invoke();
+        StopCoroutine(wait);
     }
 
     private void OnCompleteHalf(Action finished = null)

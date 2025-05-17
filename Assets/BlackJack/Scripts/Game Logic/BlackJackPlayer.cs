@@ -11,7 +11,6 @@ public class BlackJackPlayer
     public Transform cardPosition => blackJackPlayerUI.transform;
     public RectTransform chipPosition => blackJackPlayerUI.ChipLocation;
     public List<Card> cards = new();
-    public event Action<int> OnScoreChanged;
     public int NetworkID { get; private set; }
     public int Score { get; private set; }
     public int BetAmount { get; private set; }
@@ -63,8 +62,7 @@ public class BlackJackPlayer
     private void ShowScore()
     {
         Score = BlackJackGameUtility.CalculatePlayerScore(cards);
-        blackJackPlayerUI.ShowScore(Score.ToString());
-        OnScoreChanged?.Invoke(Score);
+       // blackJackPlayerUI.ShowScore(Score.ToString());
     }
 
     public void ResetData()
@@ -78,9 +76,13 @@ public class BlackJackPlayer
         Score = 0;
     }
 
-    public void RevealCards()
+    public void RevealCards(Action callback = null)
     {
-        blackJackPlayerUI.RevealCard(ShowScore);
+        blackJackPlayerUI.RevealCard(()=>
+        {
+            callback?.Invoke();
+            ShowScore();
+        });
     }
 
     public PlayerStatus GetStatus()

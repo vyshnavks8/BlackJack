@@ -50,9 +50,9 @@ public class ShowOrMuckState : BlackJackState
             case PlayerChoice.Show:
                 if (player.Score > dealer.Score)
                 {
-                    stateMachine.Context.MakePlayerWinner(dealer, player, ChangeState);
+                    player.RevealCards(OnCompleteReveal);
                 }
-                else 
+                else
                 {
                     stateMachine.Context.MakeDealerWinner(dealer, player, ChangeState);
                 }
@@ -62,6 +62,11 @@ public class ShowOrMuckState : BlackJackState
                 stateMachine.Context.MakeDealerWinner(dealer, player, ChangeState);
                 break;
         }
+    }
+
+    private void OnCompleteReveal()
+    {
+        stateMachine.Context.MakePlayerWinner(dealer, player, ChangeState);
     }
 
     public override void UpdateState()
@@ -75,7 +80,6 @@ public class ShowOrMuckState : BlackJackState
 
     public override void ExitState()
     {
-        
         StopPlay();
         RemoveListener();
     }
@@ -102,7 +106,7 @@ public class ShowOrMuckState : BlackJackState
 
     private void StopPlay()
     {
-        selectedPlayerChoice= PlayerChoice.None;
+        selectedPlayerChoice = PlayerChoice.None;
         stateMachine.Context.StopPlayerTimer();
         stateMachine.Context.GameMenu.ShowMuckMenuUI(false);
     }

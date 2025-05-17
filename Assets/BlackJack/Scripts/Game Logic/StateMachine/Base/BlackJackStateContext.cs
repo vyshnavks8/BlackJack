@@ -18,7 +18,7 @@ public class BlackJackStateContext : MonoBehaviour
 
     public BlackJackPlayer Dealer { get; private set; }
     public int DealerIndex { get; private set; }
-    public int PlayerCounter { private set; get; }
+    public int PlayerCounter;// { private set; get; }
     public bool FirstGame { get; private set; }
     public int cardPlaceCounter;
     public bool IsCurrentPlayerBot => currentPlayers[PlayerCounter].PlayerType == PlayerType.Bot;
@@ -102,16 +102,7 @@ public class BlackJackStateContext : MonoBehaviour
             completed?.Invoke(true);
         });
     }
-
-    public void RevealDealerCard()
-    {
-        Dealer.RevealCards();
-    }
-
-    public List<BlackJackPlayer> GetWonPlayer()
-    {
-        return currentPlayers.Where(player => player.Score == 21).ToList();
-    }
+    
 
     public void AddToRemovedPlayer(BlackJackPlayer player)
     {

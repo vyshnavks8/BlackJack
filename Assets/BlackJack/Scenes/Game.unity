@@ -18320,7 +18320,7 @@ MonoBehaviour:
   stateMachine: {fileID: 1065776490}
   gameCanvas: {fileID: 545653017}
   gameType: 0
-  gameTime: 10
+  gameTime: 30
 --- !u!1 &1044406415
 GameObject:
   m_ObjectHideFlags: 0
@@ -18599,6 +18599,7 @@ MonoBehaviour:
   - playerPosition: 2
     blackJackPlayerUI: {fileID: 172798981}
     cards: []
+  PlayerCounter: 0
   cardPlaceCounter: 0
   passCounter: 0
 --- !u!114 &1065776492
@@ -19012,10 +19013,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: BET
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3a4de1195c8b0b540a9a9550b9895bde, type: 2}
-  m_sharedMaterial: {fileID: 7597154118655654733, guid: 3a4de1195c8b0b540a9a9550b9895bde, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3edeee5899ae2ab4b8322eb045558dbb, type: 2}
+  m_sharedMaterial: {fileID: 7597154118655654733, guid: 3edeee5899ae2ab4b8322eb045558dbb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -19039,8 +19040,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120
-  m_fontSizeBase: 120
+  m_fontSize: 180
+  m_fontSizeBase: 180
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -19049,7 +19050,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 10
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -26546,7 +26547,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 995179042}
         m_TargetAssemblyTypeName: ChipUI, Assembly-CSharp
-        m_MethodName: SetChipText
+        m_MethodName: SetChipValue
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -35860,7 +35861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f36d7fab4741f294b07836fc9ac8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPlayer: 3
+  startPlayer: 0
   potBetState: {fileID: 955778278}
 --- !u!1 &2042881011
 GameObject:
