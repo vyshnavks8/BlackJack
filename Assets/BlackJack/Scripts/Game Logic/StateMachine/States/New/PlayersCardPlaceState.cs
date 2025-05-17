@@ -1,12 +1,11 @@
 using System;
 using RedDevil.PlayingCards;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class InitialCardPlaceState : BlackJackState
+public class PlayersCardPlaceState : BlackJackState
 {
+    [SerializeField] private DealerCardPlaceState dealerCardPlaceState;
     private bool deckInit;
-    [SerializeField] private BetOrPassState betOrPassState;
     public override void AddListener()
     {
         stateMachine.NetworkEventSender.OnInitDeck += OnInitDeck;
@@ -52,7 +51,7 @@ public class InitialCardPlaceState : BlackJackState
     {
         if (!deckInit) return;
         stateMachine.Context.IncrementNextPlayer();
-        PlaceCards(true, FinishedRound);
+        PlaceCards(FinishedRound);
     }
 
     public override void ExitState()
@@ -63,11 +62,11 @@ public class InitialCardPlaceState : BlackJackState
 
     private void FinishedRound()
     {
-        stateMachine.SwitchState(betOrPassState);
+        stateMachine.SwitchState(dealerCardPlaceState);
     }
 
 
-    private void PlaceCards(bool showDealer, Action callback)
+    private void PlaceCards(Action callback)
     {
         var showCard = false;
         if (AppData.gameType == GameType.AI)
@@ -82,19 +81,18 @@ public class InitialCardPlaceState : BlackJackState
             //Network
         }
         
-        stateMachine.Context.PlacePlayerCard(completed => OnCompleted(completed, showDealer, callback), true, showCard);
+        stateMachine.Context.PlacePlayerCard(completed => OnCompleted(completed, callback), true, showCard);
     }
 
-    private void OnCompleted(bool completed, bool showDealer, Action callback)
+    private void OnCompleted(bool completed, Action callback)
     {
         if (completed)
         {
-            PlaceCards(showDealer, callback);
+            PlaceCards(callback);
         }
         else
         {
-            stateMachine.Context.PlaceDealerCard(showDealer, _ => callback?.Invoke());
-          
+            callback?.Invoke();
         }
     }
 }

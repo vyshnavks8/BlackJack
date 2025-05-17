@@ -21,14 +21,10 @@ public class ChipUI : MonoBehaviour
     {
         chipValueText.text = chipValue.ToString();
     }
+    
 
-    public void SetChipText(int chipValue)
+    public Tweener MoveTo(RectTransform moveLocation, Action completed,float duration=0.5f)
     {
-        chipValueText.text = chipValue.ToString();
-    }
-
-    public void MoveTo(RectTransform moveLocation, Action completed)
-    {
-        transform.DOMove(moveLocation.position, 0.5f).OnComplete(() => completed?.Invoke());
+        return transform.DOMove(moveLocation.position, duration).OnComplete(() => completed?.Invoke());
     }
 }

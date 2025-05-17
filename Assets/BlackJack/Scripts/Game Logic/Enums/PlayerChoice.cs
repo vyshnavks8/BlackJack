@@ -6,4 +6,6 @@ public enum PlayerChoice
     Double,
     Bet,
     Pass,
+    Show,
+    Muck
 }

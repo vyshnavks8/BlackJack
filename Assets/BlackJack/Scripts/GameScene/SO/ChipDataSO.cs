@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -29,5 +30,19 @@ public class ChipDataSO : ScriptableObject
     public int GetChipAmount(int selectedID)
     {
         return chips[selectedID].ChipValue;
+    }
+
+    public int GetIDBelow(int amount)
+    {
+        var index = chips.Length;
+        foreach (var chip in chips.Reverse())
+        {
+            index -=1;
+            if (chip.ChipValue < amount)
+            {
+                return index;
+            }
+        }
+        return index;
     }
 }

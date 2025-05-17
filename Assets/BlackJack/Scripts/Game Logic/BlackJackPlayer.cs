@@ -9,6 +9,7 @@ public class BlackJackPlayer
     public PlayerPosition playerPosition;
     public BlackJackPlayerUI blackJackPlayerUI;
     public Transform cardPosition => blackJackPlayerUI.transform;
+    public RectTransform chipPosition => blackJackPlayerUI.ChipLocation;
     public List<Card> cards = new();
     public event Action<int> OnScoreChanged;
     public int NetworkID { get; private set; }
@@ -44,6 +45,10 @@ public class BlackJackPlayer
         ShowScore();
     }
 
+    public void ClearCards()
+    {
+        cards.Clear();
+    }
     public void UpdateBetAmount(int amount)
     {
         BetAmount = amount;
@@ -104,6 +109,11 @@ public class BlackJackPlayer
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    public void HideStatus()
+    {
+        blackJackPlayerUI.ShowStatus(string.Empty);
     }
 
     public void ShowProfile(bool show)

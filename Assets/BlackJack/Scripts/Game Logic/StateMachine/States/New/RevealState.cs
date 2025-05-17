@@ -32,6 +32,7 @@ public class RevealState : BlackJackState
 
     public override void ExitState()
     {
+        cardsReveled = false;
         RemoveListener();
     }
 

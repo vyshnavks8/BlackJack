@@ -23,7 +23,7 @@ public class PlayState : BlackJackState
 
     public override void EnterState()
     {
-        CurrentPlayer = stateMachine.Context.playerCounter;
+        CurrentPlayer = stateMachine.Context.PlayerCounter;
         AddListener();
     }
 
@@ -32,6 +32,8 @@ public class PlayState : BlackJackState
     {
         if (AppData.gameType == GameType.AI)
         {
+            stateMachine.Context.ShowInfo(playerChoice.ToString());
+
             SetPlayerChoice(playerChoice);
         }
         else
@@ -51,7 +53,7 @@ public class PlayState : BlackJackState
                 break;
             case PlayerChoice.Stand:
                 selectedPlayerChoice = PlayerChoice.None;
-                stateMachine.Context.playerCounter = stateMachine.Context.DealerIndex;
+                stateMachine.Context.SetPlayerCounter(stateMachine.Context.DealerIndex);
                 if (dealerPlayed)
                 {
                     stateMachine.SwitchState(revealState);
@@ -99,8 +101,9 @@ public class PlayState : BlackJackState
 
     public override void ExitState()
     {
+        selectedPlayerChoice = PlayerChoice.None;
         dealerPlayed = false;
-        stateMachine.Context.playerCounter=CurrentPlayer;
+        stateMachine.Context.SetPlayerCounter(CurrentPlayer);
         CurrentPlayer = -1;
         StopPlay();
         RemoveListener();
@@ -115,22 +118,22 @@ public class PlayState : BlackJackState
     private void StartPlay()
     {
         stateMachine.Context.StartPlayerTimer(OnTimerFinishPlay);
-        var bot = stateMachine.Context.CheckBotPlayChoice(OnPlayerChoice);
+        var bot = stateMachine.Context.CheckBotHitOrStand(OnPlayerChoice);
         if (AppData.gameType == GameType.AI)
         {
-            stateMachine.Context.GameMenu.ShowPlayChoiceMenuUI(!bot);
+            stateMachine.Context.GameMenu.ShowHitStandMenuUI(!bot);
         }
         else
         {
             var player = stateMachine.Context.GetCurrentPlayer();
-            stateMachine.Context.GameMenu.ShowPlayChoiceMenuUI(player.IsLocalNetworkPlayer());
+            stateMachine.Context.GameMenu.ShowHitStandMenuUI(player.IsLocalNetworkPlayer());
         }
     }
 
     private void StopPlay()
     {
         stateMachine.Context.StopPlayerTimer();
-        stateMachine.Context.GameMenu.ShowPlayChoiceMenuUI(false);
+        stateMachine.Context.GameMenu.ShowHitStandMenuUI(false);
     }
 
     private void OnTimerFinishPlay()

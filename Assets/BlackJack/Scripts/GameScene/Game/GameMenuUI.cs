@@ -1,30 +1,36 @@
 using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GameMenuUI : MonoBehaviour
 {
+    [SerializeField] private TMP_Text infoText;
+    [SerializeField] private float infoTime=0.2f;
     [SerializeField] private Image bg;
     [SerializeField] private BetMenuUI betMenuUI;
-    [SerializeField] private PlayChoiceMenuUI playChoiceMenuUI;
-    [SerializeField] private PlaySelectMenuUI playSelectMenuUI;
+    [SerializeField] private PlayChoiceMenuUI playHitStandMenuUI;
+    [SerializeField] private PlayChoiceMenuUI playBetPassMenuUI;
+    [SerializeField] private PlayChoiceMenuUI playShowMuckMenuUI;
     public event Action<PlayerChoice> OnPlayerChoice;
     public event Action<int> OnBet;
 
     private void OnEnable()
     {
-        playChoiceMenuUI.OnPlayerChoice += PlayerChoice;
-        playSelectMenuUI.OnPlayerChoice += PlayerChoice;
+        playHitStandMenuUI.OnPlayerChoice += PlayerChoice;
+        playBetPassMenuUI.OnPlayerChoice += PlayerChoice;
+        playShowMuckMenuUI.OnPlayerChoice += PlayerChoice;
         betMenuUI.OnBet += Bet;
     }
 
 
     private void OnDisable()
     {
+        playHitStandMenuUI.OnPlayerChoice -= PlayerChoice;
+        playBetPassMenuUI.OnPlayerChoice -= PlayerChoice;
+        playShowMuckMenuUI.OnPlayerChoice -= PlayerChoice;
         betMenuUI.OnBet -= Bet;
-        playChoiceMenuUI.OnPlayerChoice -= PlayerChoice;
-        playSelectMenuUI.OnPlayerChoice -= PlayerChoice;
     }
 
 
@@ -38,15 +44,21 @@ public class GameMenuUI : MonoBehaviour
         OnPlayerChoice?.Invoke(choice);
     }
 
-    public void ShowPlayChoiceMenuUI(bool show)
+    public void ShowHitStandMenuUI(bool show)
     {
-        playChoiceMenuUI.ShowUI(show);
+        playHitStandMenuUI.ShowUI(show);
         ShowBG(show);
     }
 
-    public void ShowPlaySelectMenuUI(bool show)
+    public void ShowBetPassMenuUI(bool show)
     {
-        playSelectMenuUI.ShowUI(show);
+        playBetPassMenuUI.ShowUI(show);
+        ShowBG(show);
+    }
+
+    public void ShowMuckMenuUI(bool show)
+    {
+        playShowMuckMenuUI.ShowUI(show);
         ShowBG(show);
     }
 
@@ -61,11 +73,26 @@ public class GameMenuUI : MonoBehaviour
         bg.gameObject.SetActive(show);
     }
 
+    public void ShowInfoText(string info)
+    {
+        infoText.text = info;
+        infoText.gameObject.SetActive(true);
+        var infoTextEnumerator = StartTimer();
+        StartCoroutine(infoTextEnumerator);
+    }
+
+    private IEnumerator StartTimer()
+    {
+        yield return new WaitForSeconds(infoTime);
+        infoText.gameObject.SetActive(false);
+        infoText.text = string.Empty;
+    }
+
     public void HideUI()
     {
         ShowBG(false);
-        playChoiceMenuUI.ShowUI(false);
-        playSelectMenuUI.ShowUI(false);
+        playHitStandMenuUI.ShowUI(false);
+        playBetPassMenuUI.ShowUI(false);
         betMenuUI.ShowUI(false);
     }
 }

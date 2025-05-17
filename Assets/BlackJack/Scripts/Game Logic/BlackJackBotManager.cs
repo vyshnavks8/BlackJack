@@ -11,15 +11,17 @@ public class BlackJackBotManager : MonoBehaviour
     [SerializeField] private ChipDataSO chipDataSO;
     private IEnumerator timer;
 
-    public void DoBet(BlackJackPlayer blackJackPlayer, Action<int> bet)
+    public void DoBetAmount(BlackJackPlayer blackJackPlayer, int amount, Action<int> bet)
     {
-        var rand = Random.Range(0, chipDataSO.Count);
-        var chipAmount = chipDataSO.GetChipAmount(rand);
+        var maxInclusive = amount == 0 ? chipDataSO.Count : chipDataSO.GetIDBelow(amount);
+        var id = Random.Range(0, maxInclusive);
+        var chipAmount = chipDataSO.GetChipAmount(id);
         var betTime = Random.Range(0, blackJackPlayer.TimeAllowed / 2);
         timer = DecisionTimer(betTime, () => bet?.Invoke(chipAmount));
         StartCoroutine(timer);
-    } 
-    public void DoPlaySelect(BlackJackPlayer blackJackPlayer,Action<PlayerChoice> playerChoice)
+    }
+
+    public void DoBetOrPass(BlackJackPlayer player, Action<PlayerChoice> playerChoice)
     {
         var choice = PlayerChoice.None;
         var rand = Random.Range(0, 2);
@@ -29,22 +31,31 @@ public class BlackJackBotManager : MonoBehaviour
             1 => PlayerChoice.Bet,
             _ => choice
         };
-        var betTime = Random.Range(0, blackJackPlayer.TimeAllowed / 2);
-        timer = DecisionTimer(betTime, () => playerChoice?.Invoke(PlayerChoice.Pass));
+        var decisionTime = Random.Range(0, player.TimeAllowed / 2);
+        timer = DecisionTimer(decisionTime, () => playerChoice?.Invoke(PlayerChoice.Bet));
         StartCoroutine(timer);
     }
-    public void DoPlayChoice(BlackJackPlayer dealer, BlackJackPlayer blackJackPlayer, Action<PlayerChoice> playerChoice)
+
+    public void DoShowOrMuck(BlackJackPlayer dealer, BlackJackPlayer player, Action<PlayerChoice> playerChoice)
+    {
+        var decisionTime = Random.Range(0, player.TimeAllowed / 2);
+        var choice = dealer.Score > player.Score ? PlayerChoice.Muck : PlayerChoice.Show;
+        timer = DecisionTimer(decisionTime, () => playerChoice?.Invoke(choice));
+        StartCoroutine(timer);
+    }
+
+    public void DoHitOrStand(BlackJackPlayer dealer, BlackJackPlayer player, Action<PlayerChoice> playerChoice)
     {
         var dealerCard = dealer.GetTopCard();
-        var choice = GetChoice(dealerCard, blackJackPlayer);
-        var playTime = Random.Range(0, blackJackPlayer.TimeAllowed / 2);
-        timer = DecisionTimer(playTime, () => playerChoice?.Invoke(choice));
+        var choice = GetHitOrStandChoice(dealerCard, player);
+        var decisionTime = Random.Range(0, player.TimeAllowed / 2);
+        timer = DecisionTimer(decisionTime, () => playerChoice?.Invoke(choice));
         StartCoroutine(timer);
     }
 
     public void ResetBot()
     {
-        if(timer == null) return;
+        if (timer == null) return;
         StopCoroutine(timer);
     }
 
@@ -54,15 +65,15 @@ public class BlackJackBotManager : MonoBehaviour
         completed?.Invoke();
     }
 
-   
-    private PlayerChoice GetChoice(Card dealerCard, BlackJackPlayer blackJackPlayer)
+
+    private PlayerChoice GetHitOrStandChoice(Card dealerCard, BlackJackPlayer blackJackPlayer)
     {
         var dealerScore = BlackJackValidator.GetCardValue(dealerCard);
 
         if (blackJackPlayer.IsSoftTotal())
         {
             var score = blackJackPlayer.cards.Sum(BlackJackValidator.GetCardValue);
-            return AIBotUtility.GetSoftChoice(dealerScore,score);
+            return AIBotUtility.GetSoftChoice(dealerScore, score);
         }
 
         return AIBotUtility.GetHardChoice(dealerScore, blackJackPlayer.Score);

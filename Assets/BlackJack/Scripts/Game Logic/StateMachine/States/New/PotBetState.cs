@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PotBetState : BlackJackState
 {
     private const int defaultAmount = 1;
-    [SerializeField] private InitialCardPlaceState initialCardPlaceState;
+    [SerializeField] private PlayersCardPlaceState playersCardPlaceState;
 
     public override void AddListener()
     {
@@ -55,13 +56,13 @@ public class PotBetState : BlackJackState
 
     private void OnCompletedBet(bool obj)
     {
-        stateMachine.SwitchState(initialCardPlaceState);
+        stateMachine.SwitchState(playersCardPlaceState);
     }
 
     private void StartBet()
     {
         stateMachine.Context.StartPlayerTimer(OnTimerFinishBet);
-        var bot = stateMachine.Context.CheckBotBet(OnBet);
+        var bot = stateMachine.Context.CheckBotBet(stateMachine.Context.Dealer.BetAmount,OnBet);
         if (AppData.gameType == GameType.AI)
         {
             stateMachine.Context.GameMenu.ShowBetMenuUI(!bot);

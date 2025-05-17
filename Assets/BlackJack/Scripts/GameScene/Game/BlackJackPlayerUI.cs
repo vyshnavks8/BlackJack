@@ -22,6 +22,8 @@ public class BlackJackPlayerUI : MonoBehaviour
     private readonly List<CardUI> cards = new();
     private readonly List<ChipUI> chips = new();
     private ChipUI chipInstance;
+    public RectTransform ChipLocation =>chipLocation;
+
     public void AddCard(Card card, bool visible = true)
     {
         var cardInstance = Instantiate(cardUI, cardHolder);

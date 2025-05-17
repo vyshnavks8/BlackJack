@@ -61,7 +61,7 @@ public class BetState : BlackJackState
     private void StartBet()
     {
         stateMachine.Context.StartPlayerTimer(OnTimerFinishBet);
-        var bot = stateMachine.Context.CheckBotBet(Bet);
+        var bot = stateMachine.Context.CheckBotBet(stateMachine.Context.Dealer.BetAmount,Bet);
         if (AppData.gameType == GameType.AI)
         {
             stateMachine.Context.GameMenu.ShowBetMenuUI(!bot);

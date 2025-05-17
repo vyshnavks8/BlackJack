@@ -1,25 +1,32 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayChoiceMenuUI : MonoBehaviour
 {
-    [SerializeField] private Button hitButton;
-    [SerializeField] private Button standButton;
+    [FormerlySerializedAs("hitButton")]
+    [Header("Buttons A")]
+    [SerializeField] private Button buttonA;
+    [SerializeField] private PlayerChoice playerChoiceA;
+    [FormerlySerializedAs("standButton")]
+    [Header("Buttons A")]
+    [SerializeField] private Button buttonB;
+    [SerializeField] private PlayerChoice playerChoiceB;
     [SerializeField] private RectTransform pivot;
     public event Action<PlayerChoice> OnPlayerChoice;
     
 
     private void OnEnable()
     {
-        hitButton.onClick.AddListener(OnClickHitButton);
-        standButton.onClick.AddListener(OnClickStandButton);
+        buttonA.onClick.AddListener(OnClickButtonA);
+        buttonB.onClick.AddListener(OnClickButtonB);
     }
 
     private void OnDisable()
     {
-        hitButton.onClick.RemoveListener(OnClickHitButton);
-        standButton.onClick.RemoveListener(OnClickStandButton);
+        buttonA.onClick.RemoveListener(OnClickButtonA);
+        buttonB.onClick.RemoveListener(OnClickButtonB);
     }
 
     public void ShowUI(bool show)
@@ -27,14 +34,14 @@ public class PlayChoiceMenuUI : MonoBehaviour
         pivot.gameObject.SetActive(show);
     }
     
-    private void OnClickStandButton()
+    private void OnClickButtonB()
     {
-        OnPlayerChoice?.Invoke(PlayerChoice.Stand);
+        OnPlayerChoice?.Invoke(playerChoiceB);
     }
 
 
-    private void OnClickHitButton()
+    private void OnClickButtonA()
     {
-        OnPlayerChoice?.Invoke(PlayerChoice.Hit);
+        OnPlayerChoice?.Invoke(playerChoiceA);
     }
 }

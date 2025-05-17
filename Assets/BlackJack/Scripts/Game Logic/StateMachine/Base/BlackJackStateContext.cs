@@ -3,29 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using RedDevil.PlayingCards;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BlackJackStateContext : MonoBehaviour
 {
     public BlackJackBotManager botManager;
     public CardPlacer cardPlacer;
+    public ChipPlacer chipPlacer;
     public GameMenuUI GameMenu;
     public Deck deck;
     public List<BlackJackPlayer> currentPlayers = new();
     public List<BlackJackPlayer> removedPlayers = new();
     public List<BlackJackPlayer> totalPlayers = new();
-    public BlackJackPlayer Dealer { get; private set; }
-    //public BlackJackPlayer Player => currentPlayers[playerCounter];
-    public int DealerIndex { get; private set; }
-    public int playerCounter;
 
+    public BlackJackPlayer Dealer { get; private set; }
+    public int DealerIndex { get; private set; }
+    public int PlayerCounter { private set; get; }
     public bool FirstGame { get; private set; }
-    private bool IsMaxPlayerCounter => playerCounter >= currentPlayers.Count;
-    public bool IsCurrentPlayerBot => currentPlayers[playerCounter].PlayerType == PlayerType.Bot;
     public int cardPlaceCounter;
+    public bool IsCurrentPlayerBot => currentPlayers[PlayerCounter].PlayerType == PlayerType.Bot;
+    public bool IsMaxPlayerReached => passCounter > currentPlayers.Count - 2;
+    public int passCounter;
 
     public void DiscardPlayerCard(Action completedRound)
     {
-        var blackJackPlayer = currentPlayers[playerCounter];
+        var blackJackPlayer = currentPlayers[PlayerCounter];
         blackJackPlayer.blackJackPlayerUI.RemoveAllCards();
         cardPlacer.MoveCardToOrigin(blackJackPlayer.cardPosition, () => { completedRound?.Invoke(); });
     }
@@ -41,7 +43,7 @@ public class BlackJackStateContext : MonoBehaviour
         if (cardPlaceCounter < currentPlayers.Count - 1)
         {
             var card = deck.DrawTopCard();
-            var blackJackPlayer = currentPlayers[playerCounter];
+            var blackJackPlayer = currentPlayers[PlayerCounter];
             cardPlacer.MoveCardAnimation(blackJackPlayer.cardPosition, () =>
             {
                 if (doIncrement)
@@ -62,23 +64,23 @@ public class BlackJackStateContext : MonoBehaviour
 
     public void IncrementNextPlayer()
     {
-        playerCounter += 1;
-        if (IsMaxPlayerCounter)
+        PlayerCounter += 1;
+        if (PlayerCounter >= currentPlayers.Count)
         {
-            playerCounter = 0;
+            PlayerCounter = 0;
         }
     }
 
     public void PlacePlayerChip(int amount, Action<bool> completed, bool doIncrement = false)
     {
-        if (playerCounter < currentPlayers.Count)
+        if (PlayerCounter < currentPlayers.Count)
         {
-            var blackJackPlayer = currentPlayers[playerCounter];
+            var blackJackPlayer = currentPlayers[PlayerCounter];
             blackJackPlayer.SetBet(amount, () =>
             {
                 if (doIncrement)
                 {
-                    playerCounter += 1;
+                    PlayerCounter += 1;
                 }
 
                 completed?.Invoke(true);
@@ -124,13 +126,15 @@ public class BlackJackStateContext : MonoBehaviour
     public void ResetData()
     {
         cardPlacer.StopAnimation();
+        chipPlacer.StopAnimation();
         ResetPlayer(totalPlayers);
         ResetPlayer(currentPlayers);
         ResetPlayer(removedPlayers);
         removedPlayers.Clear();
         currentPlayers.Clear();
         totalPlayers.Clear();
-        playerCounter = 0;
+        PlayerCounter = 0;
+        passCounter = 0;
         FirstGame = false;
         deck = null;
         Dealer = null;
@@ -148,25 +152,25 @@ public class BlackJackStateContext : MonoBehaviour
 
     public PlayerStatus CheckCurrentPlayerStatus()
     {
-        return currentPlayers[playerCounter].GetStatus();
+        return currentPlayers[PlayerCounter].GetStatus();
     }
 
     public void ShowCurrentPlayerStatus()
     {
-        currentPlayers[playerCounter].ShowStatus();
+        currentPlayers[PlayerCounter].ShowStatus();
     }
 
     public void StartPlayerTimer(Action completed)
     {
-        if (playerCounter >= currentPlayers.Count) return;
-        currentPlayers[playerCounter].StartTimer(completed);
+        if (PlayerCounter >= currentPlayers.Count) return;
+        currentPlayers[PlayerCounter].StartTimer(completed);
     }
 
 
     public void StopPlayerTimer()
     {
-        if (playerCounter >= currentPlayers.Count) return;
-        currentPlayers[playerCounter].StopTimer();
+        if (PlayerCounter >= currentPlayers.Count) return;
+        currentPlayers[PlayerCounter].StopTimer();
     }
 
     public void SetPlayer(List<BlackJackPlayer> blackJackPlayers)
@@ -184,39 +188,51 @@ public class BlackJackStateContext : MonoBehaviour
 
     public BlackJackPlayer GetCurrentPlayer()
     {
-        return currentPlayers[playerCounter];
+        return currentPlayers[PlayerCounter];
     }
 
-    public bool CheckBotBet(Action<int> bet)
+    public bool CheckBotBet(int amount,Action<int> bet)
     {
-        var blackJackPlayer = currentPlayers[playerCounter];
+        var blackJackPlayer = currentPlayers[PlayerCounter];
         if (blackJackPlayer.PlayerType == PlayerType.Bot)
         {
-            botManager.DoBet(blackJackPlayer, bet);
+            botManager.DoBetAmount(blackJackPlayer,amount, bet);
             return true;
         }
 
         return false;
     }
 
-    public bool CheckBotPlayChoice(Action<PlayerChoice> playerChoice)
+    public bool CheckBotHitOrStand(Action<PlayerChoice> playerChoice)
     {
-        var blackJackPlayer = currentPlayers[playerCounter];
+        var blackJackPlayer = currentPlayers[PlayerCounter];
         if (blackJackPlayer.PlayerType == PlayerType.Bot)
         {
-            botManager.DoPlayChoice(Dealer, blackJackPlayer, playerChoice);
+            botManager.DoHitOrStand(Dealer, blackJackPlayer, playerChoice);
             return true;
         }
 
         return false;
     }
 
-    public bool CheckBotPlaySelect(Action<PlayerChoice> playerChoice)
+    public bool CheckBotShowOrMuck(Action<PlayerChoice> playerChoice)
     {
-        var blackJackPlayer = currentPlayers[playerCounter];
+        var blackJackPlayer = currentPlayers[PlayerCounter];
         if (blackJackPlayer.PlayerType == PlayerType.Bot)
         {
-            botManager.DoPlaySelect(blackJackPlayer, playerChoice);
+            botManager.DoShowOrMuck(Dealer, blackJackPlayer, playerChoice);
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool CheckBotBetOrPass(Action<PlayerChoice> playerChoice)
+    {
+        var blackJackPlayer = currentPlayers[PlayerCounter];
+        if (blackJackPlayer.PlayerType == PlayerType.Bot)
+        {
+            botManager.DoBetOrPass(blackJackPlayer, playerChoice);
             return true;
         }
 
@@ -238,6 +254,49 @@ public class BlackJackStateContext : MonoBehaviour
         foreach (var player in currentPlayers)
         {
             player.blackJackPlayerUI.SetPlayerStyle();
+        }
+    }
+
+    public void MakeDealerWinner(BlackJackPlayer dealer, BlackJackPlayer player, Action onComplete)
+    {
+        var start = player.chipPosition;
+        var end = dealer.chipPosition;
+        player.blackJackPlayerUI.RemoveAllChips();
+        chipPlacer.MoveChip(player.BetAmount, start, end, () =>
+        {
+            dealer.UpdateBetAmount(player.BetAmount + dealer.BetAmount);
+            player.UpdateBetAmount(0);
+            onComplete?.Invoke();
+        });
+    }
+
+    public void MakePlayerWinner(BlackJackPlayer dealer, BlackJackPlayer player, Action onComplete)
+    {
+        var start = dealer.chipPosition;
+        var end = player.chipPosition;
+        dealer.UpdateBetAmount(dealer.BetAmount - player.BetAmount);
+        chipPlacer.MoveChip(player.BetAmount, start, end, () =>
+        {
+            player.UpdateBetAmount(2 * player.BetAmount);
+            onComplete?.Invoke();
+        });
+    }
+
+    public void SetPlayerCounter(int counter)
+    {
+        PlayerCounter = counter;
+    }
+
+    public void IncrementPassCounter()
+    {
+        passCounter += 1;
+    }
+
+    public void ShowInfo(string info)
+    {
+        if (IsCurrentPlayerBot)
+        {
+            GameMenu.ShowInfoText(info.ToUpper());
         }
     }
 }

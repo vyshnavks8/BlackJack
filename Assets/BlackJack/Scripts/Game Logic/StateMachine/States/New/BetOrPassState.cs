@@ -3,8 +3,8 @@ using UnityEngine;
 public class BetOrPassState : BlackJackState
 {
     [SerializeField] private BetState  betState;
+    [SerializeField] private FinishState finishState;
     private PlayerChoice selectedPlayerChoice = PlayerChoice.None;
-    private int passCounter = 0;
 
     public override void AddListener()
     {
@@ -30,6 +30,7 @@ public class BetOrPassState : BlackJackState
     {
         if (AppData.gameType == GameType.AI)
         {
+            stateMachine.Context.ShowInfo(playerChoice.ToString());
             SetPlayerChoice(playerChoice);
         }
         else
@@ -45,15 +46,16 @@ public class BetOrPassState : BlackJackState
         switch (selectedPlayerChoice)
         {
             case PlayerChoice.Bet:
+                stateMachine.Context.IncrementPassCounter();
                 UpdateState();
                 break;
             case PlayerChoice.Pass:
                 selectedPlayerChoice = PlayerChoice.None;
                 stateMachine.Context.IncrementNextPlayer();
-                passCounter += 1;
-                if (passCounter == stateMachine.Context.currentPlayers.Count - 1)
+                stateMachine.Context.IncrementPassCounter();
+                if (stateMachine.Context.IsMaxPlayerReached)
                 {
-                    // stateMachine.SwitchState(); // restart game
+                     stateMachine.SwitchState(finishState); 
                 }
                 else
                 {
@@ -78,7 +80,7 @@ public class BetOrPassState : BlackJackState
 
     public override void ExitState()
     {
-        passCounter = 0;
+        selectedPlayerChoice= PlayerChoice.None;
         StopPlay();
         RemoveListener();
     }
@@ -91,23 +93,24 @@ public class BetOrPassState : BlackJackState
 
     private void StartPlay()
     {
+        
         stateMachine.Context.StartPlayerTimer(OnTimerFinishPlay);
-        var bot = stateMachine.Context.CheckBotPlaySelect(OnPlayerChoice);
+        var bot = stateMachine.Context.CheckBotBetOrPass(OnPlayerChoice);
         if (AppData.gameType == GameType.AI)
         {
-            stateMachine.Context.GameMenu.ShowPlaySelectMenuUI(!bot);
+            stateMachine.Context.GameMenu.ShowBetPassMenuUI(!bot);
         }
         else
         {
             var player = stateMachine.Context.GetCurrentPlayer();
-            stateMachine.Context.GameMenu.ShowPlaySelectMenuUI(player.IsLocalNetworkPlayer());
+            stateMachine.Context.GameMenu.ShowBetPassMenuUI(player.IsLocalNetworkPlayer());
         }
     }
 
     private void StopPlay()
     {
         stateMachine.Context.StopPlayerTimer();
-        stateMachine.Context.GameMenu.ShowPlaySelectMenuUI(false);
+        stateMachine.Context.GameMenu.ShowBetPassMenuUI(false);
     }
 
     private void OnTimerFinishPlay()
