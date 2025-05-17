@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 public class PotBetState : BlackJackState
 {
-    private const int defaultAmount = 1;
+    private const int defaultAmount = 10;
     [SerializeField] private PlayersCardPlaceState playersCardPlaceState;
 
     public override void AddListener()

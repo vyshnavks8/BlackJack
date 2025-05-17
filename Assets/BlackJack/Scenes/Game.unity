@@ -18320,7 +18320,7 @@ MonoBehaviour:
   stateMachine: {fileID: 1065776490}
   gameCanvas: {fileID: 545653017}
   gameType: 0
-  gameTime: 10
+  gameTime: 30
 --- !u!1 &1044406415
 GameObject:
   m_ObjectHideFlags: 0
