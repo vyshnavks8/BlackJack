@@ -7206,9 +7206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e182b4e71aee498888cf03f789670223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipApiCalls: 1
+  skipApiCalls: 0
   transitionDuration: 0.2
-  init: 0
+  init: 1
   startingCanvas: {fileID: 270394413}
   canvasBase:
   - {fileID: 270394413}
@@ -8755,7 +8755,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &545653016
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18320,7 +18320,7 @@ MonoBehaviour:
   stateMachine: {fileID: 1065776490}
   gameCanvas: {fileID: 545653017}
   gameType: 0
-  gameTime: 30
+  gameTime: 10
 --- !u!1 &1044406415
 GameObject:
   m_ObjectHideFlags: 0
@@ -31542,6 +31542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dealerCardPlace: {fileID: 1237312871}
   finishState: {fileID: 1789171196}
+  waitTime: 2
 --- !u!4 &1748833665
 Transform:
   m_ObjectHideFlags: 0
@@ -35861,7 +35862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f36d7fab4741f294b07836fc9ac8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPlayer: 0
+  startPlayer: 3
   potBetState: {fileID: 955778278}
 --- !u!1 &2042881011
 GameObject:

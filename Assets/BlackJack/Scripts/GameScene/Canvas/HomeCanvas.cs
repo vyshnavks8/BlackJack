@@ -57,6 +57,8 @@ public class HomeCanvas : CanvasBase
 
     private void OnPublicGameClick()
     {
+        BlackjackUtils.ShowDevelopmentPopup();
+        return;
         AppData.SetOnlineGameCode(null);
         AppData.SetGameType(GameType.Online);
         GameNetworkData.SetGameType(NetworkGameType.Random);
@@ -66,6 +68,8 @@ public class HomeCanvas : CanvasBase
 
     private void OnPrivateGameClick()
     {
+        BlackjackUtils.ShowDevelopmentPopup();
+        return;
         AppData.SetGameType(GameType.Online);
         GameNetworkData.SetGameType(NetworkGameType.Friends);
         NetworkManager.ConnectUsingSettings();

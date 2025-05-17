@@ -43,4 +43,12 @@ public static class BlackjackUtils
                                                                            "JOIN GAME CODE : " + AppData.onlineGameCode)
             .Share();
     }
+
+    public static void ShowDevelopmentPopup()
+    {
+        var popContent = new PopContent(
+            " AI Mode Only in This Build", 
+            "Private and Public game modes are currently disabled in this build. To test gameplay, please use \"Vs Computer\" ");
+        PopUpController.ShowPopUp(popContent,new ButtonContent("Close",PopUpController.ClosePopUp));
+    }
 }
