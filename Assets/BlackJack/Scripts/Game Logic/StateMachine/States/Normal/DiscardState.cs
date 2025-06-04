@@ -6,9 +6,10 @@ public class DiscardState : BlackJackState
 {
     [SerializeField] private DealerCardPlaceState dealerCardPlace;
     [SerializeField] private FinishState finishState;
-    [SerializeField] private float waitTime=2;
+    [SerializeField] private float waitTime = 2;
     private BlackJackPlayer player;
     private IEnumerator waitForDiscard;
+
     public override void EnterState()
     {
         player = stateMachine.Context.GetCurrentPlayer();

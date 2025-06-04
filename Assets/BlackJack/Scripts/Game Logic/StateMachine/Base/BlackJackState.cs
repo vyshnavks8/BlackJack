@@ -19,4 +19,9 @@ public abstract class BlackJackState : MonoBehaviour
     {
         
     }
+
+    public virtual void OnStateChange()
+    {
+        
+    }
 }

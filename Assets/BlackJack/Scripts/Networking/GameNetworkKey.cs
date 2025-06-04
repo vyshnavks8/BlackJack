@@ -11,4 +11,5 @@ public static class NetworkEventCode
     public const byte InitDeck= 13;
     public const byte PlaceBet= 14;
     public const byte PlaceChoice= 15;
+    public const byte PlayerLeftGame= 16;
 }

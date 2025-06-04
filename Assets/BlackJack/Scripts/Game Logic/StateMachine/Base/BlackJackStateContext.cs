@@ -18,7 +18,7 @@ public class BlackJackStateContext : MonoBehaviour
 
     public BlackJackPlayer Dealer { get; private set; }
     public int DealerIndex { get; private set; }
-    public int PlayerCounter;// { private set; get; }
+    public int PlayerCounter; // { private set; get; }
     public bool FirstGame { get; private set; }
     public int cardPlaceCounter;
     public bool IsCurrentPlayerBot => currentPlayers[PlayerCounter].PlayerType == PlayerType.Bot;
@@ -102,17 +102,7 @@ public class BlackJackStateContext : MonoBehaviour
             completed?.Invoke(true);
         });
     }
-    
 
-    public void AddToRemovedPlayer(BlackJackPlayer player)
-    {
-        removedPlayers.Add(player);
-    }
-
-    public void RemoveFromCurrentPlayer(BlackJackPlayer player)
-    {
-        currentPlayers.Remove(player);
-    }
 
     public void ResetData()
     {
@@ -186,12 +176,12 @@ public class BlackJackStateContext : MonoBehaviour
         return currentPlayers[PlayerCounter];
     }
 
-    public bool CheckBotBet(int amount,Action<int> bet)
+    public bool CheckBotBet(int amount, Action<int> bet)
     {
         var blackJackPlayer = currentPlayers[PlayerCounter];
         if (blackJackPlayer.PlayerType == PlayerType.Bot)
         {
-            botManager.DoBetAmount(blackJackPlayer,amount, bet);
+            botManager.DoBetAmount(blackJackPlayer, amount, bet);
             return true;
         }
 
@@ -292,6 +282,25 @@ public class BlackJackStateContext : MonoBehaviour
         if (IsCurrentPlayerBot)
         {
             GameMenu.ShowInfoText(info.ToUpper());
+        }
+    }
+
+    public void AddToRemovedPlayer(int id)
+    {
+        foreach (var player in currentPlayers)
+        {
+            if (player.NetworkID == id)
+            {
+                removedPlayers.Add(player);
+            }
+        }
+    }
+    
+    public void RemoveFromCurrentPlayer(BlackJackPlayer player)
+    {
+        if (currentPlayers.Contains(player))
+        {
+            currentPlayers.Remove(player);
         }
     }
 }

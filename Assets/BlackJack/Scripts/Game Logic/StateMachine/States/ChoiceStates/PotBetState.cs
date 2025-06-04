@@ -95,4 +95,9 @@ public class PotBetState : BlackJackState
             }
         }
     }
+
+    public override void OnStateChange()
+    {
+        
+    }
 }

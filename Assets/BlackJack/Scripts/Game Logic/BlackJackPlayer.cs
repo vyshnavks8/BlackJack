@@ -11,7 +11,7 @@ public class BlackJackPlayer
     public Transform cardPosition => blackJackPlayerUI.transform;
     public RectTransform chipPosition => blackJackPlayerUI.ChipLocation;
     public List<Card> cards = new();
-    public int NetworkID { get; private set; }
+    public int NetworkID;// { get; private set; }
     public int Score { get; private set; }
     public int BetAmount { get; private set; }
     public float TimeAllowed { get; private set; }

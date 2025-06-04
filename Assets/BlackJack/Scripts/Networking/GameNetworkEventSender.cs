@@ -12,19 +12,24 @@ public class GameNetworkEventSender : MonoBehaviour
     public event Action<int> OnPlaceChipAmount;
     public event Action<PlayerChoice> OnPlayerChoice;
     public event Action<Deck> OnInitDeck;
+    public event Action<int> OnPlayerLeft;
+    
 
     private void OnEnable()
     {
         NetworkCallbackManager.onEventReceived += OnEventReceived;
         gameNetworkManager.networkPlayersCanvas.OnStartButtonPressed += StartGame;
         gameNetworkManager.SyncPlayerList += SyncPlayerList;
+        gameNetworkManager.PlayerLeft += PlayerLeftGame;
     }
+
 
     private void OnDisable()
     {
         NetworkCallbackManager.onEventReceived -= OnEventReceived;
         gameNetworkManager.networkPlayersCanvas.OnStartButtonPressed -= StartGame;
         gameNetworkManager.SyncPlayerList -= SyncPlayerList;
+        gameNetworkManager.PlayerLeft -= PlayerLeftGame;
     }
 
     private void OnEventReceived(EventData eventData)
@@ -42,13 +47,17 @@ public class GameNetworkEventSender : MonoBehaviour
                 break;
             case NetworkEventCode.InitDeck:
                 InitDeckEvent(eventData.CustomData);
-                break; 
+                break;
             case NetworkEventCode.PlaceChoice:
                 PlacePlayerChoiceEvent(eventData.CustomData);
                 break;
         }
     }
 
+    private void PlayerLeftGame(Player obj)
+    {
+        OnPlayerLeft?.Invoke(obj.ActorNumber);
+    }
 
     private void SyncPlayerList()
     {
@@ -121,12 +130,14 @@ public class GameNetworkEventSender : MonoBehaviour
         };
         NetworkManager.RaiseEvent(hashtable, NetworkEventCode.PlaceChoice, ReceiverGroup.All);
     }
+
     private void PlacePlayerChoiceEvent(object eventData)
     {
         var dataTable = (Hashtable)eventData;
         var playerChoice = (PlayerChoice)dataTable[0];
         OnPlayerChoice?.Invoke(playerChoice);
     }
+
     public void InitDeck(Deck deck)
     {
         var data = JsonConvert.SerializeObject(deck);

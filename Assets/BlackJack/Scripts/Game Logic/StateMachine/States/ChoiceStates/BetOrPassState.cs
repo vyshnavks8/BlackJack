@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BetOrPassState : BlackJackState
 {
-    [SerializeField] private BetState  betState;
+    [SerializeField] private BetState betState;
     [SerializeField] private FinishState finishState;
     private PlayerChoice selectedPlayerChoice = PlayerChoice.None;
 
@@ -55,7 +55,7 @@ public class BetOrPassState : BlackJackState
                 stateMachine.Context.IncrementPassCounter();
                 if (stateMachine.Context.IsMaxPlayerReached)
                 {
-                     stateMachine.SwitchState(finishState); 
+                    stateMachine.SwitchState(finishState);
                 }
                 else
                 {
@@ -80,7 +80,7 @@ public class BetOrPassState : BlackJackState
 
     public override void ExitState()
     {
-        selectedPlayerChoice= PlayerChoice.None;
+        selectedPlayerChoice = PlayerChoice.None;
         StopPlay();
         RemoveListener();
     }
@@ -88,12 +88,11 @@ public class BetOrPassState : BlackJackState
 
     private void StartBet()
     {
-          stateMachine.SwitchState(betState);
+        stateMachine.SwitchState(betState);
     }
 
     private void StartPlay()
     {
-        
         stateMachine.Context.StartPlayerTimer(OnTimerFinishPlay);
         var bot = stateMachine.Context.CheckBotBetOrPass(OnPlayerChoice);
         if (AppData.gameType == GameType.AI)
@@ -125,6 +124,28 @@ public class BetOrPassState : BlackJackState
             if (player.IsLocalNetworkPlayer())
             {
                 OnPlayerChoice(PlayerChoice.Pass);
+            }
+        }
+    }
+
+    public override void OnStateChange()
+    {
+        var currentPlayer = stateMachine.Context.GetCurrentPlayer();
+        currentPlayer.StopTimer();
+        foreach (var removedPlayer in stateMachine.Context.removedPlayers)
+        {
+            stateMachine.Context.RemoveFromCurrentPlayer(removedPlayer);
+        }
+
+        if (!NetworkManager.IsMasterClient) return;
+        foreach (var removedPlayer in stateMachine.Context.removedPlayers)
+        {
+            Debug.Log(removedPlayer.NetworkID + " removedPlayer" + currentPlayer.NetworkID);
+            if (removedPlayer.NetworkID == currentPlayer.NetworkID)
+            {
+                OnPlayerChoice(PlayerChoice.Pass);
+                Debug.Log("pass");
+                break;
             }
         }
     }

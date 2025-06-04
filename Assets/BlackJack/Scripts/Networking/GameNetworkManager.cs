@@ -9,6 +9,7 @@ public class GameNetworkManager : MonoBehaviour
     [SerializeField] public BlackJackManager blackJackManager;
     [SerializeField, HideInInspector] public List<int> playersList = new();
     public event Action SyncPlayerList;
+    public event Action<Player> PlayerLeft;
 
     private void OnEnable()
     {
@@ -31,7 +32,7 @@ public class GameNetworkManager : MonoBehaviour
 
     private void OnMasterClientSwitched(Player player)
     {
-        if ( blackJackManager.gameStarted) return;
+        if (blackJackManager.gameStarted) return;
         networkPlayersCanvas.ShowCanvas(player.ActorNumber == NetworkManager.LocalPlayer.ActorNumber);
     }
 
@@ -46,6 +47,8 @@ public class GameNetworkManager : MonoBehaviour
 
     private void OnPlayerLeftRoom(Player player)
     {
+       
+        PlayerLeft?.Invoke(player);
         if (!NetworkManager.IsMasterClient) return;
         networkPlayersCanvas.RemovePlayer(player.ActorNumber);
         playersList.Remove(player.ActorNumber);
