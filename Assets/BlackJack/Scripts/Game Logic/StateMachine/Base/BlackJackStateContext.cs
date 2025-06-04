@@ -129,6 +129,10 @@ public class BlackJackStateContext : MonoBehaviour
         FirstGame = false;
         deck = null;
         Dealer = null;
+        GameMenu.ShowBetMenuUI(false);
+        GameMenu.ShowBetPassMenuUI(false);
+        GameMenu.ShowHitStandMenuUI(false);
+        GameMenu.ShowMuckMenuUI(false);
     }
 
     private void ResetPlayer(List<BlackJackPlayer> players)

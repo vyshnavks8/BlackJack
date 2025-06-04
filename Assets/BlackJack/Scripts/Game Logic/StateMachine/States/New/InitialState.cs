@@ -32,7 +32,20 @@ public class InitialState : BlackJackState
 
     private void OnCompleted(Action callback)
     {
-        var showDealer = stateMachine.Context.Dealer.PlayerType==PlayerType.Player;
+        var showDealer = false;
+        if (AppData.gameType == GameType.AI)
+        {
+            showDealer = stateMachine.Context.Dealer.PlayerType == PlayerType.Player;
+        }
+        else
+        {
+            var player = stateMachine.Context.Dealer;
+            if (player.IsLocalNetworkPlayer())
+            {
+                showDealer = true;
+            }
+        }
+
         stateMachine.Context.PlaceDealerCard(showDealer, _ => callback?.Invoke());
     }
 }

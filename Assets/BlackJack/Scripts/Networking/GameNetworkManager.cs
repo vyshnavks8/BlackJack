@@ -31,6 +31,7 @@ public class GameNetworkManager : MonoBehaviour
 
     private void OnMasterClientSwitched(Player player)
     {
+        if ( blackJackManager.gameStarted) return;
         networkPlayersCanvas.ShowCanvas(player.ActorNumber == NetworkManager.LocalPlayer.ActorNumber);
     }
 

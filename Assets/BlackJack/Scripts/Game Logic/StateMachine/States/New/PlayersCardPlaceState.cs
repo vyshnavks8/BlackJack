@@ -56,6 +56,7 @@ public class PlayersCardPlaceState : BlackJackState
 
     public override void ExitState()
     {
+        deckInit=false;
         stateMachine.Context.cardPlaceCounter = 0;
         RemoveListener();
     }
@@ -78,7 +79,11 @@ public class PlayersCardPlaceState : BlackJackState
         }
         else
         {
-            //Network
+            var player = stateMachine.Context.GetCurrentPlayer();
+            if (player.IsLocalNetworkPlayer())
+            {
+                showCard = true;
+            }
         }
         
         stateMachine.Context.PlacePlayerCard(completed => OnCompleted(completed, callback), true, showCard);

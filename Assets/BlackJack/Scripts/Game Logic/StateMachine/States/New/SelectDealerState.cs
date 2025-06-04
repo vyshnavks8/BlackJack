@@ -2,63 +2,33 @@ using UnityEngine;
 
 public class SelectDealerState : BlackJackState
 {
-   [SerializeField,Range(0,5)] private int startPlayer;
-   [SerializeField] private PotBetState potBetState;
+    [SerializeField, Range(0, 5)] private int startPlayer;
+    [SerializeField] private PotBetState potBetState;
+
     public override void EnterState()
     {
         stateMachine.Context.SetAllPlayerStyle();
-       SetDealer();
+       
     }
 
     public override void UpdateState()
     {
+        SetDealer();
     }
 
     public override void ExitState()
     {
     }
+
     private void SetDealer()
     {
-        //stateMachine.Context.StartPlayerTimer(OnTimerFinishBet);
-        //var bot = stateMachine.Context.CheckBotBet(OnBet);
-        if (AppData.gameType == GameType.AI)
+        if (stateMachine.Context.FirstGame)
         {
-            if (stateMachine.Context.FirstGame)
-            {
-                stateMachine.Context.SetFirstGame(false);
-                stateMachine.Context.SetPlayerCounter(startPlayer);
-                var player = stateMachine.Context.GetCurrentPlayer();
-                stateMachine.Context.SetDealer(player,startPlayer);
-                stateMachine.SwitchState(potBetState);
-               
-            }
-            else
-            {
-                //stateMachine.Context.GameMenu.ShowBetMenuUI(!bot);
-            }
-         
-        }
-        else
-        {
-            //0ar player = stateMachine.Context.GetCurrentPlayer();
-            //stateMachine.Context.GameMenu.ShowBetMenuUI(player.IsLocalNetworkPlayer());
-        }
-    }
-    private void OnTimerFinishBet()
-    {
-        if (AppData.gameType == GameType.AI)
-        {
-           
-        }
-        else
-        {
+            stateMachine.Context.SetFirstGame(false);
+            stateMachine.Context.SetPlayerCounter(startPlayer);
             var player = stateMachine.Context.GetCurrentPlayer();
-            if (player.IsLocalNetworkPlayer())
-            {
-                
-            }
+            stateMachine.Context.SetDealer(player, startPlayer);
+            stateMachine.SwitchState(potBetState);
         }
-
-      
     }
 }

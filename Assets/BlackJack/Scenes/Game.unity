@@ -7206,7 +7206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e182b4e71aee498888cf03f789670223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipApiCalls: 0
+  skipApiCalls: 1
   transitionDuration: 0.2
   init: 1
   startingCanvas: {fileID: 270394413}
@@ -35862,7 +35862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f36d7fab4741f294b07836fc9ac8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPlayer: 3
+  startPlayer: 0
   potBetState: {fileID: 955778278}
 --- !u!1 &2042881011
 GameObject:

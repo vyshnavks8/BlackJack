@@ -15,7 +15,8 @@ public class BlackJackManager : MonoBehaviour
     [SerializeField] private GameCanvas gameCanvas;
     [SerializeField] private GameType gameType;
     [SerializeField, Range(5, 100)] private float gameTime = 10;
-    private bool gameStarted;
+    public bool gameStarted { private set; get; }
+    
 
     private void OnEnable()
     {
