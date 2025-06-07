@@ -5,6 +5,7 @@ public class PotBetState : BlackJackState
 {
     private const int defaultAmount = 10;
     [SerializeField] private PlayersCardPlaceState playersCardPlaceState;
+    [SerializeField] private SelectDealerState selectDealerState;
 
     public override void AddListener()
     {
@@ -96,8 +97,22 @@ public class PotBetState : BlackJackState
         }
     }
 
-    public override void OnStateChange()
+    public override void OnStateChange(int id)
     {
-        
+        var currentPlayer = stateMachine.Context.Dealer;
+        if (currentPlayer.NetworkID == id)
+        {
+            currentPlayer.StopTimer();
+            currentPlayer.blackJackPlayerUI.DisablePlayerUI();
+            stateMachine.SwitchState(selectDealerState);
+        }
+        else
+        {
+            foreach (var removedPlayer in stateMachine.Context.removedPlayers)
+            {
+                removedPlayer.blackJackPlayerUI.DisablePlayerUI();
+                stateMachine.Context.RemoveFromCurrentPlayer(removedPlayer);
+            }
+        }
     }
 }

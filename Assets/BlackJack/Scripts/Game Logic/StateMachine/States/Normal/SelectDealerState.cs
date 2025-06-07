@@ -30,5 +30,13 @@ public class SelectDealerState : BlackJackState
             stateMachine.Context.SetDealer(player, startPlayer);
             stateMachine.SwitchState(potBetState);
         }
+        else
+        {
+            var counter = stateMachine.Context.PlayerCounter + 1;
+            stateMachine.Context.SetPlayerCounter(counter);
+            var player = stateMachine.Context.GetCurrentPlayer();
+            stateMachine.Context.SetDealer(player, counter);
+            stateMachine.SwitchState(potBetState);
+        }
     }
 }

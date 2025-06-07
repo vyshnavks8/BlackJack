@@ -4,6 +4,7 @@ public class PlayState : BlackJackState
 {
     [SerializeField] private RevealState revealState;
     [SerializeField] private CheckWinState checkWinState;
+    [SerializeField] private DiscardState discardState;
     private PlayerChoice selectedPlayerChoice = PlayerChoice.None;
     private int CurrentPlayer = -1;
     private bool dealerPlayed;
@@ -148,6 +149,26 @@ public class PlayState : BlackJackState
             if (player.IsLocalNetworkPlayer())
             {
                 OnPlayerChoice(PlayerChoice.Stand);
+            }
+        }
+    }
+
+    public override void OnStateChange(int id)
+    {
+        var currentPlayer = stateMachine.Context.GetCurrentPlayer();
+        if (currentPlayer.NetworkID == id)
+        {
+            currentPlayer.StopTimer();
+            currentPlayer.blackJackPlayerUI.DisablePlayerUI();
+            stateMachine.Context.MakeDealerWinner(stateMachine.Context.Dealer, currentPlayer,
+                () => { stateMachine.SwitchState(discardState); });
+        }
+        else
+        {
+            foreach (var removedPlayer in stateMachine.Context.removedPlayers)
+            {
+                removedPlayer.blackJackPlayerUI.DisablePlayerUI();
+                stateMachine.Context.RemoveFromCurrentPlayer(removedPlayer);
             }
         }
     }

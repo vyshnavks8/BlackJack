@@ -7206,7 +7206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e182b4e71aee498888cf03f789670223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipApiCalls: 1
+  skipApiCalls: 0
   transitionDuration: 0.2
   init: 1
   startingCanvas: {fileID: 270394413}
@@ -16959,6 +16959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersCardPlaceState: {fileID: 109280506}
+  selectDealerState: {fileID: 2025101901}
 --- !u!224 &968836556 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1724759433657884708, guid: 1b06a6d2f2992f4408d8422f0cf31707, type: 3}
@@ -18300,21 +18301,27 @@ MonoBehaviour:
   - playerPosition: 0
     blackJackPlayerUI: {fileID: 981185176}
     cards: []
+    NetworkID: 0
   - playerPosition: 1
     blackJackPlayerUI: {fileID: 968836557}
     cards: []
+    NetworkID: 0
   - playerPosition: 4
     blackJackPlayerUI: {fileID: 305002747}
     cards: []
+    NetworkID: 0
   - playerPosition: 3
     blackJackPlayerUI: {fileID: 1491126733}
     cards: []
+    NetworkID: 0
   - playerPosition: 5
     blackJackPlayerUI: {fileID: 175362982}
     cards: []
+    NetworkID: 0
   - playerPosition: 2
     blackJackPlayerUI: {fileID: 172798981}
     cards: []
+    NetworkID: 0
   MaxAIPlayers: 6
   currentPlayerCount: 6
   stateMachine: {fileID: 1065776490}
@@ -18570,35 +18577,45 @@ MonoBehaviour:
   - playerPosition: 1
     blackJackPlayerUI: {fileID: 968836557}
     cards: []
+    NetworkID: 0
   - playerPosition: 4
     blackJackPlayerUI: {fileID: 305002747}
     cards: []
+    NetworkID: 0
   - playerPosition: 3
     blackJackPlayerUI: {fileID: 1491126733}
     cards: []
+    NetworkID: 0
   - playerPosition: 5
     blackJackPlayerUI: {fileID: 175362982}
     cards: []
+    NetworkID: 0
   - playerPosition: 2
     blackJackPlayerUI: {fileID: 172798981}
     cards: []
+    NetworkID: 0
   removedPlayers: []
   totalPlayers:
   - playerPosition: 1
     blackJackPlayerUI: {fileID: 968836557}
     cards: []
+    NetworkID: 0
   - playerPosition: 4
     blackJackPlayerUI: {fileID: 305002747}
     cards: []
+    NetworkID: 0
   - playerPosition: 3
     blackJackPlayerUI: {fileID: 1491126733}
     cards: []
+    NetworkID: 0
   - playerPosition: 5
     blackJackPlayerUI: {fileID: 175362982}
     cards: []
+    NetworkID: 0
   - playerPosition: 2
     blackJackPlayerUI: {fileID: 172798981}
     cards: []
+    NetworkID: 0
   PlayerCounter: 0
   cardPlaceCounter: 0
   passCounter: 0
@@ -19136,6 +19153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   revealState: {fileID: 385658286}
   checkWinState: {fileID: 1443320679}
+  discardState: {fileID: 1748833664}
 --- !u!1 &1099348437
 GameObject:
   m_ObjectHideFlags: 0
@@ -22793,6 +22811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialState: {fileID: 782721460}
+  discardState: {fileID: 1748833664}
 --- !u!1001 &1283465565
 PrefabInstance:
   m_ObjectHideFlags: 0

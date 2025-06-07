@@ -28,7 +28,7 @@ public class BlackJackStateMachine : MonoBehaviour
     private void OnPlayerLeft(int currentPlayer)
     {
         context.AddToRemovedPlayer(currentPlayer);
-        currentState.OnStateChange();
+        currentState.OnStateChange(currentPlayer);
     }
 
 

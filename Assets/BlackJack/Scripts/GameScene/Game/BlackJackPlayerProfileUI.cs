@@ -13,6 +13,8 @@ public class BlackJackPlayerProfileUI : MonoBehaviour
     [SerializeField] private Image bgImage;
     [SerializeField] private Color dealerColor;
     [SerializeField] private Color playerColor;
+    [SerializeField] private Color disabledColor;
+    [SerializeField] private Color enabledColor;
 
     private float time;
 
@@ -42,6 +44,15 @@ public class BlackJackPlayerProfileUI : MonoBehaviour
         });
     }
 
+    public void DisablePlayer()
+    {
+        bgImage.color = disabledColor;
+    }
+
+    public void EnablePlayer()
+    {
+        bgImage.color = enabledColor;
+    }
     public void StopTurn()
     {
         OnFinishTurn();

@@ -72,6 +72,7 @@ public class BlackJackPlayer
         blackJackPlayerUI.RemoveAllChips();
         blackJackPlayerUI.ShowScore(string.Empty);
         blackJackPlayerUI.ShowStatus(string.Empty);
+        blackJackPlayerUI.EnablePlayerUI();
         cards.Clear();
         Score = 0;
     }

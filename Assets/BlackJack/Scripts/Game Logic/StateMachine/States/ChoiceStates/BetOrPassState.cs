@@ -128,24 +128,22 @@ public class BetOrPassState : BlackJackState
         }
     }
 
-    public override void OnStateChange()
+    public override void OnStateChange(int id)
     {
         var currentPlayer = stateMachine.Context.GetCurrentPlayer();
-        currentPlayer.StopTimer();
-        foreach (var removedPlayer in stateMachine.Context.removedPlayers)
+        if (currentPlayer.NetworkID == id)
         {
-            stateMachine.Context.RemoveFromCurrentPlayer(removedPlayer);
+            currentPlayer.StopTimer();
+            currentPlayer.blackJackPlayerUI.DisablePlayerUI();
+            if (!NetworkManager.IsMasterClient) return;
+            OnPlayerChoice(PlayerChoice.Pass);
         }
-
-        if (!NetworkManager.IsMasterClient) return;
-        foreach (var removedPlayer in stateMachine.Context.removedPlayers)
+        else
         {
-            Debug.Log(removedPlayer.NetworkID + " removedPlayer" + currentPlayer.NetworkID);
-            if (removedPlayer.NetworkID == currentPlayer.NetworkID)
+            foreach (var removedPlayer in stateMachine.Context.removedPlayers)
             {
-                OnPlayerChoice(PlayerChoice.Pass);
-                Debug.Log("pass");
-                break;
+                removedPlayer.blackJackPlayerUI.DisablePlayerUI();
+                stateMachine.Context.RemoveFromCurrentPlayer(removedPlayer);
             }
         }
     }

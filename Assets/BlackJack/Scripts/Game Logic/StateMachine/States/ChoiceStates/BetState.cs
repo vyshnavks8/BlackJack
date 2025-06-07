@@ -3,6 +3,7 @@ using UnityEngine;
 public class BetState : BlackJackState
 {
     [SerializeField] private InitialState initialState;
+    [SerializeField] private DiscardState discardState;
     private const int defaultAmount = 1;
 
     public override void AddListener()
@@ -93,7 +94,24 @@ public class BetState : BlackJackState
                 Bet(defaultAmount);
             }
         }
-
-      
+    }
+    public override void OnStateChange(int id)
+    {
+        var currentPlayer = stateMachine.Context.GetCurrentPlayer();
+        if (currentPlayer.NetworkID == id)
+        {
+            currentPlayer.StopTimer();
+            currentPlayer.blackJackPlayerUI.DisablePlayerUI();
+            stateMachine.SwitchState(discardState);
+     
+        }
+        else
+        {
+            foreach (var removedPlayer in stateMachine.Context.removedPlayers)
+            {
+                removedPlayer.blackJackPlayerUI.DisablePlayerUI();
+                stateMachine.Context.RemoveFromCurrentPlayer(removedPlayer);
+            }
+        }
     }
 }
