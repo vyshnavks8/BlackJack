@@ -8,6 +8,10 @@ public class SelectDealerState : BlackJackState
     public override void EnterState()
     {
         stateMachine.Context.SetAllPlayerStyle();
+        if (AppData.gameType == GameType.AI)
+        {
+            startPlayer = 3;
+        }
        
     }
 
