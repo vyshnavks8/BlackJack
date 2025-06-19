@@ -68,11 +68,13 @@ public class BlackJackPlayer
     public void ResetData()
     {
         StopTimer();
+        blackJackPlayerUI.ResetChipLocation();
         blackJackPlayerUI.RemoveAllCards();
         blackJackPlayerUI.RemoveAllChips();
         blackJackPlayerUI.ShowScore(string.Empty);
         blackJackPlayerUI.ShowStatus(string.Empty);
         blackJackPlayerUI.EnablePlayerUI();
+        
         cards.Clear();
         Score = 0;
     }

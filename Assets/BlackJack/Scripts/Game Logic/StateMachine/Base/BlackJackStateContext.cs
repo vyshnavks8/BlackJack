@@ -15,7 +15,7 @@ public class BlackJackStateContext : MonoBehaviour
     public List<BlackJackPlayer> currentPlayers = new();
     public List<BlackJackPlayer> removedPlayers = new();
     public List<BlackJackPlayer> totalPlayers = new();
-
+    public RectTransform potTransform;
     public BlackJackPlayer Dealer { get; private set; }
     public int DealerIndex { get; private set; }
     public int PlayerCounter; // { private set; get; }
@@ -71,11 +71,15 @@ public class BlackJackStateContext : MonoBehaviour
         }
     }
 
-    public void PlacePlayerChip(int amount, Action<bool> completed, bool doIncrement = false)
+    public void PlacePlayerChip(int amount, Action<bool> completed, bool doIncrement = false, bool pot=false)
     {
         if (PlayerCounter < currentPlayers.Count)
         {
             var blackJackPlayer = currentPlayers[PlayerCounter];
+            if (pot)
+            {
+                blackJackPlayer.blackJackPlayerUI.UpdateChipLocation(potTransform);
+            }
             blackJackPlayer.SetBet(amount, () =>
             {
                 if (doIncrement)

@@ -30,7 +30,7 @@ public class BetOrPassState : BlackJackState
     {
         if (AppData.gameType == GameType.AI)
         {
-            stateMachine.Context.ShowInfo(playerChoice.ToString());
+         
             SetPlayerChoice(playerChoice);
         }
         else
@@ -43,6 +43,7 @@ public class BetOrPassState : BlackJackState
     {
         StopPlay();
         selectedPlayerChoice = playerChoice;
+        stateMachine.Context.ShowInfo(playerChoice.ToString());
         switch (selectedPlayerChoice)
         {
             case PlayerChoice.Bet:

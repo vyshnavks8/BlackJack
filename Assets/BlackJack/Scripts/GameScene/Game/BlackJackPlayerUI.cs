@@ -19,8 +19,15 @@ public class BlackJackPlayerUI : MonoBehaviour
     private readonly List<CardUI> cards = new();
     private readonly List<ChipUI> chips = new();
     private ChipUI chipInstance;
-    public RectTransform ChipLocation => chipLocation;
+    public RectTransform ChipLocation { get; private set; }
+
     private int revealCount;
+
+    private void Awake()
+    {
+        ChipLocation = chipLocation;
+    }
+
     public void AddCard(Card card, bool visible = true)
     {
         var cardInstance = Instantiate(cardUI, cardHolder);
@@ -33,8 +40,13 @@ public class BlackJackPlayerUI : MonoBehaviour
         chipInstance = Instantiate(chipUI, chipHolder);
         chipInstance.transform.position = chipOrigin.position;
         chipInstance.SetChipValue(value);
-        chipInstance.MoveTo(chipLocation, completed);
+        chipInstance.MoveTo(ChipLocation, completed);
         chips.Add(chipInstance);
+    }
+
+    public void UpdateChipLocation(RectTransform location)
+    {
+        ChipLocation = location;
     }
 
     public void UpdateChip(int value)
@@ -134,5 +146,10 @@ public class BlackJackPlayerUI : MonoBehaviour
     public void DisablePlayerUI()
     {
         profileUI.DisablePlayer();
+    }
+
+    public void ResetChipLocation()
+    {
+        ChipLocation = chipLocation;
     }
 }

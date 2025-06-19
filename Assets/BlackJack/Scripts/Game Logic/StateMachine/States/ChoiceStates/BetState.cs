@@ -40,6 +40,7 @@ public class BetState : BlackJackState
     {
         if (AppData.gameType == GameType.AI)
         {
+            
             PlaceChipAmount(amount);
         }
         else
@@ -51,6 +52,7 @@ public class BetState : BlackJackState
     private void PlaceChipAmount(int amount)
     {
         StopBet();
+        stateMachine.Context.ShowInfo($"Bet ${amount}");
         stateMachine.Context.PlacePlayerChip(amount, OnCompletedPlaceChip);
     }
 

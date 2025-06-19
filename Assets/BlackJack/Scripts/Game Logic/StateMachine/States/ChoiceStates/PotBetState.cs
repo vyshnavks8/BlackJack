@@ -52,7 +52,7 @@ public class PotBetState : BlackJackState
     private void PlaceChipAmount(int amount)
     {
         StopBet();
-        stateMachine.Context.PlacePlayerChip(amount, OnCompletedBet);
+        stateMachine.Context.PlacePlayerChip(amount, OnCompletedBet,false,true);
     }
 
     private void OnCompletedBet(bool obj)
