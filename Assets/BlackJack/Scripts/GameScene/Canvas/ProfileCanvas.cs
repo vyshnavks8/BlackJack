@@ -33,7 +33,11 @@ public class ProfileCanvas : CanvasBase
         nameInput.text = !string.IsNullOrEmpty(AppData.username) ? AppData.username : "New User";
         emailInput.text = AppData.email;
         mobileInput.text = AppData.mobile;
-        profileImagText.text = AppData.username[0].ToString();
+        if (!string.IsNullOrEmpty(AppData.username))
+        {
+            profileImagText.text = AppData.username[0].ToString();
+        }
+       
     }
 
 
