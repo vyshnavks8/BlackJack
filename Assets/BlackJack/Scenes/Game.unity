@@ -450,7 +450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 27623112}
   m_Layer: 5
-  m_Name: TopRight
+  m_Name: TopLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1755,6 +1755,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Name
       objectReference: {fileID: 0}
+    - target: {fileID: 6892993950332479064, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
+      propertyPath: m_CharacterLimit
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2324,8 +2328,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 750, y: -572.38}
-  m_SizeDelta: {x: 1400, y: 163.16}
+  m_AnchoredPosition: {x: 750, y: -584.93}
+  m_SizeDelta: {x: 1400, y: 188.26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &144918259
 CanvasRenderer:
@@ -2355,7 +2359,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: info
+  m_text: Info
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 826d591d0514e7d4c8fee84adf6abbfa, type: 2}
   m_sharedMaterial: {fileID: 7250801566113303893, guid: 826d591d0514e7d4c8fee84adf6abbfa, type: 2}
@@ -2382,8 +2386,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 110
-  m_fontSizeBase: 110
+  m_fontSize: 130
+  m_fontSizeBase: 130
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2899,6 +2903,7 @@ MonoBehaviour:
   playHitStandMenuUI: {fileID: 1554257894}
   playBetPassMenuUI: {fileID: 1608080846}
   playShowMuckMenuUI: {fileID: 2018576301}
+  betOverlayCanvas: {fileID: 1482828181}
 --- !u!1001 &218440523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3041,6 +3046,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &232774654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 232774656}
+  - component: {fileID: 232774655}
+  m_Layer: 0
+  m_Name: DebugState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &232774655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232774654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024c984e7c364c6c97f1384106449bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &232774656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232774654}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &234596142 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 410036753683189171, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
@@ -5147,7 +5196,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 750, y: -983.95996}
+  m_AnchoredPosition: {x: 750, y: -1009.06}
   m_SizeDelta: {x: 1400, y: 150}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &352349408
@@ -9166,7 +9215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 563295782}
   m_Layer: 5
-  m_Name: BottomRight
+  m_Name: BottomLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9255,7 +9304,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.00010850695, y: 0}
-  m_SizeDelta: {x: 1500, y: 1264.1699}
+  m_SizeDelta: {x: 1500, y: 1289.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &571882299
 MonoBehaviour:
@@ -9307,7 +9356,7 @@ MonoBehaviour:
     m_Left: 50
     m_Right: 50
     m_Top: 50
-    m_Bottom: 50
+    m_Bottom: 150
   m_ChildAlignment: 4
   m_Spacing: 180
   m_ChildForceExpandWidth: 1
@@ -12249,7 +12298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 721621449}
   m_Layer: 5
-  m_Name: TopLeft
+  m_Name: TopRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14908,7 +14957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1634846533621834671, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_text
-      value: Enter the password
+      value: Enter password
       objectReference: {fileID: 0}
     - target: {fileID: 4542236978829530461, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_SizeDelta.x
@@ -15613,7 +15662,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 750, y: -1189.065}
+  m_AnchoredPosition: {x: 750, y: -1214.165}
   m_SizeDelta: {x: 1400, y: 50.21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &884315873
@@ -18339,11 +18388,11 @@ MonoBehaviour:
     cards: []
     NetworkID: 0
   - playerPosition: 1
-    blackJackPlayerUI: {fileID: 968836557}
+    blackJackPlayerUI: {fileID: 172798981}
     cards: []
     NetworkID: 0
   - playerPosition: 4
-    blackJackPlayerUI: {fileID: 305002747}
+    blackJackPlayerUI: {fileID: 175362982}
     cards: []
     NetworkID: 0
   - playerPosition: 3
@@ -18351,11 +18400,11 @@ MonoBehaviour:
     cards: []
     NetworkID: 0
   - playerPosition: 5
-    blackJackPlayerUI: {fileID: 175362982}
+    blackJackPlayerUI: {fileID: 305002747}
     cards: []
     NetworkID: 0
   - playerPosition: 2
-    blackJackPlayerUI: {fileID: 172798981}
+    blackJackPlayerUI: {fileID: 968836557}
     cards: []
     NetworkID: 0
   MaxAIPlayers: 6
@@ -18363,7 +18412,7 @@ MonoBehaviour:
   stateMachine: {fileID: 1065776490}
   gameCanvas: {fileID: 545653017}
   gameType: 0
-  gameTime: 30
+  gameTime: 10
 --- !u!1 &1044406415
 GameObject:
   m_ObjectHideFlags: 0
@@ -18611,11 +18660,11 @@ MonoBehaviour:
     DiscardedCards: []
   currentPlayers:
   - playerPosition: 1
-    blackJackPlayerUI: {fileID: 968836557}
+    blackJackPlayerUI: {fileID: 172798981}
     cards: []
     NetworkID: 0
   - playerPosition: 4
-    blackJackPlayerUI: {fileID: 305002747}
+    blackJackPlayerUI: {fileID: 175362982}
     cards: []
     NetworkID: 0
   - playerPosition: 3
@@ -18623,11 +18672,11 @@ MonoBehaviour:
     cards: []
     NetworkID: 0
   - playerPosition: 5
-    blackJackPlayerUI: {fileID: 175362982}
+    blackJackPlayerUI: {fileID: 305002747}
     cards: []
     NetworkID: 0
   - playerPosition: 2
-    blackJackPlayerUI: {fileID: 172798981}
+    blackJackPlayerUI: {fileID: 968836557}
     cards: []
     NetworkID: 0
   removedPlayers: []
@@ -18655,6 +18704,7 @@ MonoBehaviour:
   potTransform: {fileID: 539056011}
   PlayerCounter: 0
   cardPlaceCounter: 0
+  cardRemoveCounter: 0
   passCounter: 0
 --- !u!114 &1065776492
 MonoBehaviour:
@@ -23989,7 +24039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1348298302}
   m_Layer: 5
-  m_Name: Dealer Postion
+  m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24109,7 +24159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1634846533621834671, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_text
-      value: Enter the password
+      value: Enter  password
       objectReference: {fileID: 0}
     - target: {fileID: 4542236978829530461, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_SizeDelta.x
@@ -29815,7 +29865,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1698208473}
   m_Layer: 5
-  m_Name: BottomLeft
+  m_Name: BottomRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30490,6 +30540,18 @@ PrefabInstance:
     - target: {fileID: 6432973713328001078, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_text
       value: Email
+      objectReference: {fileID: 0}
+    - target: {fileID: 6892993950332479064, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
+      propertyPath: m_ContentType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6892993950332479064, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
+      propertyPath: m_KeyboardType
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6892993950332479064, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
+      propertyPath: m_CharacterValidation
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31952,7 +32014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1634846533621834671, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_text
-      value: Enter the password
+      value: Enter  password
       objectReference: {fileID: 0}
     - target: {fileID: 4542236978829530461, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_SizeDelta.x
@@ -35920,6 +35982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPlayer: 0
   potBetState: {fileID: 955778278}
+  waitTime: 5
 --- !u!1 &2042881011
 GameObject:
   m_ObjectHideFlags: 0
@@ -39370,3 +39433,4 @@ SceneRoots:
   - {fileID: 270592001}
   - {fileID: 920520638}
   - {fileID: 1264640606}
+  - {fileID: 232774656}

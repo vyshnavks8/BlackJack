@@ -87,4 +87,5 @@ public class PopUpManager : MonoBehaviour
         var c3 = timedContent.TimedCallback;
         popUpPanel.ShowPop(heading, data, b1, c1, b2, c2, t1, c3);
     }
+  
 }

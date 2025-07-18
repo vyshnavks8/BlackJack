@@ -365,8 +365,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 750, y: -572.38}
-  m_SizeDelta: {x: 1400, y: 163.16}
+  m_AnchoredPosition: {x: 750, y: -584.93}
+  m_SizeDelta: {x: 1400, y: 188.26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &117781926
 MonoBehaviour:
@@ -415,8 +415,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 110
-  m_fontSizeBase: 110
+  m_fontSize: 130
+  m_fontSizeBase: 130
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4837,7 +4837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1634846533621834671, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_text
-      value: Enter the password
+      value: Enter  password
       objectReference: {fileID: 0}
     - target: {fileID: 4542236978829530461, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_SizeDelta.x
@@ -7143,7 +7143,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.00010850695, y: 0}
-  m_SizeDelta: {x: 1500, y: 1264.1699}
+  m_SizeDelta: {x: 1500, y: 1389.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1246864733
 MonoBehaviour:
@@ -7175,7 +7175,7 @@ MonoBehaviour:
     m_Left: 50
     m_Right: 50
     m_Top: 50
-    m_Bottom: 50
+    m_Bottom: 150
   m_ChildAlignment: 4
   m_Spacing: 180
   m_ChildForceExpandWidth: 1
@@ -9354,7 +9354,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 750, y: -983.95996}
+  m_AnchoredPosition: {x: 750, y: -1009.06}
   m_SizeDelta: {x: 1400, y: 150}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1645037945
@@ -9731,7 +9731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7141874337294757150, guid: c09471ceb511b564fbd30e1677cf83d1, type: 3}
       propertyPath: m_text
-      value: RESET
+      value: SUBMIT
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10053,7 +10053,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 750, y: -1189.065}
+  m_AnchoredPosition: {x: 750, y: -1214.165}
   m_SizeDelta: {x: 1400, y: 50.21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1735847943
@@ -10277,7 +10277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1634846533621834671, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_text
-      value: Enter the password
+      value: Enter password
       objectReference: {fileID: 0}
     - target: {fileID: 4542236978829530461, guid: fd6d3244bf8260a4c9db194a59a60f6b, type: 3}
       propertyPath: m_SizeDelta.x

@@ -14,6 +14,8 @@ public class CardUI : MonoBehaviour
     private bool cardVisible;
     private const float duration = 0.5f;
     private IEnumerator wait;
+    private Tweener tweener;
+
     public void SetData(Card card, bool visible)
     {
         cardVisible = visible;
@@ -29,10 +31,11 @@ public class CardUI : MonoBehaviour
     {
         if (cardVisible)
         {
-            wait = WaitFor(duration+duration, finished);
+            wait = WaitFor(duration + duration, finished);
             StartCoroutine(wait);
             return;
         }
+
         transform
             .DOLocalRotate(new Vector3(0f, -90f, 0f), duration, RotateMode.LocalAxisAdd)
             .OnComplete(() => OnCompleteHalf(finished));
@@ -51,5 +54,22 @@ public class CardUI : MonoBehaviour
         transform
             .DOLocalRotate(new Vector3(0f, -90f, 0f), duration, RotateMode.LocalAxisAdd)
             .OnComplete(() => finished?.Invoke());
+    }
+
+    public void SetHighLightCard(bool highlight)
+    {
+        if (highlight)
+        {
+            tweener = cardImage.DOColor(Color.yellow, 0.4f).SetLoops(-1, LoopType.Yoyo);
+        }
+        else
+        {
+            if (tweener!=null)
+            {
+                tweener.Kill();
+            }
+            cardImage.color = Color.white;
+        }
+       
     }
 }

@@ -116,8 +116,7 @@ public class CreateCanvas : CanvasBase
         LoadingController.HideLoading();
         OnSetCanvasActive(gameCanvas);
         var shareButton = new ButtonContent("Share Code", OnClickShareCode);
-        NetworkPopUp.ShowPopUp("Create Private Game",
-            AppData.onlineGameMessage + "\n" + "JOIN GAME CODE : " + AppData.onlineGameCode, shareButton);
+        NetworkPopUp.ShowPopUp("Create Private Game", AppData.onlineGameMessage + "\n" + "JOIN GAME CODE : " + AppData.onlineGameCode, shareButton);
     }
 
     private void OnCreateRoomFailed(short arg1, string message)

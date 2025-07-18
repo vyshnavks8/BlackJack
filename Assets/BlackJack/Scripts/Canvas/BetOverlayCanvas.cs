@@ -31,6 +31,11 @@ public class BetOverlayCanvas : OverlayCanvas
 
     private void OnEnterClick()
     {
+       Hide();
+    }
+
+    public void Hide()
+    {
         HideOverlay();
         inputField.text = string.Empty;
     }

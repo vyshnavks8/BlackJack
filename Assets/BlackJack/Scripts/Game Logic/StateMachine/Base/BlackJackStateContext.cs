@@ -21,6 +21,7 @@ public class BlackJackStateContext : MonoBehaviour
     public int PlayerCounter; // { private set; get; }
     public bool FirstGame { get; private set; }
     public int cardPlaceCounter;
+    public int cardRemoveCounter;
     public bool IsCurrentPlayerBot => currentPlayers[PlayerCounter].PlayerType == PlayerType.Bot;
     public bool IsMaxPlayerReached => passCounter > currentPlayers.Count - 2;
     public int passCounter;
@@ -30,6 +31,26 @@ public class BlackJackStateContext : MonoBehaviour
         var blackJackPlayer = currentPlayers[PlayerCounter];
         blackJackPlayer.blackJackPlayerUI.RemoveAllCards();
         cardPlacer.MoveCardToOrigin(blackJackPlayer.cardPosition, () => { completedRound?.Invoke(); });
+    }
+
+    public void DiscardAllPlayerCard(Action completedRound)
+    {
+        var blackJackPlayer = currentPlayers[PlayerCounter];
+        blackJackPlayer.ClearCards();
+        blackJackPlayer.blackJackPlayerUI.RemoveAllCards();
+        cardPlacer.MoveCardToOrigin(blackJackPlayer.cardPosition, () =>
+        {
+            IncrementNextPlayer();
+            cardRemoveCounter += 1;
+            if (cardRemoveCounter > currentPlayers.Count-1)
+            {
+                completedRound?.Invoke();
+            }
+            else
+            {
+                DiscardAllPlayerCard(completedRound);
+            }
+        });
     }
 
     public void DiscardDealerCard(Action completedRound)
@@ -62,6 +83,31 @@ public class BlackJackStateContext : MonoBehaviour
         }
     }
 
+    public void PlacePlayerCardAllCustom(Deck customDeck, Action<bool> completedRound, bool doIncrement = false,
+        bool visible = true)
+    {
+        if (cardPlaceCounter < currentPlayers.Count)
+        {
+            var card = customDeck.DrawTopCard();
+            var blackJackPlayer = currentPlayers[PlayerCounter];
+            cardPlacer.MoveCardAnimation(blackJackPlayer.cardPosition, () =>
+            {
+                if (doIncrement)
+                {
+                    IncrementNextPlayer();
+                    cardPlaceCounter += 1;
+                }
+
+                blackJackPlayer.AddCard(card, visible);
+                completedRound?.Invoke(true);
+            });
+        }
+        else
+        {
+            completedRound?.Invoke(false);
+        }
+    }
+
     public void IncrementNextPlayer()
     {
         PlayerCounter += 1;
@@ -71,7 +117,7 @@ public class BlackJackStateContext : MonoBehaviour
         }
     }
 
-    public void PlacePlayerChip(int amount, Action<bool> completed, bool doIncrement = false, bool pot=false)
+    public void PlacePlayerChip(int amount, Action<bool> completed, bool doIncrement = false, bool pot = false)
     {
         if (PlayerCounter < currentPlayers.Count)
         {
@@ -80,6 +126,7 @@ public class BlackJackStateContext : MonoBehaviour
             {
                 blackJackPlayer.blackJackPlayerUI.UpdateChipLocation(potTransform);
             }
+
             blackJackPlayer.SetBet(amount, () =>
             {
                 if (doIncrement)
@@ -281,12 +328,17 @@ public class BlackJackStateContext : MonoBehaviour
         passCounter += 1;
     }
 
-    public void ShowInfo(string info)
+    public void ShowInfo(string info, Action callback = null)
     {
         if (IsCurrentPlayerBot)
         {
-            GameMenu.ShowInfoText(info.ToUpper());
+            GameMenu.ShowInfoText(info.ToUpper(), callback);
         }
+    }
+
+    public void ShowInfoForce(string info, Action callback = null)
+    {
+        GameMenu.ShowInfoText(info.ToUpper(), callback);
     }
 
     public void AddToRemovedPlayer(int id)
@@ -299,7 +351,7 @@ public class BlackJackStateContext : MonoBehaviour
             }
         }
     }
-    
+
     public void RemoveFromCurrentPlayer(BlackJackPlayer player)
     {
         if (currentPlayers.Contains(player))

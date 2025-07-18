@@ -145,7 +145,7 @@ public class SignUpCanvas : CanvasBase
         if (BlackjackUtils.IsInputEmpty(fullName, "Display name")) return false;
         if (string.IsNullOrEmpty(emailID) && string.IsNullOrEmpty(mobileID))
         {
-            BlackjackUtils.ShowEmpty( "Email ID/ Cell");
+            BlackjackUtils.ShowEmpty( "Email ID or Cell");
             return false;
         }
 
@@ -153,7 +153,7 @@ public class SignUpCanvas : CanvasBase
         if (BlackjackUtils.IsInputEmpty(confirmPassword, "Confirm Password")) return false;
         if (password != confirmPassword)
         {
-            NetworkPopUp.ShowPopUp("Mismatch password", "password doesnt match");
+            NetworkPopUp.ShowPopUp("Mismatch password", "password do not match");
             return false;
         }
 

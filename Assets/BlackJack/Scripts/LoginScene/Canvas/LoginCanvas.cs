@@ -157,7 +157,7 @@ public class LoginCanvas : CanvasBase
     {
         if (string.IsNullOrEmpty(emailID) && string.IsNullOrEmpty(mobileID))
         {
-            BlackjackUtils.ShowEmpty( "Email ID/ Cell");
+            BlackjackUtils.ShowEmpty( "Email ID or Cell");
             return false;
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using RedDevil.PlayingCards;
@@ -47,6 +48,25 @@ public static class BlackJackGameUtility
         return players.Where(player => positionsToAdd.Contains(player.playerPosition)).ToList();
     }
 
+    public static int GetPlayerIndex(PlayerPosition playerPosition)
+    {
+        switch (playerPosition)
+        {
+            case PlayerPosition.Top:
+                return 0;
+            case PlayerPosition.TopRight:
+                return 1;
+            case PlayerPosition.BottomRight:
+                return 2;
+            case PlayerPosition.Bottom:
+               return 3;
+            case PlayerPosition.BottomLeft:
+                return 4;
+            case PlayerPosition.TopLeft:
+                return 5;
+        }
+        return -1;
+    }
     public static int CalculatePlayerScore(List<Card> cards)
     {
         var score = cards.Sum(BlackJackValidator.GetCardValue);

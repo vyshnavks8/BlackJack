@@ -123,7 +123,7 @@ public class ForgotPasswordCanvas : CanvasBase
     {
         if (string.IsNullOrEmpty(emailID) && string.IsNullOrEmpty(mobileID))
         {
-            NetworkPopUp.ShowPopUp("Invalid Input", "Email ID/ Mobile Number");
+            BlackjackUtils.ShowEmpty( "Email ID or Cell");
             return false;
         }
 

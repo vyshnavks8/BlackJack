@@ -152,4 +152,12 @@ public class BlackJackPlayerUI : MonoBehaviour
     {
         ChipLocation = chipLocation;
     }
+
+    public void HighlightCard(bool highlight)
+    {
+        foreach (var card in cards)
+        {
+            card.SetHighLightCard(highlight);
+        }
+    }
 }

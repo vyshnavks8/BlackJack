@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -52,7 +53,7 @@ public class PotBetState : BlackJackState
     private void PlaceChipAmount(int amount)
     {
         StopBet();
-        stateMachine.Context.PlacePlayerChip(amount, OnCompletedBet,false,true);
+        stateMachine.Context.PlacePlayerChip(amount, OnCompletedBet, false, true);
     }
 
     private void OnCompletedBet(bool obj)
@@ -63,7 +64,7 @@ public class PotBetState : BlackJackState
     private void StartBet()
     {
         stateMachine.Context.StartPlayerTimer(OnTimerFinishBet);
-        var bot = stateMachine.Context.CheckBotBet(stateMachine.Context.Dealer.BetAmount,OnBet);
+        var bot = stateMachine.Context.CheckBotBet(stateMachine.Context.Dealer.BetAmount, OnBet);
         if (AppData.gameType == GameType.AI)
         {
             stateMachine.Context.GameMenu.ShowBetMenuUI(!bot);
@@ -85,16 +86,22 @@ public class PotBetState : BlackJackState
     {
         if (AppData.gameType == GameType.AI)
         {
-            OnBet(defaultAmount);
+            TimeOut(() => { OnBet(defaultAmount); });
         }
         else
         {
             var player = stateMachine.Context.GetCurrentPlayer();
             if (player.IsLocalNetworkPlayer())
             {
-                OnBet(defaultAmount);
+                TimeOut(() => { OnBet(defaultAmount); });
             }
         }
+    }
+
+    private void TimeOut(Action callback = null)
+    {
+        stateMachine.Context.ShowInfoForce($"Time Out", callback);
+        stateMachine.Context.GameMenu.HideBetOverlay();
     }
 
     public override void OnStateChange(int id)

@@ -18,14 +18,14 @@ public class FinishState : BlackJackState
         yield return new WaitForSeconds(waitTime);
         if (AppData.gameType == GameType.AI)
         {
-            var popContent = new PopContent("", "Do you want\nto <size=150><b>Replay</size></b> Game ?");
+            var popContent = new PopContent("", "Do You Want\nTo <size=150><b>REPLAY</size></b> Game ?");
             var buttonContentA = new ButtonContent("No", OnExitGame);
             var buttonContentB = new ButtonContent("Yes", OnRestartGame);
             PopUpController.ShowPopUp(popContent, buttonContentA, buttonContentB);
         }
         else
         {
-            var popContent = new PopContent("", "Go to\n <size=150><b>Main Menu</size></b>");
+            var popContent = new PopContent("", "Go To\n <size=150><b>MAIN MENU</size></b>");
             //  var buttonContentA = new ButtonContent("No", OnExitGame);
             var buttonContentB = new ButtonContent("Yes", OnExitGame);
             PopUpController.ShowPopUp(popContent, buttonContentB,ButtonType.ButtonB);

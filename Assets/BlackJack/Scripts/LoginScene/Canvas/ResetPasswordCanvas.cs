@@ -93,7 +93,7 @@ public class ResetPasswordCanvas : CanvasBase
         if (BlackjackUtils.IsInputEmpty(confirmPassword, "Confirm Password")) return false;
         if (newPassword != confirmPassword)
         {
-            NetworkPopUp.ShowPopUp("Mismatch password", "password doesnt match");
+            NetworkPopUp.ShowPopUp("Mismatch password", "password do not match");
             return false;
         }
 

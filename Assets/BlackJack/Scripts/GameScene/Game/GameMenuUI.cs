@@ -13,6 +13,7 @@ public class GameMenuUI : MonoBehaviour
     [SerializeField] private PlayChoiceMenuUI playHitStandMenuUI;
     [SerializeField] private PlayChoiceMenuUI playBetPassMenuUI;
     [SerializeField] private PlayChoiceMenuUI playShowMuckMenuUI;
+    [SerializeField] private BetOverlayCanvas betOverlayCanvas;
     public event Action<PlayerChoice> OnPlayerChoice;
     public event Action<int> OnBet;
 
@@ -73,19 +74,20 @@ public class GameMenuUI : MonoBehaviour
         bg.gameObject.SetActive(show);
     }
 
-    public void ShowInfoText(string info)
+    public void ShowInfoText(string info,Action onComplete=null)
     {
         infoText.text = info;
         infoText.gameObject.SetActive(true);
-        var infoTextEnumerator = StartTimer();
+        var infoTextEnumerator = StartTimer(onComplete);
         StartCoroutine(infoTextEnumerator);
     }
 
-    private IEnumerator StartTimer()
+    private IEnumerator StartTimer(Action callback)
     {
         yield return new WaitForSeconds(infoTime);
         infoText.gameObject.SetActive(false);
         infoText.text = string.Empty;
+        callback?.Invoke();
     }
 
     public void HideUI()
@@ -94,5 +96,10 @@ public class GameMenuUI : MonoBehaviour
         playHitStandMenuUI.ShowUI(false);
         playBetPassMenuUI.ShowUI(false);
         betMenuUI.ShowUI(false);
+    }
+
+    public void HideBetOverlay()
+    {
+        betOverlayCanvas.Hide();
     }
 }
