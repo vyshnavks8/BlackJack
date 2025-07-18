@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class BlackJackManager : MonoBehaviour
 {
-    [SerializeField] private  InputAction startGameKey;
+    [SerializeField] private InputAction startGameKey;
     [SerializeField] private BlackJackPlayer[] players;
     [SerializeField, Range(3, 6)] private int MaxAIPlayers = 3;
     [SerializeField, Range(1, 6)] private int currentPlayerCount;
@@ -16,7 +16,7 @@ public class BlackJackManager : MonoBehaviour
     [SerializeField] private GameType gameType;
     [SerializeField, Range(5, 100)] private float gameTime = 10;
     public bool gameStarted { private set; get; }
-    
+
 
     private void OnEnable()
     {
@@ -27,6 +27,7 @@ public class BlackJackManager : MonoBehaviour
         startGameKey.Enable();
         startGameKey.started += StartGameByKey;
     }
+
     private void OnDisable()
     {
         AppData.OnUpdateGameType -= OnGameTypeUpdate;
@@ -35,19 +36,21 @@ public class BlackJackManager : MonoBehaviour
         startGameKey.Disable();
         startGameKey.started -= StartGameByKey;
     }
+
     private void StartGameByKey(InputAction.CallbackContext obj)
     {
-        if (obj.started&& !gameStarted)
+#if UNITY_EDITOR
+        if (obj.started && !gameStarted)
         {
             StartGame();
         }
+#endif
     }
 
     private void Init()
     {
         InitPlayerUI();
     }
-
 
 
     public void SetNetworkPlayer(int playerCount, List<int> playersList)
@@ -77,6 +80,7 @@ public class BlackJackManager : MonoBehaviour
         {
             currentPlayerCount = MaxAIPlayers;
         }
+
         gameStarted = true;
         var currentPlayers = BlackJackGameUtility.GetPlayers(currentPlayerCount, players);
         SetPlayerData(currentPlayers);
@@ -144,6 +148,7 @@ public class BlackJackGameManagerEditor : Editor
         {
             manager.StartGame();
         }
+
         if (GUILayout.Button("Restart Game"))
         {
             manager.RestartGame();
