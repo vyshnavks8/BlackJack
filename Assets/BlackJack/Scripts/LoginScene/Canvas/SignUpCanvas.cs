@@ -127,6 +127,7 @@ public class SignUpCanvas : CanvasBase
         {
             if (response.success)
             {
+                NetworkPopUp.ShowPopUp("Sign Up",response.message);
                 OnSetCanvasActive(loginCanvas);
             }
             else
@@ -153,7 +154,7 @@ public class SignUpCanvas : CanvasBase
         if (BlackjackUtils.IsInputEmpty(confirmPassword, "Confirm Password")) return false;
         if (password != confirmPassword)
         {
-            NetworkPopUp.ShowPopUp("Mismatch password", "password do not match");
+            NetworkPopUp.ShowPopUp("Mismatch password", "passwords do not match");
             return false;
         }
 

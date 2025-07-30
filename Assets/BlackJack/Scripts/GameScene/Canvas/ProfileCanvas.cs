@@ -93,6 +93,7 @@ public class ProfileCanvas : CanvasBase
     {
         if (response.success)
         {
+            NetworkPopUp.ShowPopUp("Delete Profile", response.message);
             SceneManager.LoadScene(SceneKey.Login);
         }
         else

@@ -115,13 +115,14 @@ public class EditProfileCanvas : CanvasBase
 
     private bool ValidInputs()
     {
-        if (!BlackjackUtils.IsValidEmail(email))
+        if (!string.IsNullOrEmpty(email) && !BlackjackUtils.IsValidEmail(email))
         {
             NetworkPopUp.ShowPopUp("Valid Email ID", "Please enter a valid email address");
             return true;
         }
 
-        if (!BlackjackUtils.IsValidMobile(mobile))
+
+        if (!string.IsNullOrEmpty(mobile) && !BlackjackUtils.IsValidMobile(mobile))
         {
             NetworkPopUp.ShowPopUp("Valid Mobile", "Please enter a valid mobile number");
             return true;
@@ -135,8 +136,17 @@ public class EditProfileCanvas : CanvasBase
     private bool CheckValidInputs()
     {
         if (BlackjackUtils.IsInputEmpty(username, "Name")) return false;
-        if (BlackjackUtils.IsInputEmpty(email, "Email ID")) return false;
-        if (BlackjackUtils.IsInputEmpty(mobile, "Mobile Number")) return false;
+        if (string.IsNullOrEmpty(mobile) && string.IsNullOrEmpty(mobile))
+        {
+            BlackjackUtils.ShowEmpty("Email ID or Cell");
+            return false;
+        }
+
+        // if (string.IsNullOrEmpty(email))
+        // {
+        //     if (BlackjackUtils.IsInputEmpty(mobile, "Mobile Number")) return false;
+        // }
+
         return true;
     }
 

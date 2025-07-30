@@ -26,13 +26,13 @@ public static class BlackjackUtils
     public static bool IsInputEmpty(string input, string message)
     {
         if (!string.IsNullOrEmpty(input)) return false;
-        NetworkPopUp.ShowPopUp("Invalid Input", $"{message} is empty");
+        NetworkPopUp.ShowPopUp("Invalid Input", $"{message} is Required.");
         return true;
     }
 
     public static void ShowEmpty(string message)
     {
-        NetworkPopUp.ShowPopUp("Invalid Input", $"{message} is empty");
+        NetworkPopUp.ShowPopUp("Invalid Input", $"{message} is Required.");
     }
 
     public static void ShareOnlineGameCode()
