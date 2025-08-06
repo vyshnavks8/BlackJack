@@ -22,7 +22,7 @@ public class GameMenuUI : MonoBehaviour
         playHitStandMenuUI.OnPlayerChoice += PlayerChoice;
         playBetPassMenuUI.OnPlayerChoice += PlayerChoice;
         playShowMuckMenuUI.OnPlayerChoice += PlayerChoice;
-        betMenuUI.OnBet += Bet;
+        betOverlayCanvas.OnBet += Bet;
     }
 
 
@@ -31,7 +31,7 @@ public class GameMenuUI : MonoBehaviour
         playHitStandMenuUI.OnPlayerChoice -= PlayerChoice;
         playBetPassMenuUI.OnPlayerChoice -= PlayerChoice;
         playShowMuckMenuUI.OnPlayerChoice -= PlayerChoice;
-        betMenuUI.OnBet -= Bet;
+        betOverlayCanvas.OnBet -= Bet;
     }
 
 
@@ -65,8 +65,9 @@ public class GameMenuUI : MonoBehaviour
 
     public void ShowBetMenuUI(bool show)
     {
-        betMenuUI.ShowUI(show);
-        ShowBG(show);
+        //betMenuUI.ShowUI(show);
+        //ShowBG(show);
+        betOverlayCanvas.Show(show);
     }
 
     private void ShowBG(bool show)

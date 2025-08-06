@@ -10,6 +10,7 @@ public class SelectDealerState : BlackJackState
     private bool AI;
     [SerializeField] private float waitTime = 3;
     private IEnumerator waitForDiscard;
+    [SerializeField] private bool useTestStartPlayer;
 
     public override void EnterState()
     {
@@ -58,7 +59,11 @@ public class SelectDealerState : BlackJackState
             highestScoringPlayer = player;
         }
 
-        if (highestScoringPlayer == null)
+        if (useTestStartPlayer)
+        {
+            
+        }
+        else if (highestScoringPlayer == null)
         {
             startPlayer = 3;
         }
@@ -73,7 +78,6 @@ public class SelectDealerState : BlackJackState
         {
             highestScoringPlayer?.blackJackPlayerUI.HighlightCard(false);
             stateMachine.Context.DiscardAllPlayerCard(SetDealer);
-        
         });
         StartCoroutine(waitForDiscard);
     }
@@ -91,7 +95,7 @@ public class SelectDealerState : BlackJackState
         stateMachine.Context.cardRemoveCounter = 0;
         stateMachine.Context.passCounter = 0;
         startPlayer = 0;
-        AI=false;
+        AI = false;
     }
 
     private void SetDealer()
