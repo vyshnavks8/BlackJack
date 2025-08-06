@@ -5,6 +5,7 @@ using Button = UnityEngine.UI.Button;
 
 public class NetworkPlayersCanvas : MonoBehaviour
 {
+    [SerializeField] private GameCanvas gameCanvas;
     [SerializeField] private Transform pivot;
     [SerializeField] private Button startButton;
     [SerializeField] private Transform playerListPivot;
@@ -32,6 +33,7 @@ public class NetworkPlayersCanvas : MonoBehaviour
     {
         startButton.gameObject.SetActive(showStart);
         pivot.gameObject.SetActive(true);
+        gameCanvas.SetButtonActive(false);
     }
 
     public void AddPlayer(int id, (string playerName, Sprite playerIcon) data)
@@ -69,5 +71,6 @@ public class NetworkPlayersCanvas : MonoBehaviour
     {
         ClearPlayers();
         pivot.gameObject.SetActive(false);
+        gameCanvas.SetButtonActive(true);
     }
 }

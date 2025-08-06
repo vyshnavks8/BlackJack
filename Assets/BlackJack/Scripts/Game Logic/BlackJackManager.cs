@@ -79,6 +79,7 @@ public class BlackJackManager : MonoBehaviour
         if (GameType.AI == gameType)
         {
             currentPlayerCount = MaxAIPlayers;
+            gameCanvas.HideChatOption();
         }
 
         gameStarted = true;

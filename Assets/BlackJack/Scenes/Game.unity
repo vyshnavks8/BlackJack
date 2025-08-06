@@ -4439,6 +4439,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nav Button Open
       objectReference: {fileID: 0}
+    - target: {fileID: 2577138854125736550, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3219939858121673697, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -11631,6 +11635,10 @@ PrefabInstance:
     - target: {fileID: 2577138854125736550, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
       propertyPath: m_Name
       value: Chat Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 2577138854125736550, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3219939858121673697, guid: aca7a152c9cc7bc4ba6eaf401a0e4b07, type: 3}
       propertyPath: m_Sprite
@@ -28319,6 +28327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75bf0df347e41b693f247fc6c776752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameCanvas: {fileID: 545653017}
   pivot: {fileID: 16732585}
   startButton: {fileID: 785251697}
   playerListPivot: {fileID: 243764465}

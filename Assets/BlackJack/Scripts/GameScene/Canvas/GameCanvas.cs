@@ -121,8 +121,18 @@ public class GameCanvas : CanvasBase
         scoreboardCanvas.ShowOverlay();
     }
 
+    public void SetButtonActive(bool active)
+    {
+        navOpenButton.interactable = active;
+        chatButton.interactable = active;
+    }
     private void OnChatClick()
     {
         OnSetCanvasActive(chatCanvas);
+    }
+
+    public void HideChatOption()
+    {
+        chatButton.gameObject.SetActive(false);
     }
 }
