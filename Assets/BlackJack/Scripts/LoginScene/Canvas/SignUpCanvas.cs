@@ -143,7 +143,7 @@ public class SignUpCanvas : CanvasBase
 
     private bool CheckValidInputs()
     {
-        if (BlackjackUtils.IsInputEmpty(fullName, "Display name")) return false;
+        if (BlackjackUtils.IsInputEmpty(fullName, "Display Name")) return false;
         if (string.IsNullOrEmpty(emailID) && string.IsNullOrEmpty(mobileID))
         {
             BlackjackUtils.ShowEmpty( "Email ID or Cell");

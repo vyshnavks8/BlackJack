@@ -104,5 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d3bc0ca2994aaab3e92d54b99e4c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playingCardUIHolder: {fileID: 11400000, guid: b2b5d21f87f39d948916c0f7e2779c14, type: 2}
+  playingCardUIHolder: {fileID: 11400000, guid: 45a96fd5778413548b699e3c7d84b5ba, type: 2}
   cardImage: {fileID: 5511422641632310142}

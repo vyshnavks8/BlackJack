@@ -1,0 +1,336 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdbd3d7950044fb83afed24426d8aae, type: 3}
+  m_Name: PlayingCardUIHolder new
+  m_EditorClassIdentifier: 
+  cardBackBlack: {fileID: 21300000, guid: 35b1aa564e0affa44b391cd24c36727c, type: 3}
+  cardBackBlue: {fileID: 21300000, guid: 35b1aa564e0affa44b391cd24c36727c, type: 3}
+  cardBackRed: {fileID: 21300000, guid: 1b5edfaa43a45d342b122c301a8184e0, type: 3}
+  playingCardUI:
+  - Name: Ace of Clubs
+    card:
+      CardName: Ace of Clubs
+      Suit: 1
+      Rank: 1
+    sprite: {fileID: 21300000, guid: 36f2eab0879198f418feca631f0df234, type: 3}
+  - Name: Two of Clubs
+    card:
+      CardName: Two of Clubs
+      Suit: 1
+      Rank: 2
+    sprite: {fileID: 21300000, guid: 7c8f151e9a3fcc4429eeff804b66beec, type: 3}
+  - Name: Three of Clubs
+    card:
+      CardName: Three of Clubs
+      Suit: 1
+      Rank: 3
+    sprite: {fileID: 21300000, guid: a3a206fee44d25440aa33ab5bd1ce6ae, type: 3}
+  - Name: Four of Clubs
+    card:
+      CardName: Four of Clubs
+      Suit: 1
+      Rank: 4
+    sprite: {fileID: 21300000, guid: f18797157e3a7904fb548eaf31538dae, type: 3}
+  - Name: Five of Clubs
+    card:
+      CardName: Five of Clubs
+      Suit: 1
+      Rank: 5
+    sprite: {fileID: 21300000, guid: 2d8f9f4ec076262469572c0c91eceeda, type: 3}
+  - Name: Six of Clubs
+    card:
+      CardName: Six of Clubs
+      Suit: 1
+      Rank: 6
+    sprite: {fileID: 21300000, guid: 449556a2a542a40449c9e5fc719cf036, type: 3}
+  - Name: Seven of Clubs
+    card:
+      CardName: Seven of Clubs
+      Suit: 1
+      Rank: 7
+    sprite: {fileID: 21300000, guid: e9e9631f50d32794c8eeaf55dbd08957, type: 3}
+  - Name: Eight of Clubs
+    card:
+      CardName: Eight of Clubs
+      Suit: 1
+      Rank: 8
+    sprite: {fileID: 21300000, guid: f9e8cf4968556c74d80ab8f29aa2321f, type: 3}
+  - Name: Nine of Clubs
+    card:
+      CardName: Nine of Clubs
+      Suit: 1
+      Rank: 9
+    sprite: {fileID: 21300000, guid: 1987dd8e70689474faa6eb068bce9375, type: 3}
+  - Name: Ten of Clubs
+    card:
+      CardName: Ten of Clubs
+      Suit: 1
+      Rank: 10
+    sprite: {fileID: 21300000, guid: 80a0d0770e8bb9f4ba714d5c5e782039, type: 3}
+  - Name: Jack of Clubs
+    card:
+      CardName: Jack of Clubs
+      Suit: 1
+      Rank: 11
+    sprite: {fileID: 21300000, guid: 729eeac7fc122bc45a64d2a66c4db1f2, type: 3}
+  - Name: Queen of Clubs
+    card:
+      CardName: Queen of Clubs
+      Suit: 1
+      Rank: 12
+    sprite: {fileID: 21300000, guid: 2b5bbf9393a047c45bbbc8220f3674bd, type: 3}
+  - Name: King of Clubs
+    card:
+      CardName: King of Clubs
+      Suit: 1
+      Rank: 13
+    sprite: {fileID: 21300000, guid: 42c51ad0fd713424580a4243b41b147f, type: 3}
+  - Name: Ace of Diamonds
+    card:
+      CardName: Ace of Diamonds
+      Suit: 2
+      Rank: 1
+    sprite: {fileID: 21300000, guid: 380c6e5837ff4e04bbd3aacaa40b1d4c, type: 3}
+  - Name: Two of Diamonds
+    card:
+      CardName: Two of Diamonds
+      Suit: 2
+      Rank: 2
+    sprite: {fileID: 21300000, guid: decb83554b6b92549aa24d0e7734ef84, type: 3}
+  - Name: Three of Diamonds
+    card:
+      CardName: Three of Diamonds
+      Suit: 2
+      Rank: 3
+    sprite: {fileID: 21300000, guid: 18f998578dca47940badfa34308b47e1, type: 3}
+  - Name: Four of Diamonds
+    card:
+      CardName: Four of Diamonds
+      Suit: 2
+      Rank: 4
+    sprite: {fileID: 21300000, guid: 3c966276b70daa747ac26591721d511a, type: 3}
+  - Name: Five of Diamonds
+    card:
+      CardName: Five of Diamonds
+      Suit: 2
+      Rank: 5
+    sprite: {fileID: 21300000, guid: a75ffa5db5c17534780cc18a52e4f754, type: 3}
+  - Name: Six of Diamonds
+    card:
+      CardName: Six of Diamonds
+      Suit: 2
+      Rank: 6
+    sprite: {fileID: 21300000, guid: cef09f8ef6f38be4c835e2ac58ae52bc, type: 3}
+  - Name: Seven of Diamonds
+    card:
+      CardName: Seven of Diamonds
+      Suit: 2
+      Rank: 7
+    sprite: {fileID: 21300000, guid: d1dfee118db4d2a46b92f3f1d78c0bdc, type: 3}
+  - Name: Eight of Diamonds
+    card:
+      CardName: Eight of Diamonds
+      Suit: 2
+      Rank: 8
+    sprite: {fileID: 21300000, guid: ee94b793e6d3c8244b93d78aaae7f5d1, type: 3}
+  - Name: Nine of Diamonds
+    card:
+      CardName: Nine of Diamonds
+      Suit: 2
+      Rank: 9
+    sprite: {fileID: 21300000, guid: 2ecc8f03c999d984a8b8fdd926a9a38c, type: 3}
+  - Name: Ten of Diamonds
+    card:
+      CardName: Ten of Diamonds
+      Suit: 2
+      Rank: 10
+    sprite: {fileID: 21300000, guid: 8da3770ed794a2440b5b91acc6d4cede, type: 3}
+  - Name: Jack of Diamonds
+    card:
+      CardName: Jack of Diamonds
+      Suit: 2
+      Rank: 11
+    sprite: {fileID: 21300000, guid: bbdd118663448204bbdf4c5022951d01, type: 3}
+  - Name: Queen of Diamonds
+    card:
+      CardName: Queen of Diamonds
+      Suit: 2
+      Rank: 12
+    sprite: {fileID: 21300000, guid: 2195eda0e2328c8499476ae2c7cc4b83, type: 3}
+  - Name: King of Diamonds
+    card:
+      CardName: King of Diamonds
+      Suit: 2
+      Rank: 13
+    sprite: {fileID: 21300000, guid: b87c7e984021567449a07b17367f91b7, type: 3}
+  - Name: Ace of Hearts
+    card:
+      CardName: Ace of Hearts
+      Suit: 3
+      Rank: 1
+    sprite: {fileID: 21300000, guid: 91d73faf447f120418993981b51c931b, type: 3}
+  - Name: Two of Hearts
+    card:
+      CardName: Two of Hearts
+      Suit: 3
+      Rank: 2
+    sprite: {fileID: 21300000, guid: 414aa8710bf5fec4e964b20b08ebbeaa, type: 3}
+  - Name: Three of Hearts
+    card:
+      CardName: Three of Hearts
+      Suit: 3
+      Rank: 3
+    sprite: {fileID: 21300000, guid: 1cc5226a8347754469a78734d8367ec5, type: 3}
+  - Name: Four of Hearts
+    card:
+      CardName: Four of Hearts
+      Suit: 3
+      Rank: 4
+    sprite: {fileID: 21300000, guid: 6384b3d17e02f4d42b24c21bec82cd37, type: 3}
+  - Name: Five of Hearts
+    card:
+      CardName: Five of Hearts
+      Suit: 3
+      Rank: 5
+    sprite: {fileID: 21300000, guid: 73e6b5fd30377624ab9de5ff3a24aec3, type: 3}
+  - Name: Six of Hearts
+    card:
+      CardName: Six of Hearts
+      Suit: 3
+      Rank: 6
+    sprite: {fileID: 21300000, guid: a6c4468a115fe134685e78203964cfe1, type: 3}
+  - Name: Seven of Hearts
+    card:
+      CardName: Seven of Hearts
+      Suit: 3
+      Rank: 7
+    sprite: {fileID: 21300000, guid: 76dc7bf9b2186644db57ff0d3ef76189, type: 3}
+  - Name: Eight of Hearts
+    card:
+      CardName: Eight of Hearts
+      Suit: 3
+      Rank: 8
+    sprite: {fileID: 21300000, guid: 30e6e66b247c8ce49a95c1b1c9328a50, type: 3}
+  - Name: Nine of Hearts
+    card:
+      CardName: Nine of Hearts
+      Suit: 3
+      Rank: 9
+    sprite: {fileID: 21300000, guid: 0c3d2ce9061871344a8b27d95ca78d85, type: 3}
+  - Name: Ten of Hearts
+    card:
+      CardName: Ten of Hearts
+      Suit: 3
+      Rank: 10
+    sprite: {fileID: 21300000, guid: 6561daa10eb56e944b19b882914ba2ad, type: 3}
+  - Name: Jack of Hearts
+    card:
+      CardName: Jack of Hearts
+      Suit: 3
+      Rank: 11
+    sprite: {fileID: 21300000, guid: f6f26505db478b146a9c65d630edbf67, type: 3}
+  - Name: Queen of Hearts
+    card:
+      CardName: Queen of Hearts
+      Suit: 3
+      Rank: 12
+    sprite: {fileID: 21300000, guid: bf36b1087c7a66348a94fd94287ae12b, type: 3}
+  - Name: King of Hearts
+    card:
+      CardName: King of Hearts
+      Suit: 3
+      Rank: 13
+    sprite: {fileID: 21300000, guid: 135cf7e28b709664299f1fcd07d0b39c, type: 3}
+  - Name: Ace of Spades
+    card:
+      CardName: Ace of Spades
+      Suit: 4
+      Rank: 1
+    sprite: {fileID: 21300000, guid: ee28823323b89b74cbc0af1aeb93fa09, type: 3}
+  - Name: Two of Spades
+    card:
+      CardName: Two of Spades
+      Suit: 4
+      Rank: 2
+    sprite: {fileID: 21300000, guid: f347a3b95862fbb49a0fe39394bb7a2e, type: 3}
+  - Name: Three of Spades
+    card:
+      CardName: Three of Spades
+      Suit: 4
+      Rank: 3
+    sprite: {fileID: 21300000, guid: cd3a75f851b5da740bba072d8a66e1d6, type: 3}
+  - Name: Four of Spades
+    card:
+      CardName: Four of Spades
+      Suit: 4
+      Rank: 4
+    sprite: {fileID: 21300000, guid: 231b2054179b1dd4b8d4cbf4f439d56a, type: 3}
+  - Name: Five of Spades
+    card:
+      CardName: Five of Spades
+      Suit: 4
+      Rank: 5
+    sprite: {fileID: 21300000, guid: e75145fcac2eb624e94dd0bd9ea5d928, type: 3}
+  - Name: Six of Spades
+    card:
+      CardName: Six of Spades
+      Suit: 4
+      Rank: 6
+    sprite: {fileID: 21300000, guid: 7dd253d7ae9697944a168adbc7abdb7d, type: 3}
+  - Name: Seven of Spades
+    card:
+      CardName: Seven of Spades
+      Suit: 4
+      Rank: 7
+    sprite: {fileID: 21300000, guid: c072bb20e31938e48b70ee532902ae3f, type: 3}
+  - Name: Eight of Spades
+    card:
+      CardName: Eight of Spades
+      Suit: 4
+      Rank: 8
+    sprite: {fileID: 21300000, guid: 7d93b7f60fab6ae4fbae5bc26b2045ea, type: 3}
+  - Name: Nine of Spades
+    card:
+      CardName: Nine of Spades
+      Suit: 4
+      Rank: 9
+    sprite: {fileID: 21300000, guid: 6bd119a9378389f409675a30a3024c2b, type: 3}
+  - Name: Ten of Spades
+    card:
+      CardName: Ten of Spades
+      Suit: 4
+      Rank: 10
+    sprite: {fileID: 21300000, guid: 397fcc769693d0747ac7c79d662555d9, type: 3}
+  - Name: Jack of Spades
+    card:
+      CardName: Jack of Spades
+      Suit: 4
+      Rank: 11
+    sprite: {fileID: 21300000, guid: d88514301462493409e596f42a8ccf2a, type: 3}
+  - Name: Queen of Spades
+    card:
+      CardName: Queen of Spades
+      Suit: 4
+      Rank: 12
+    sprite: {fileID: 21300000, guid: 4d65643ad4a009e47a7e6892cc304236, type: 3}
+  - Name: King of Spades
+    card:
+      CardName: King of Spades
+      Suit: 4
+      Rank: 13
+    sprite: {fileID: 21300000, guid: 800d651b729d55d45a645fa84dfab820, type: 3}
+  - Name: Joker of None
+    card:
+      CardName: Joker of None
+      Suit: 0
+      Rank: 14
+    sprite: {fileID: 21300000, guid: 183839b2aa05266448fef7ad8233f8c2, type: 3}
