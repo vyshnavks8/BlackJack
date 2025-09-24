@@ -75,7 +75,7 @@ MonoBehaviour:
       CardName: Ten of Clubs
       Suit: 1
       Rank: 10
-    sprite: {fileID: 21300000, guid: 80a0d0770e8bb9f4ba714d5c5e782039, type: 3}
+    sprite: {fileID: 21300000, guid: 79463e8dcb5d29f458d3de522a7e6a04, type: 3}
   - Name: Jack of Clubs
     card:
       CardName: Jack of Clubs
@@ -153,7 +153,7 @@ MonoBehaviour:
       CardName: Ten of Diamonds
       Suit: 2
       Rank: 10
-    sprite: {fileID: 21300000, guid: 8da3770ed794a2440b5b91acc6d4cede, type: 3}
+    sprite: {fileID: 21300000, guid: d7c67a2312c9249469dcad7ebe3ff6f3, type: 3}
   - Name: Jack of Diamonds
     card:
       CardName: Jack of Diamonds
@@ -231,7 +231,7 @@ MonoBehaviour:
       CardName: Ten of Hearts
       Suit: 3
       Rank: 10
-    sprite: {fileID: 21300000, guid: 6561daa10eb56e944b19b882914ba2ad, type: 3}
+    sprite: {fileID: 21300000, guid: cfe222634a197144794c1121e32f0e4e, type: 3}
   - Name: Jack of Hearts
     card:
       CardName: Jack of Hearts
@@ -309,7 +309,7 @@ MonoBehaviour:
       CardName: Ten of Spades
       Suit: 4
       Rank: 10
-    sprite: {fileID: 21300000, guid: 397fcc769693d0747ac7c79d662555d9, type: 3}
+    sprite: {fileID: 21300000, guid: d38c2ba70d7b3ed49a0ad5fdc7d84b5a, type: 3}
   - Name: Jack of Spades
     card:
       CardName: Jack of Spades
