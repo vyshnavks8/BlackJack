@@ -7,12 +7,14 @@ public class EditProfileCanvas : CanvasBase
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private TMP_InputField emailInput;
     [SerializeField] private TMP_InputField mobileInput;
-    [SerializeField] private Button resetButton;
+    [SerializeField] private Button submitButton;
     [SerializeField] private Button cancelButton;
     [SerializeField] private Button backButton;
 
-    [Header("Profile Image")] [SerializeField]
-    private TMP_Text profileImagText;
+    [Header("Profile")] [SerializeField] private TMP_Text profileImagText;
+    [SerializeField] private Button profileEditButton;
+    [SerializeField] private Button profileButton;
+    [SerializeField] private Image iconImage;
 
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase profileCanvas;
@@ -20,11 +22,21 @@ public class EditProfileCanvas : CanvasBase
     private string username;
     private string email;
     private string mobile;
+    private bool uploadedImage;
+    private string profileImagePath;
+    private Texture2D profileImage;
 
     protected override void OnEnable()
     {
         base.OnEnable();
         SetData();
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        uploadedImage = false;
+        profileImagePath = null;
     }
 
     private void SetData()
@@ -41,19 +53,39 @@ public class EditProfileCanvas : CanvasBase
         nameInput.onValueChanged.AddListener(OnNameSet);
         emailInput.onValueChanged.AddListener(OnEmailSet);
         mobileInput.onValueChanged.AddListener(OnMobileSet);
-        resetButton.onClick.AddListener(OnResetClick);
+        submitButton.onClick.AddListener(OnSubmitClick);
         cancelButton.onClick.AddListener(OnCancelClick);
         backButton.onClick.AddListener(OnCancelClick);
+        profileEditButton.onClick.AddListener(OnEditProfileClick);
+        profileButton.onClick.AddListener(OnEditProfileClick);
     }
+
 
     protected override void RemoveListener()
     {
         nameInput.onValueChanged.RemoveListener(OnNameSet);
         emailInput.onValueChanged.RemoveListener(OnEmailSet);
         mobileInput.onValueChanged.RemoveListener(OnMobileSet);
-        resetButton.onClick.RemoveListener(OnResetClick);
+        submitButton.onClick.RemoveListener(OnSubmitClick);
         cancelButton.onClick.RemoveListener(OnCancelClick);
         backButton.onClick.RemoveListener(OnCancelClick);
+        profileEditButton.onClick.RemoveListener(OnEditProfileClick);
+        profileButton.onClick.RemoveListener(OnEditProfileClick);
+    }
+
+    private void OnEditProfileClick()
+    {
+        StartCoroutine(BlackjackUtils.GetImageFromFile(OnReceiveImage));
+    }
+
+    private void OnReceiveImage(Texture2D texture,string path)
+    {
+        uploadedImage = true;
+        profileImage = texture;
+        profileImagePath = path;
+        iconImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+        iconImage.gameObject.SetActive(true);
+        profileImagText.gameObject.SetActive(false);
     }
 
 
@@ -78,11 +110,11 @@ public class EditProfileCanvas : CanvasBase
         OnSetCanvasActive(profileCanvas);
     }
 
-    private void OnResetClick()
+    private void OnSubmitClick()
     {
         if (!CheckValidInputs()) return;
         if (ValidInputs()) return;
-
+        UploadProfileImage();
         var data = new EditProfileData
         {
             name = username,
@@ -90,7 +122,36 @@ public class EditProfileCanvas : CanvasBase
             mobileNo = mobile,
         };
         APIHandler.Put<EditProfileResponse>(ApiUrl.Profile, data, GetProfileCallback);
+
         LoadingController.ShowLoading();
+    }
+
+    private void UploadProfileImage()
+    {
+        if (!uploadedImage) return;
+        var data = BlackjackUtils.GetFormImage(profileImagePath, "image");
+        APIHandler.Put<ProfileImageResponse>(ApiUrl.ProfileImagePut, data, OnProfileImageCallback);
+    }
+
+    private void OnProfileImageCallback(bool success, ProfileImageResponse response)
+    {
+        if (success)
+        {
+            if (response.success)
+            {
+                Debug.Log("Profile image updated" + response.data.profileImage);
+                uploadedImage = false;
+                profileImagePath = null;
+            }
+            else
+            {
+                Debug.Log("Profile image updated" + response.message);
+            }
+        }
+        else
+        {
+            Debug.Log("Profile image updated" + response.message);
+        }
     }
 
     private void GetProfileCallback(bool success, EditProfileResponse response)
@@ -100,7 +161,8 @@ public class EditProfileCanvas : CanvasBase
         {
             if (response.success)
             {
-                OnSetCanvasActive(profileCanvas);
+                Debug.Log("Profile" + response.message);
+                //OnSetCanvasActive(profileCanvas);
             }
             else
             {
@@ -136,17 +198,11 @@ public class EditProfileCanvas : CanvasBase
     private bool CheckValidInputs()
     {
         if (BlackjackUtils.IsInputEmpty(username, "Name")) return false;
-        if (string.IsNullOrEmpty(mobile) && string.IsNullOrEmpty(mobile))
+        if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(mobile))
         {
             BlackjackUtils.ShowEmpty("Email ID or Cell");
             return false;
         }
-
-        // if (string.IsNullOrEmpty(email))
-        // {
-        //     if (BlackjackUtils.IsInputEmpty(mobile, "Mobile Number")) return false;
-        // }
-
         return true;
     }
 

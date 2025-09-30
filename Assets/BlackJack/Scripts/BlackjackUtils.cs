@@ -1,4 +1,8 @@
+using System;
+using System.Collections;
+using System.IO;
 using System.Net.Mail;
+using UnityEngine;
 
 public static class BlackjackUtils
 {
@@ -44,11 +48,41 @@ public static class BlackjackUtils
             .Share();
     }
 
+    public static IEnumerator GetImageFromFile(Action<Texture2D, string> callback)
+    {
+        if (NativeGallery.IsMediaPickerBusy()) yield break;
+        yield return null;
+        NativeGallery.GetImageFromGallery(path =>
+        {
+            if (path == null) return;
+            var texture = NativeGallery.LoadImageAtPath(path, 512);
+            if (texture != null)
+            {
+                callback?.Invoke(texture, path);
+            }
+        }, "Select image");
+    }
+
     public static void ShowDevelopmentPopup()
     {
         var popContent = new PopContent(
-            " AI Mode Only in This Build", 
+            " AI Mode Only in This Build",
             "Private and Public game modes are currently disabled in this build. To test gameplay, please use \"Vs Computer\" ");
-        PopUpController.ShowPopUp(popContent,new ButtonContent("Close",PopUpController.ClosePopUp));
+        PopUpController.ShowPopUp(popContent, new ButtonContent("Close", PopUpController.ClosePopUp));
+    }
+
+    public static WWWForm GetFormImage(string path, string key)
+    {
+        var texture = NativeGallery.LoadImageAtPath(path,-1,false);
+        if (texture == null)
+        {
+            Debug.LogError("Failed to load image at path: " + path);
+            return null;
+        }
+        var data = texture.EncodeToPNG();
+        Debug.Log("PNG Data Length: " + data.Length);
+        var form = new WWWForm();
+        form.AddBinaryData(key, data, Path.GetFileName(path),"image/png");
+        return form;
     }
 }
