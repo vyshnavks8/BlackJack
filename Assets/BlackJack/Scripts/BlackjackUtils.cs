@@ -55,7 +55,7 @@ public static class BlackjackUtils
         NativeGallery.GetImageFromGallery(path =>
         {
             if (path == null) return;
-            var texture = NativeGallery.LoadImageAtPath(path, 512);
+            var texture = NativeGallery.LoadImageAtPath(path, -1,false);
             if (texture != null)
             {
                 callback?.Invoke(texture, path);
@@ -71,18 +71,11 @@ public static class BlackjackUtils
         PopUpController.ShowPopUp(popContent, new ButtonContent("Close", PopUpController.ClosePopUp));
     }
 
-    public static WWWForm GetFormImage(string path, string key)
+    public static WWWForm GetFormImage(Texture2D texture,string key)
     {
-        var texture = NativeGallery.LoadImageAtPath(path,-1,false);
-        if (texture == null)
-        {
-            Debug.LogError("Failed to load image at path: " + path);
-            return null;
-        }
         var data = texture.EncodeToPNG();
-        Debug.Log("PNG Data Length: " + data.Length);
         var form = new WWWForm();
-        form.AddBinaryData(key, data, Path.GetFileName(path),"image/png");
+        form.AddBinaryData(key, data);
         return form;
     }
 }

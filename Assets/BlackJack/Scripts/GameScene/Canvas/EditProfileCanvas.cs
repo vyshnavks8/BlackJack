@@ -129,8 +129,8 @@ public class EditProfileCanvas : CanvasBase
     private void UploadProfileImage()
     {
         if (!uploadedImage) return;
-        var data = BlackjackUtils.GetFormImage(profileImagePath, "image");
-        APIHandler.Put<ProfileImageResponse>(ApiUrl.ProfileImagePut, data, OnProfileImageCallback);
+        var data = BlackjackUtils.GetFormImage(profileImage, "image");
+        APIHandler.PutForm<ProfileImageResponse>(ApiUrl.ProfileImagePut, data, OnProfileImageCallback);
     }
 
     private void OnProfileImageCallback(bool success, ProfileImageResponse response)
@@ -139,18 +139,18 @@ public class EditProfileCanvas : CanvasBase
         {
             if (response.success)
             {
-                Debug.Log("Profile image updated" + response.data.profileImage);
+                Debug.Log(response.message);
                 uploadedImage = false;
                 profileImagePath = null;
             }
             else
             {
-                Debug.Log("Profile image updated" + response.message);
+                NetworkPopUp.ShowPopUp("Profile Image", response.message);
             }
         }
         else
         {
-            Debug.Log("Profile image updated" + response.message);
+            NetworkPopUp.ShowPopUp("Profile Image", response.message);
         }
     }
 
@@ -161,8 +161,7 @@ public class EditProfileCanvas : CanvasBase
         {
             if (response.success)
             {
-                Debug.Log("Profile" + response.message);
-                //OnSetCanvasActive(profileCanvas);
+               // OnSetCanvasActive(profileCanvas);
             }
             else
             {

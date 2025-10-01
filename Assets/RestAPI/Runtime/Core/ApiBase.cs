@@ -42,24 +42,24 @@ namespace RestAPI
             }
 
             var bytesContent = System.Text.Encoding.UTF8.GetBytes(jsonData);
-            // LogSystem.LogEvent("[][] requesting url {0}, requestParams {1}", url, jsonData);
             if (method == UnityWebRequest.kHttpVerbGET)
             {
                 WebRequestGet(serviceUrl,callback);
             }
             else
             {
+                Debug.LogFormat("[][] requesting url {0}", serviceUrl);
                 WebHelpers.Instance.SendWithMethod<string>(serviceUrl, bytesContent, "application/json",  callback,AuthKeyPair, method);
             }
            
         }
-
-        protected static void WebRequest(string serviceUrl, WWWForm formData, WebHelpers.CallbackGet callback)
+        protected static void WebRequestForm(string serviceUrl, WWWForm formData, WebHelpers.CallbackGet callback , string method)
         {
      
-            // LogSystem.LogEvent("[][] requesting url {0}, requestParams {1}", url, formData);
-            WebHelpers.Instance.Post<string>(serviceUrl, formData, "application/json", callback , AuthKeyPair);
+            Debug.LogFormat("[][] requesting url {0}", serviceUrl);
+            WebHelpers.Instance.Post<string>(serviceUrl, formData, "application/json", callback , AuthKeyPair , method);
         }
+      
 
         protected static void WebRequestGet(string serviceUrl, WebHelpers.CallbackGet callback)
         {

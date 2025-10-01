@@ -12,7 +12,8 @@ public class APIHandler : ApiBase
         SendWithMethod(url, requestData, UnityWebRequest.kHttpVerbPOST, callBack, setAuth);
     }
 
-    public static void Get<T>(string url, object requestData, Action<bool, T> callBack, bool setAuth = false) where T : BaseResponse
+    public static void Get<T>(string url, object requestData, Action<bool, T> callBack, bool setAuth = false)
+        where T : BaseResponse
     {
         SendWithMethod(url, requestData, UnityWebRequest.kHttpVerbGET, callBack, setAuth);
     }
@@ -21,6 +22,13 @@ public class APIHandler : ApiBase
         where T : BaseResponse
     {
         SendWithMethod(url, requestData, UnityWebRequest.kHttpVerbPUT, callBack, setAuth);
+    }
+
+    public static void PutForm<T>(string url, WWWForm requestData, Action<bool, T> callBack, bool setAuth = false)
+        where T : BaseResponse
+    {
+        WebRequestForm(url, requestData, (_, success, data) => HandleCallback(success, data, callBack, setAuth),
+            UnityWebRequest.kHttpVerbPUT);
     }
 
     public static void Delete<T>(string url, object requestData, Action<bool, T> callBack, bool setAuth = false)

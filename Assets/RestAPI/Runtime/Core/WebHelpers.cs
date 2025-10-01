@@ -229,7 +229,7 @@ namespace RestAPI
         /// <param name="aContent">Content to upload as the body of the request</param>
         /// <param name="aContentType">Content type as per HTTP specs</param>
         /// <param name="aCallback">Called when the request is complete</param>
-        public void Post<T>(string aURL, WWWForm aContent, string aContentType, CallbackGet aCallback, KeyValuePair<string,string> authToken)
+        public void Post<T>(string aURL, WWWForm aContent, string aContentType, CallbackGet aCallback, KeyValuePair<string,string> authToken,string method)
         {
             // sanity - checks for supported types
             var dataType = typeof(T);
@@ -241,7 +241,7 @@ namespace RestAPI
 
             // create the request
             var req = UnityWebRequest.Post(aURL, aContent);
-            req.method = UnityWebRequest.kHttpVerbPOST;
+            req.method = method;
             req.SetRequestHeader(authToken.Key,authToken.Value);  
             
             
