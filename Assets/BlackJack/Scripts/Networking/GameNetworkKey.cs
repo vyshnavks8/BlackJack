@@ -12,4 +12,5 @@ public static class NetworkEventCode
     public const byte PlaceBet= 14;
     public const byte PlaceChoice= 15;
     public const byte PlayerLeftGame= 16;
+    public const byte Chat= 30;
 }

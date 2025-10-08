@@ -8,7 +8,7 @@ public class GameCanvas : CanvasBase
     [SerializeField] private TMP_Text codeText;
     [SerializeField] private Button backButton;
     [SerializeField] private Button navOpenButton;
-    [SerializeField] private Button chatButton;
+   
     [SerializeField] private Button shareButton;
     [Header("Cards")] [SerializeField] private Button cardsButton;
 
@@ -18,11 +18,12 @@ public class GameCanvas : CanvasBase
     private Button scoreboardButton;
 
     [SerializeField] private OverlayCanvas scoreboardCanvas;
+    [Header("Chat")]
+    [SerializeField] private Button chatButton;
+    [SerializeField] private OverlayCanvas chatCanvas;
 
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase homeCanvas;
-
-    [SerializeField] private CanvasBase chatCanvas;
     [SerializeField] private CanvasBase infoCanvas;
     [SerializeField] private CanvasBase navMenuCanvas;
     public event Action OnStartGame;
@@ -120,17 +121,17 @@ public class GameCanvas : CanvasBase
     {
         scoreboardCanvas.ShowOverlay();
     }
+    private void OnChatClick()
+    {
+        chatCanvas.ShowOverlay();
+    }
 
     public void SetButtonActive(bool active)
     {
         navOpenButton.interactable = active;
         chatButton.interactable = active;
     }
-    private void OnChatClick()
-    {
-        OnSetCanvasActive(chatCanvas);
-    }
-
+  
     public void HideChatOption()
     {
         chatButton.gameObject.SetActive(false);

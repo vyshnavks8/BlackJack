@@ -160,4 +160,9 @@ public class BlackJackPlayerUI : MonoBehaviour
             card.SetHighLightCard(highlight);
         }
     }
+
+    public void SetIcon(Sprite icon)
+    {
+        profileUI.SetIcon(icon);
+    }
 }

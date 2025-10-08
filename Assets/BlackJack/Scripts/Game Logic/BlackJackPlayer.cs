@@ -11,12 +11,12 @@ public class BlackJackPlayer
     public Transform cardPosition => blackJackPlayerUI.transform;
     public RectTransform chipPosition => blackJackPlayerUI.ChipLocation;
     public List<Card> cards = new();
-    public int NetworkID;// { get; private set; }
+    public int NetworkID; // { get; private set; }
     public int Score { get; private set; }
     public int BetAmount { get; private set; }
     public float TimeAllowed { get; private set; }
     public PlayerType PlayerType { get; private set; }
-    
+
 
     public bool IsSoftTotal()
     {
@@ -48,11 +48,13 @@ public class BlackJackPlayer
     {
         cards.Clear();
     }
+
     public void UpdateBetAmount(int amount)
     {
         BetAmount = amount;
         blackJackPlayerUI.UpdateChip(amount);
     }
+
     public void SetBet(int amount, Action callback = null)
     {
         BetAmount = amount;
@@ -62,7 +64,7 @@ public class BlackJackPlayer
     private void ShowScore()
     {
         Score = BlackJackGameUtility.CalculatePlayerScore(cards);
-       // blackJackPlayerUI.ShowScore(Score.ToString());
+        // blackJackPlayerUI.ShowScore(Score.ToString());
     }
 
     public void ResetData()
@@ -74,14 +76,14 @@ public class BlackJackPlayer
         blackJackPlayerUI.ShowScore(string.Empty);
         blackJackPlayerUI.ShowStatus(string.Empty);
         blackJackPlayerUI.EnablePlayerUI();
-        
+
         cards.Clear();
         Score = 0;
     }
 
     public void RevealCards(Action callback = null)
     {
-        blackJackPlayerUI.RevealCard(()=>
+        blackJackPlayerUI.RevealCard(() =>
         {
             callback?.Invoke();
             ShowScore();
@@ -146,5 +148,7 @@ public class BlackJackPlayer
     public void SetNetworkData(int id)
     {
         NetworkID = id;
+        var icon = GameNetworkData.GetPlayerIcon(id);
+        blackJackPlayerUI.SetIcon(icon);
     }
 }

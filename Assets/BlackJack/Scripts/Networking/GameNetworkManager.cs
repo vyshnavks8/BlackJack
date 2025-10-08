@@ -8,6 +8,7 @@ public class GameNetworkManager : MonoBehaviour
     [SerializeField] public NetworkPlayersCanvas networkPlayersCanvas;
     [SerializeField] public BlackJackManager blackJackManager;
     [SerializeField, HideInInspector] public List<int> playersList = new();
+   
     public event Action SyncPlayerList;
     public event Action<Player> PlayerLeft;
 
@@ -43,15 +44,17 @@ public class GameNetworkManager : MonoBehaviour
         var data = GameNetworkData.GetPlayerData(NetworkManager.LocalPlayer);
         networkPlayersCanvas.AddPlayer(NetworkManager.LocalPlayer.ActorNumber, data);
         playersList.Add(NetworkManager.LocalPlayer.ActorNumber);
+        GameNetworkData.AddPlayerIcon(NetworkManager.LocalPlayer.ActorNumber, data.playerIcon);
+        
     }
 
     private void OnPlayerLeftRoom(Player player)
     {
-       
         PlayerLeft?.Invoke(player);
         if (!NetworkManager.IsMasterClient) return;
         networkPlayersCanvas.RemovePlayer(player.ActorNumber);
         playersList.Remove(player.ActorNumber);
+        GameNetworkData.RemovePlayerIcon(player.ActorNumber);
         SyncPlayerList?.Invoke();
     }
 
@@ -61,6 +64,7 @@ public class GameNetworkManager : MonoBehaviour
         var data = GameNetworkData.GetPlayerData(player);
         networkPlayersCanvas.AddPlayer(player.ActorNumber, data);
         playersList.Add(player.ActorNumber);
+        GameNetworkData.AddPlayerIcon(player.ActorNumber, data.playerIcon);
         SyncPlayerList?.Invoke();
     }
 
@@ -71,6 +75,7 @@ public class GameNetworkManager : MonoBehaviour
         {
             case DisconnectCause.DisconnectByClientLogic:
                 playersList.Clear();
+                GameNetworkData.ClearAllIcons();
                 networkPlayersCanvas.HideCanvas();
                 break;
         }

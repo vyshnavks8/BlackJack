@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-
 public class BlackJackPlayerProfileUI : MonoBehaviour
 {
     [SerializeField] private Sprite playerSprite;
@@ -15,11 +14,19 @@ public class BlackJackPlayerProfileUI : MonoBehaviour
     [SerializeField] private Color playerColor;
     [SerializeField] private Color disabledColor;
     [SerializeField] private Color enabledColor;
+    [SerializeField] private GameObject playerIconPivot;
+    [SerializeField] private Image playerIcon;
 
     private float time;
 
+    private void OnDisable()
+    {
+        SetIcon(null);
+    }
+
     public void SetData(PlayerType playerType, float timer)
     {
+        time = timer;
         switch (playerType)
         {
             case PlayerType.None:
@@ -30,14 +37,18 @@ public class BlackJackPlayerProfileUI : MonoBehaviour
             case PlayerType.Player:
                 iconImage.sprite = playerSprite;
                 break;
-           
         }
-        time = timer;
-        
     }
+
+    public void SetIcon(Sprite sprite)
+    {
+        playerIcon.sprite = sprite;
+        playerIconPivot.SetActive(sprite != null);
+    }
+
     public void StartTurn(Action callback)
     {
-        timerUI.StartCooldownTimer(time,()=>
+        timerUI.StartCooldownTimer(time, () =>
         {
             callback?.Invoke();
             OnFinishTurn();
@@ -53,6 +64,7 @@ public class BlackJackPlayerProfileUI : MonoBehaviour
     {
         bgImage.color = enabledColor;
     }
+
     public void StopTurn()
     {
         OnFinishTurn();

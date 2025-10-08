@@ -13,7 +13,8 @@ public class GameNetworkEventSender : MonoBehaviour
     public event Action<PlayerChoice> OnPlayerChoice;
     public event Action<Deck> OnInitDeck;
     public event Action<int> OnPlayerLeft;
-    
+    public event Action<int, string> OnChatReceived;
+
 
     private void OnEnable()
     {
@@ -51,7 +52,28 @@ public class GameNetworkEventSender : MonoBehaviour
             case NetworkEventCode.PlaceChoice:
                 PlacePlayerChoiceEvent(eventData.CustomData);
                 break;
+            case NetworkEventCode.Chat:
+                SendChatEvent(eventData.CustomData);
+                break;
         }
+    }
+
+    public void SendChat(int id, string message)
+    {
+        var hashtable = new Hashtable
+        {
+            { 0, id },
+            { 1, message }
+        };
+        NetworkManager.RaiseEvent(hashtable, NetworkEventCode.Chat, ReceiverGroup.All);
+    }
+
+    private void SendChatEvent(object eventData)
+    {
+        var dataTable = (Hashtable)eventData;
+        var id = (int)dataTable[0];
+        var message = (string)dataTable[1];
+        OnChatReceived?.Invoke(id, message);
     }
 
     private void PlayerLeftGame(Player obj)

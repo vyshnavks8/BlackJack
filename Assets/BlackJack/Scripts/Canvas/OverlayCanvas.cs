@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public abstract class OverlayCanvas : MonoBehaviour
 {
     [SerializeField] private float transitionDuration = 0.3f;
-    [SerializeField] private GameObject pivot;
+     [SerializeField] private Transform overlayPivot;
     [SerializeField] private UnityEvent afterHide;
     protected virtual  void OnEnable()
     {
@@ -21,18 +21,18 @@ public abstract class OverlayCanvas : MonoBehaviour
 
     public void ShowOverlay()
     {
-        pivot.transform.DOLocalMoveY(-4000, 0).OnComplete(() =>
+        overlayPivot.transform.DOLocalMoveY(-4000, 0).OnComplete(() =>
         {
-            pivot.SetActive(true);
-            pivot.transform.DOLocalMoveY(0, transitionDuration).SetEase(Ease.OutQuad);
+            overlayPivot.gameObject.SetActive(true);
+            overlayPivot.DOLocalMoveY(0, transitionDuration).SetEase(Ease.OutQuad);
         });
     }
 
-    public void HideOverlay()
+    protected void HideOverlay()
     {
-        pivot.transform.DOLocalMoveY(-4000, transitionDuration).SetEase(Ease.InQuad).OnComplete(() =>
+        overlayPivot.DOLocalMoveY(-4000, transitionDuration).SetEase(Ease.InQuad).OnComplete(() =>
         {
-            pivot.SetActive(false);
+            overlayPivot.gameObject.SetActive(false);
             afterHide?.Invoke();
         });
     }

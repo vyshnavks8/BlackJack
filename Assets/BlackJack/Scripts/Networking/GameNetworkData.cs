@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Photon.Realtime;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public static class GameNetworkData
     private static NetworkGameType gameType;
     private static PrivateGameType privateGameType;
     public static NetworkGameType GetGameType => gameType;
-
+    private static readonly Dictionary<int, Sprite> playersIcon = new();
     public static void SetGameType(NetworkGameType type)
     {
         gameType = type;
@@ -43,7 +44,7 @@ public static class GameNetworkData
         else
         {
             playerName = AppData.username;
-            playerIcon = AppData.profileIcon.texture.EncodeToPNG();
+            playerIcon = AppData.profileIcon.texture.EncodeToJPG(50);
         }
         NetworkManager.SetLocalPlayerProperties(GameNetworkKey.PlayerName,playerName );
         NetworkManager.SetLocalPlayerProperties(GameNetworkKey.PlayerIcon,playerIcon );
@@ -60,5 +61,25 @@ public static class GameNetworkData
        return (pName,iconSprite);
     }
 
-    
+
+    public static Sprite GetPlayerIcon(int id)
+    {
+        playersIcon.TryGetValue(id, out var icon);
+        return icon;
+    }
+
+    public static void AddPlayerIcon(int id, Sprite icon)
+    {
+        playersIcon.Add(id, icon);
+    }
+
+    public static void RemovePlayerIcon(int id)
+    {
+        playersIcon.Remove(id);
+    }
+
+    public static void ClearAllIcons()
+    {
+        playersIcon.Clear();
+    }
 }

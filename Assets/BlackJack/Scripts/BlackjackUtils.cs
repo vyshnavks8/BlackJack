@@ -53,17 +53,38 @@ public static class BlackjackUtils
 
     public static IEnumerator GetImageFromFile(Action<Texture2D, string> callback)
     {
-        if (NativeGallery.IsMediaPickerBusy()) yield break;
+        if (NativeGallery.IsMediaPickerBusy())
+            yield break;
+
         yield return null;
+
         NativeGallery.GetImageFromGallery(path =>
-        {
-            if (path == null) return;
-            var texture = NativeGallery.LoadImageAtPath(path, -1,false);
-            if (texture != null)
             {
-                callback?.Invoke(texture, path);
-            }
-        }, "Select image");
+                if (path == null)
+                    return;
+
+                var texture = NativeGallery.LoadImageAtPath(path, -1, false);
+                if (texture == null)
+                    return;
+                const int maxSize = 256;
+                var resized = ScaleTexture(texture, maxSize, maxSize);
+                callback?.Invoke(resized, path);
+                UnityEngine.Object.Destroy(texture);
+            },
+            "Select image");
+    }
+
+    private static Texture2D ScaleTexture(Texture2D source, int targetWidth, int targetHeight)
+    {
+        var rt = new RenderTexture(targetWidth, targetHeight, 24);
+        RenderTexture.active = rt;
+        Graphics.Blit(source, rt);
+        var result = new Texture2D(targetWidth, targetHeight);
+        result.ReadPixels(new Rect(0, 0, targetWidth, targetHeight), 0, 0);
+        result.Apply();
+        RenderTexture.active = null;
+        rt.Release();
+        return result;
     }
 
     public static void ShowDevelopmentPopup()

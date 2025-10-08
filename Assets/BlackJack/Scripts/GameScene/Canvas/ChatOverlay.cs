@@ -1,20 +1,19 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChatCanvas : CanvasBase
+public class ChatOverlay : OverlayCanvas
 {
     [SerializeField] private Chat chatPrefab;
+    [SerializeField] private Chat chatPrefabOther;
     [SerializeField] private RectTransform scrollContentTransform;
 
     [SerializeField] private TMP_InputField chatInput;
     [SerializeField] private Button sendButton;
     [SerializeField] private Button backButton;
-
-    [Header("Transition Canvas")] [SerializeField]
-    private CanvasBase gameCanvas;
-
     private string chat;
+    [SerializeField] private GameNetworkEventSender networkSender;
 
     protected override void AddListener()
     {
@@ -30,9 +29,20 @@ public class ChatCanvas : CanvasBase
         backButton.onClick.RemoveListener(OnBackClick);
     }
 
+    private void Start()
+    {
+        networkSender.OnChatReceived += OnChatReceived;
+    }
+
+
+    private void OnDestroy()
+    {
+        networkSender.OnChatReceived -= OnChatReceived;
+    }
+
     private void OnBackClick()
     {
-        OnSetCanvasActive(gameCanvas);
+        HideOverlay();
     }
 
     private void OnChatSet(string input)
@@ -44,11 +54,26 @@ public class ChatCanvas : CanvasBase
     {
         if (chat.Length > 0)
         {
-            var chatInstance = Instantiate(chatPrefab, scrollContentTransform);
-            chatInstance.SetText(chat);
+            networkSender.SendChat(NetworkManager.LocalPlayer.ActorNumber, chat);
         }
 
         chatInput.text = string.Empty;
         chat = string.Empty;
+    }
+
+    private void OnChatReceived(int id, string message)
+    {
+        var icon = GameNetworkData.GetPlayerIcon(id);
+        if (id == NetworkManager.LocalPlayer.ActorNumber)
+        {
+            var chatInstance = Instantiate(chatPrefab, scrollContentTransform);
+
+            chatInstance.SetText(icon, message);
+        }
+        else
+        {
+            var chatInstance = Instantiate(chatPrefabOther, scrollContentTransform);
+            chatInstance.SetText(icon, message);
+        }
     }
 }

@@ -8,8 +8,13 @@ public static class NetworkManager
     private static readonly Hashtable CustomTable = new();
     public static bool IsMasterClient => PhotonNetwork.IsMasterClient;
     public static Player LocalPlayer => PhotonNetwork.LocalPlayer;
+
     public static Room CurrentRoom => PhotonNetwork.CurrentRoom;
 
+    public static Player GetCurrentRoomPlayer(int actorNo)
+    {
+       return PhotonNetwork.CurrentRoom.GetPlayer(actorNo);
+    }
     public static string GenerateRoomCode()
     {
         var random = Random.Range(11111, 99999);
@@ -20,7 +25,7 @@ public static class NetworkManager
     {
         if (PhotonNetwork.IsConnected) return;
         PhotonNetwork.ConnectUsingSettings();
-        PhotonNetwork.GameVersion = Application.version;
+        PhotonNetwork.GameVersion = "0.1.0";
     }
 
     public static void Disconnect()
