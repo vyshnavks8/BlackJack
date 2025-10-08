@@ -65,7 +65,7 @@ public class NetworkCallbackManager : MonoBehaviourPunCallbacks
     {
         base.OnDisconnected(cause);
         onDisconnected?.Invoke(cause);
-        if (showDebugs) Debug.Log("Disconnected");
+        if (showDebugs) Debug.Log("Disconnected"+ cause);
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)

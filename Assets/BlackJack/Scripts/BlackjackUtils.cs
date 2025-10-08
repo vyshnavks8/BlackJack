@@ -26,7 +26,10 @@ public static class BlackjackUtils
     {
         return mobile.Length is >= 10 and <= 13;
     }
-
+    public static Sprite GetSprite(Texture2D tex)
+    {
+        return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+    }
     public static bool IsInputEmpty(string input, string message)
     {
         if (!string.IsNullOrEmpty(input)) return false;

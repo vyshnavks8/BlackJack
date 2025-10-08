@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,10 +16,14 @@ public class HomeCanvas : CanvasBase
 
     [SerializeField] private CanvasBase navMenuCanvas;
 
+    private void Awake()
+    {
+        BlackJackApi.GetProfileIcon(AppData.iconUrl);
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
-        BlackJackApi.GetProfile();
     }
 
     private void OnOpenNav()

@@ -12,6 +12,7 @@ public class EditProfileCanvas : CanvasBase
     [SerializeField] private Button backButton;
 
     [Header("Profile")] [SerializeField] private TMP_Text profileImagText;
+    [SerializeField] private Image profileIcon;
     [SerializeField] private Button profileEditButton;
     [SerializeField] private Button profileButton;
     [SerializeField] private Image iconImage;
@@ -23,7 +24,6 @@ public class EditProfileCanvas : CanvasBase
     private string email;
     private string mobile;
     private bool uploadedImage;
-    private string profileImagePath;
     private Texture2D profileImage;
 
     protected override void OnEnable()
@@ -36,7 +36,6 @@ public class EditProfileCanvas : CanvasBase
     {
         base.OnDisable();
         uploadedImage = false;
-        profileImagePath = null;
     }
 
     private void SetData()
@@ -44,7 +43,17 @@ public class EditProfileCanvas : CanvasBase
         nameInput.text = username = AppData.username;
         emailInput.text = email = AppData.email;
         mobileInput.text = mobile = AppData.mobile;
-        profileImagText.text = AppData.username[0].ToString();
+        if (!string.IsNullOrEmpty(AppData.username))
+        {
+            profileImagText.text = AppData.username[0].ToString();
+        }
+
+        if (AppData.profileIcon != null)
+        {
+            profileIcon.sprite = AppData.profileIcon;
+            profileIcon.gameObject.SetActive(true);
+            profileImagText.gameObject.SetActive(false);
+        }
     }
 
 
@@ -73,22 +82,6 @@ public class EditProfileCanvas : CanvasBase
         profileButton.onClick.RemoveListener(OnEditProfileClick);
     }
 
-    private void OnEditProfileClick()
-    {
-        StartCoroutine(BlackjackUtils.GetImageFromFile(OnReceiveImage));
-    }
-
-    private void OnReceiveImage(Texture2D texture,string path)
-    {
-        uploadedImage = true;
-        profileImage = texture;
-        profileImagePath = path;
-        iconImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-        iconImage.gameObject.SetActive(true);
-        profileImagText.gameObject.SetActive(false);
-    }
-
-
     private void OnNameSet(string input)
     {
         username = input;
@@ -104,6 +97,20 @@ public class EditProfileCanvas : CanvasBase
         mobile = input;
     }
 
+    private void OnEditProfileClick()
+    {
+        StartCoroutine(BlackjackUtils.GetImageFromFile(OnReceiveImage));
+    }
+
+    private void OnReceiveImage(Texture2D texture, string path)
+    {
+        uploadedImage = true;
+        profileImage = texture;
+        iconImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+        iconImage.gameObject.SetActive(true);
+        profileImagText.gameObject.SetActive(false);
+    }
+
 
     private void OnCancelClick()
     {
@@ -114,7 +121,13 @@ public class EditProfileCanvas : CanvasBase
     {
         if (!CheckValidInputs()) return;
         if (ValidInputs()) return;
+        UploadProfileData();
         UploadProfileImage();
+    }
+
+    private void UploadProfileData()
+    {
+        if (username == AppData.username && email == AppData.email && mobile == AppData.mobile) return;
         var data = new EditProfileData
         {
             name = username,
@@ -122,26 +135,54 @@ public class EditProfileCanvas : CanvasBase
             mobileNo = mobile,
         };
         APIHandler.Put<EditProfileResponse>(ApiUrl.Profile, data, GetProfileCallback);
-
         LoadingController.ShowLoading();
+    }
+
+    private void GetProfileCallback(bool success, EditProfileResponse response)
+    {
+        if (!uploadedImage)
+        {
+            LoadingController.HideLoading();
+        }
+        if (success)
+        {
+            if (response.success)
+            {
+                if (!uploadedImage)
+                {
+                    BlackJackApi.GetProfile(_ =>
+                    {
+                        LoadProfileCanvas();
+                    });
+                }
+            }
+            else
+            {
+                NetworkPopUp.ShowPopUp("Edit Profile", response.message);
+            }
+        }
+        else
+        {
+            NetworkPopUp.ShowPopUp("Edit Profile", response.message);
+        }
     }
 
     private void UploadProfileImage()
     {
         if (!uploadedImage) return;
+        LoadingController.ShowLoading();
         var data = BlackjackUtils.GetFormImage(profileImage, "image");
-        APIHandler.PutForm<ProfileImageResponse>(ApiUrl.ProfileImagePut, data, OnProfileImageCallback);
+        APIHandler.PutForm<ProfileImageResponse>(ApiUrl.ProfileImage, data, OnProfileImageCallback);
     }
 
     private void OnProfileImageCallback(bool success, ProfileImageResponse response)
     {
+        LoadingController.HideLoading();
         if (success)
         {
             if (response.success)
             {
-                Debug.Log(response.message);
-                uploadedImage = false;
-                profileImagePath = null;
+                BlackJackApi.GetProfile(_ => { BlackJackApi.GetProfileIcon(AppData.iconUrl, LoadProfileCanvas); });
             }
             else
             {
@@ -154,24 +195,10 @@ public class EditProfileCanvas : CanvasBase
         }
     }
 
-    private void GetProfileCallback(bool success, EditProfileResponse response)
+
+    private void LoadProfileCanvas()
     {
-        LoadingController.HideLoading();
-        if (success)
-        {
-            if (response.success)
-            {
-               // OnSetCanvasActive(profileCanvas);
-            }
-            else
-            {
-                NetworkPopUp.ShowPopUp("Edit Profile", response.message);
-            }
-        }
-        else
-        {
-            NetworkPopUp.ShowPopUp("Edit Profile", response.message);
-        }
+        OnSetCanvasActive(profileCanvas);
     }
 
     private bool ValidInputs()
@@ -202,6 +229,7 @@ public class EditProfileCanvas : CanvasBase
             BlackjackUtils.ShowEmpty("Email ID or Cell");
             return false;
         }
+
         return true;
     }
 

@@ -8,27 +8,32 @@ namespace RestAPI
     public class WebHelpers : MonoBehaviour
     {
         public delegate void CallbackGet(string aURL, bool aSuccess, object aData);
+
         public delegate void CallbackPatch(string aURL, long responseCode, bool aSuccess, object aData);
+
         private readonly List<System.Type> supportedTypes = new()
         {
             typeof(string),
             typeof(Texture2D),
             typeof(byte[])
         };
+
         public static WebHelpers Instance;
+
         private void Awake()
         {
             if (Instance == null)
             {
-                Instance = this; 
+                Instance = this;
             }
             else if (Instance != this)
             {
                 Destroy(this);
             }
         }
-        
-        public void Get<T>(string aURL, CallbackGet aCallback,  KeyValuePair<string,string> authToken, bool isHeaderRequired = true)
+
+        public void Get<T>(string aURL, CallbackGet aCallback, KeyValuePair<string, string> authToken,
+            bool isHeaderRequired = true)
         {
             // sanity - checks for supported types
             var dataType = typeof(T);
@@ -43,9 +48,11 @@ namespace RestAPI
             // create the request for valid data type request
             var req = new UnityWebRequest(aURL);
             req.method = UnityWebRequest.kHttpVerbGET;
-     
-            req.SetRequestHeader(authToken.Key,authToken.Value);  
-            
+
+            if (isHeaderRequired)
+            {
+                req.SetRequestHeader(authToken.Key, authToken.Value);
+            }
 
 
             //var uploadHandler = new UploadHandlerRaw(aContent);
@@ -65,13 +72,15 @@ namespace RestAPI
             {
                 dataHandler = new DownloadHandlerBuffer();
             }
+
             req.downloadHandler = dataHandler;
             req.disposeDownloadHandlerOnDispose = true;
             StartCoroutine(_getRequest<T>(req, aCallback));
         }
 
-        
-        public void Get<T>(string aURL, byte[] aContent , string aContentType  , CallbackGet aCallback, KeyValuePair<string,string> authToken, bool isHeaderRequired = true)
+
+        public void Get<T>(string aURL, byte[] aContent, string aContentType, CallbackGet aCallback,
+            KeyValuePair<string, string> authToken, bool isHeaderRequired = true)
         {
             // sanity - checks for supported types
             var dataType = typeof(T);
@@ -86,9 +95,8 @@ namespace RestAPI
             // create the request for valid data type request
             var req = new UnityWebRequest(aURL);
             req.method = UnityWebRequest.kHttpVerbGET;
-     
-            req.SetRequestHeader(authToken.Key,authToken.Value);  
-            
+
+            req.SetRequestHeader(authToken.Key, authToken.Value);
 
 
             var uploadHandler = new UploadHandlerRaw(aContent);
@@ -108,13 +116,15 @@ namespace RestAPI
             {
                 dataHandler = new DownloadHandlerBuffer();
             }
+
             req.downloadHandler = dataHandler;
             req.disposeDownloadHandlerOnDispose = true;
             StartCoroutine(_getRequest<T>(req, aCallback));
         }
-        
 
-        public void Post<T>(string aURL, byte[] aContent, string aContentType, CallbackGet aCallback, KeyValuePair<string,string> authToken)
+
+        public void Post<T>(string aURL, byte[] aContent, string aContentType, CallbackGet aCallback,
+            KeyValuePair<string, string> authToken)
         {
             // sanity - checks for supported types
             var dataType = typeof(T);
@@ -128,9 +138,9 @@ namespace RestAPI
             var req = new UnityWebRequest(aURL);
             req.method = UnityWebRequest.kHttpVerbPOST;
 
-          req.SetRequestHeader(authToken.Key,authToken.Value);  
-            
-            
+            req.SetRequestHeader(authToken.Key, authToken.Value);
+
+
 #if AUTHVALUE
 				if (!string.IsNullOrEmpty(GlobalData.UserToken))
 			{
@@ -167,8 +177,9 @@ namespace RestAPI
             StartCoroutine(_postRequest<T>(req, aCallback));
         }
 
-        
-        public void SendWithMethod<T>(string aURL, byte[] aContent, string aContentType, CallbackGet aCallback, KeyValuePair<string,string> authToken, string method)
+
+        public void SendWithMethod<T>(string aURL, byte[] aContent, string aContentType, CallbackGet aCallback,
+            KeyValuePair<string, string> authToken, string method)
         {
             // sanity - checks for supported types
             var dataType = typeof(T);
@@ -182,9 +193,9 @@ namespace RestAPI
             var req = new UnityWebRequest(aURL);
             req.method = method;
 
-            req.SetRequestHeader(authToken.Key,authToken.Value);  
-            
-            
+            req.SetRequestHeader(authToken.Key, authToken.Value);
+
+
 #if AUTHVALUE
 				if (!string.IsNullOrEmpty(GlobalData.UserToken))
 			{
@@ -229,7 +240,8 @@ namespace RestAPI
         /// <param name="aContent">Content to upload as the body of the request</param>
         /// <param name="aContentType">Content type as per HTTP specs</param>
         /// <param name="aCallback">Called when the request is complete</param>
-        public void Post<T>(string aURL, WWWForm aContent, string aContentType, CallbackGet aCallback, KeyValuePair<string,string> authToken,string method)
+        public void Post<T>(string aURL, WWWForm aContent, string aContentType, CallbackGet aCallback,
+            KeyValuePair<string, string> authToken, string method)
         {
             // sanity - checks for supported types
             var dataType = typeof(T);
@@ -242,55 +254,9 @@ namespace RestAPI
             // create the request
             var req = UnityWebRequest.Post(aURL, aContent);
             req.method = method;
-            req.SetRequestHeader(authToken.Key,authToken.Value);  
-            
-            
-            
-            // upload handler sends our body
-            //var uploadHandler = new UploadHandler(aContent);
-            //uploadHandler.contentType = aContentType;
-            //req.uploadHandler = uploadHandler;
-            //req.disposeUploadHandlerOnDispose = true;
-            // select the right handler based on supported types
-            DownloadHandler dataHandler;
-            // textures
-            if (dataType == typeof(Texture2D))
-            {
-                dataHandler = new DownloadHandlerTexture();
-            }
-            // default
-            else
-            {
-                dataHandler = new DownloadHandlerBuffer();
-            }
+            req.SetRequestHeader(authToken.Key, authToken.Value);
 
-            req.downloadHandler = dataHandler;
-            req.disposeDownloadHandlerOnDispose = true;
 
-            //TODO might need it
-            //Debug.LogFormat("WEB HELPERS: POST: {0}: Fetching as {1}", aURL, dataType.ToString());
-
-            // Go Ninja Go!
-            StartCoroutine(_postRequest<T>(req, aCallback, aContent));
-        }
-        
-        public void SendWithMethod<T>(string aURL, WWWForm aContent, string aContentType, CallbackGet aCallback, KeyValuePair<string,string> authToken, string method)
-        {
-            // sanity - checks for supported types
-            var dataType = typeof(T);
-            if (!supportedTypes.Contains(dataType))
-            {
-                //Debug.LogErrorFormat("WEB HELPERS: POST: {0}: Unsupported data type => {1}", aURL, dataType.ToString());
-                return;
-            }
-
-            // create the request
-            var req = UnityWebRequest.Post(aURL, aContent);
-            req.method = method;
-            req.SetRequestHeader(authToken.Key,authToken.Value);  
-            
-            
-            
             // upload handler sends our body
             //var uploadHandler = new UploadHandler(aContent);
             //uploadHandler.contentType = aContentType;
@@ -319,7 +285,53 @@ namespace RestAPI
             StartCoroutine(_postRequest<T>(req, aCallback, aContent));
         }
 
-        public void Patch<T>(string aURL, byte[] aContent, string aContentType, CallbackPatch aCallback, KeyValuePair<string,string> authToken)
+        public void SendWithMethod<T>(string aURL, WWWForm aContent, string aContentType, CallbackGet aCallback,
+            KeyValuePair<string, string> authToken, string method)
+        {
+            // sanity - checks for supported types
+            var dataType = typeof(T);
+            if (!supportedTypes.Contains(dataType))
+            {
+                //Debug.LogErrorFormat("WEB HELPERS: POST: {0}: Unsupported data type => {1}", aURL, dataType.ToString());
+                return;
+            }
+
+            // create the request
+            var req = UnityWebRequest.Post(aURL, aContent);
+            req.method = method;
+            req.SetRequestHeader(authToken.Key, authToken.Value);
+
+
+            // upload handler sends our body
+            //var uploadHandler = new UploadHandler(aContent);
+            //uploadHandler.contentType = aContentType;
+            //req.uploadHandler = uploadHandler;
+            //req.disposeUploadHandlerOnDispose = true;
+            // select the right handler based on supported types
+            DownloadHandler dataHandler;
+            // textures
+            if (dataType == typeof(Texture2D))
+            {
+                dataHandler = new DownloadHandlerTexture();
+            }
+            // default
+            else
+            {
+                dataHandler = new DownloadHandlerBuffer();
+            }
+
+            req.downloadHandler = dataHandler;
+            req.disposeDownloadHandlerOnDispose = true;
+
+            //TODO might need it
+            //Debug.LogFormat("WEB HELPERS: POST: {0}: Fetching as {1}", aURL, dataType.ToString());
+
+            // Go Ninja Go!
+            StartCoroutine(_postRequest<T>(req, aCallback, aContent));
+        }
+
+        public void Patch<T>(string aURL, byte[] aContent, string aContentType, CallbackPatch aCallback,
+            KeyValuePair<string, string> authToken)
         {
             // sanity - checks for supported types
             var dataType = typeof(T);
@@ -333,9 +345,9 @@ namespace RestAPI
             var req = new UnityWebRequest(aURL);
             req.method = "PATCH";
 
-            req.SetRequestHeader(authToken.Key,authToken.Value);  
-            
-            
+            req.SetRequestHeader(authToken.Key, authToken.Value);
+
+
 #if AUTHVALUE
 				if (!string.IsNullOrEmpty(GlobalData.UserToken))
 			{
@@ -371,15 +383,11 @@ namespace RestAPI
             // Go Ninja Go!
             StartCoroutine(_patchRequest<T>(req, aCallback));
         }
-        
-
-        
-        
 
 
         #region Private Coroutines
-        
-                private static IEnumerator _putRequest<T>(UnityWebRequest aRequest, CallbackPatch aCallback)
+
+        private static IEnumerator _putRequest<T>(UnityWebRequest aRequest, CallbackPatch aCallback)
         {
             // send off the request and wait
             yield return aRequest.SendWebRequest();
@@ -397,7 +405,7 @@ namespace RestAPI
                 }
 
                 //Debug.LogErrorFormat("WEB HELPERS: POST: {0}: Failed => {1} (HTTP {2})", aRequest.url, aRequest.error, aRequest.responseCode);
-                aCallback(aRequest.url,  aRequest.responseCode, false, aRequest.error);
+                aCallback(aRequest.url, aRequest.responseCode, false, aRequest.error);
             }
             else
             {
@@ -407,17 +415,17 @@ namespace RestAPI
                 var dataType = typeof(T);
                 if (dataType == typeof(Texture2D))
                 {
-                    var dataHandler = (DownloadHandlerTexture) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerTexture)aRequest.downloadHandler;
                     aCallback(aRequest.url, aRequest.responseCode, true, dataHandler.texture);
                 }
                 else if (dataType == typeof(string))
                 {
-                    var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
-                    aCallback(aRequest.url,  aRequest.responseCode,true, dataHandler.text);
+                    var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
+                    aCallback(aRequest.url, aRequest.responseCode, true, dataHandler.text);
                 }
                 else if (dataType == typeof(byte[]))
                 {
-                    var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
                     aCallback(aRequest.url, aRequest.responseCode, true, dataHandler.data);
                 }
             }
@@ -425,7 +433,7 @@ namespace RestAPI
             // be polite and get rid of the request object to avoid leaks
             aRequest.Dispose();
         }
-        
+
         private static IEnumerator _patchRequest<T>(UnityWebRequest aRequest, CallbackPatch aCallback)
         {
             // send off the request and wait
@@ -444,7 +452,7 @@ namespace RestAPI
                 }
 
                 //Debug.LogErrorFormat("WEB HELPERS: POST: {0}: Failed => {1} (HTTP {2})", aRequest.url, aRequest.error, aRequest.responseCode);
-                aCallback(aRequest.url,  aRequest.responseCode, false, aRequest.error);
+                aCallback(aRequest.url, aRequest.responseCode, false, aRequest.error);
             }
             else
             {
@@ -454,17 +462,17 @@ namespace RestAPI
                 var dataType = typeof(T);
                 if (dataType == typeof(Texture2D))
                 {
-                    var dataHandler = (DownloadHandlerTexture) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerTexture)aRequest.downloadHandler;
                     aCallback(aRequest.url, aRequest.responseCode, true, dataHandler.texture);
                 }
                 else if (dataType == typeof(string))
                 {
-                    var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
-                    aCallback(aRequest.url,  aRequest.responseCode,true, dataHandler.text);
+                    var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
+                    aCallback(aRequest.url, aRequest.responseCode, true, dataHandler.text);
                 }
                 else if (dataType == typeof(byte[]))
                 {
-                    var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
                     aCallback(aRequest.url, aRequest.responseCode, true, dataHandler.data);
                 }
             }
@@ -472,7 +480,7 @@ namespace RestAPI
             // be polite and get rid of the request object to avoid leaks
             aRequest.Dispose();
         }
-        
+
         private static IEnumerator _postRequest<T>(UnityWebRequest aRequest, CallbackGet aCallback)
         {
             // send off the request and wait
@@ -492,7 +500,7 @@ namespace RestAPI
 
                 //Debug.LogErrorFormat("WEB HELPERS: POST: {0}: Failed => {1} (HTTP {2})", aRequest.url, aRequest.error, aRequest.responseCode);
                 //aCallback(aRequest.url, false, aRequest.error);
-                var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
+                var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
                 aCallback(aRequest.url, false, dataHandler.text);
             }
             else
@@ -503,17 +511,17 @@ namespace RestAPI
                 var dataType = typeof(T);
                 if (dataType == typeof(Texture2D))
                 {
-                    var dataHandler = (DownloadHandlerTexture) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerTexture)aRequest.downloadHandler;
                     aCallback(aRequest.url, true, dataHandler.texture);
                 }
                 else if (dataType == typeof(string))
                 {
-                    var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
                     aCallback(aRequest.url, true, dataHandler.text);
                 }
                 else if (dataType == typeof(byte[]))
                 {
-                    var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
                     aCallback(aRequest.url, true, dataHandler.data);
                 }
             }
@@ -552,17 +560,17 @@ namespace RestAPI
                 var dataType = typeof(T);
                 if (dataType == typeof(Texture2D))
                 {
-                    var dataHandler = (DownloadHandlerTexture) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerTexture)aRequest.downloadHandler;
                     aCallback(aRequest.url, true, dataHandler.texture);
                 }
                 else if (dataType == typeof(string))
                 {
-                    var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
                     aCallback(aRequest.url, true, dataHandler.text);
                 }
                 else if (dataType == typeof(byte[]))
                 {
-                    var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
                     aCallback(aRequest.url, true, dataHandler.data);
                 }
             }
@@ -585,9 +593,9 @@ namespace RestAPI
                 // something went wrong!
                 //TODO might need it
                 //              Debug.LogErrorFormat("WEB HELPERS: POST: {0}: Failed => {1} (HTTP {2})", aRequest.url, aRequest.error, aRequest.responseCode);
-               // aCallback(aRequest.url, false, aRequest.error);
-               var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
-               aCallback(aRequest.url, false, dataHandler.text);
+                // aCallback(aRequest.url, false, aRequest.error);
+                var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
+                aCallback(aRequest.url, false, dataHandler.text);
             }
             else
             {
@@ -599,17 +607,17 @@ namespace RestAPI
                 var dataType = typeof(T);
                 if (dataType == typeof(Texture2D))
                 {
-                    var dataHandler = (DownloadHandlerTexture) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerTexture)aRequest.downloadHandler;
                     aCallback(aRequest.url, true, dataHandler.texture);
                 }
                 else if (dataType == typeof(string))
                 {
-                    var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
                     aCallback(aRequest.url, true, dataHandler.text);
                 }
                 else if (dataType == typeof(byte[]))
                 {
-                    var dataHandler = (DownloadHandlerBuffer) aRequest.downloadHandler;
+                    var dataHandler = (DownloadHandlerBuffer)aRequest.downloadHandler;
                     aCallback(aRequest.url, true, dataHandler.data);
                 }
             }

@@ -15,6 +15,7 @@ public class ProfileCanvas : CanvasBase
 
     [Header("Profile Image")] [SerializeField]
     private TMP_Text profileImagText;
+    [SerializeField]  private Image profileIcon;
 
     [Header("Transition Canvas")] [SerializeField]
     private CanvasBase editProfileCanvas;
@@ -24,7 +25,6 @@ public class ProfileCanvas : CanvasBase
     protected override void OnEnable()
     {
         base.OnEnable();
-        BlackJackApi.GetProfile();
         SetData();
     }
 
@@ -36,6 +36,13 @@ public class ProfileCanvas : CanvasBase
         if (!string.IsNullOrEmpty(AppData.username))
         {
             profileImagText.text = AppData.username[0].ToString();
+        }
+
+        if (AppData.profileIcon != null)
+        {
+            profileIcon.sprite = AppData.profileIcon;
+            profileIcon.gameObject.SetActive(true);
+            profileImagText.gameObject.SetActive(false);
         }
        
     }

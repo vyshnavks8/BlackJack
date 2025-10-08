@@ -34,20 +34,31 @@ public static class GameNetworkData
     public static void SetPlayerData()
     {
         string playerName;
+        byte[] playerIcon;
         if (string.IsNullOrEmpty(AppData.username))
         {
             playerName = "Unknown"+Random.Range(1000,9999);
+            playerIcon = null;
         }
         else
         {
             playerName = AppData.username;
+            playerIcon = AppData.profileIcon.texture.EncodeToPNG();
         }
         NetworkManager.SetLocalPlayerProperties(GameNetworkKey.PlayerName,playerName );
+        NetworkManager.SetLocalPlayerProperties(GameNetworkKey.PlayerIcon,playerIcon );
     }
 
     public static (string playerName,Sprite playerIcon) GetPlayerData(Player player)
     {
        var pName=(string) NetworkManager.GetPlayerProperties(player, GameNetworkKey.PlayerName);
-       return (pName,null);
+       var pIconBytes=(byte[]) NetworkManager.GetPlayerProperties(player, GameNetworkKey.PlayerIcon);
+       if (pIconBytes is not { Length: > 0 }) return (pName, null);
+       var tex = new Texture2D(2, 2);
+       tex.LoadImage(pIconBytes); 
+       var iconSprite = BlackjackUtils.GetSprite(tex);
+       return (pName,iconSprite);
     }
+
+    
 }

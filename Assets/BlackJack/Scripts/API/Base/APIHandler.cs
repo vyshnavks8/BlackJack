@@ -16,6 +16,13 @@ public class APIHandler : ApiBase
         where T : BaseResponse
     {
         SendWithMethod(url, requestData, UnityWebRequest.kHttpVerbGET, callBack, setAuth);
+    }  
+    public static void GetImage(string url, Action<bool, Texture2D> callBack)
+    {
+        WebRequestGetImage(url,(_,success,data)=>
+        {
+            callBack?.Invoke(success,(Texture2D)data);
+        });
     }
 
     public static void Put<T>(string url, object requestData, Action<bool, T> callBack, bool setAuth = false)

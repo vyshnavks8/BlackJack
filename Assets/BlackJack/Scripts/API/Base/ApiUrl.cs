@@ -11,8 +11,7 @@ public class ApiUrl
     public const string ForgotPassword = User + "forgot-password";
     public const string ResetPassword = User + "reset-password";
     public const string Otp = User + "otp";
-    public const string ProfileImagePut = User + "profile-image/68c3e08d828e59c9a6e4aedb";
-    public const string ProfileImageGet = User + "profile-image";
+    public const string ProfileImage = User + "profile-image";
     public const string CreateGame = Game + "create";
     public const string JoinGame = Game;
 }

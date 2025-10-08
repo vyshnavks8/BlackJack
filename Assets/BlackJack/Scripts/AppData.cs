@@ -1,10 +1,13 @@
 using System;
+using UnityEngine;
 
 public static class AppData
 {
     public static string username;
     public static string email;
     public static string mobile;
+    public static string iconUrl;
+    public static Sprite profileIcon;
 
     public static string onlineGameCode;
     public static string onlineGameMessage;
@@ -14,11 +17,12 @@ public static class AppData
     public static GameType gameType;
     public static event Action OnUpdateUserData;
 
-    public static void SetUserData(string userName, string emailId, string mobileNo)
+    public static void SetUserData(string userName, string emailId, string mobileNo, string icon)
     {
         username = userName;
         email = emailId;
         mobile = mobileNo;
+        iconUrl = icon;
         OnUpdateUserData?.Invoke();
     }
 
@@ -39,4 +43,8 @@ public static class AppData
         OnUpdateGameType?.Invoke(type);
     }
 
+    public static void SetUserIcon(Sprite texture)
+    {
+        profileIcon=texture;
+    }
 }
