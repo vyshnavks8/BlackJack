@@ -15470,8 +15470,8 @@ MonoBehaviour:
   afterHide:
     m_PersistentCalls:
       m_Calls: []
-  chatPrefab: {fileID: 780586756220217795, guid: e8435ee3c1cf6da40920a9a4ddfe15ee, type: 3}
-  chatPrefabOther: {fileID: 9036855343273417676, guid: 27a97a2a7206c8940954f769b0605d8d, type: 3}
+  chatPrefabA: {fileID: 780586756220217795, guid: e8435ee3c1cf6da40920a9a4ddfe15ee, type: 3}
+  chatPrefabB: {fileID: 9036855343273417676, guid: 27a97a2a7206c8940954f769b0605d8d, type: 3}
   scrollContentTransform: {fileID: 655127833}
   chatInput: {fileID: 1709116468}
   sendButton: {fileID: 691036572}
@@ -26026,7 +26026,6 @@ GameObject:
   - component: {fileID: 1521511242}
   - component: {fileID: 1521511246}
   - component: {fileID: 1521511245}
-  - component: {fileID: 1521511243}
   m_Layer: 5
   m_Name: Chat
   m_TagString: Untagged
@@ -26057,30 +26056,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1521511243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1521511241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a249b6d6a81349908e61f79d8c159f45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionDuration: 0.3
-  overlayPivot: {fileID: 1543129142}
-  afterHide:
-    m_PersistentCalls:
-      m_Calls: []
-  chatPrefab: {fileID: 780586756220217795, guid: e8435ee3c1cf6da40920a9a4ddfe15ee, type: 3}
-  chatPrefabOther: {fileID: 0}
-  scrollContentTransform: {fileID: 655127833}
-  chatInput: {fileID: 1709116468}
-  sendButton: {fileID: 691036572}
-  backButton: {fileID: 2067417914}
-  networkSender: {fileID: 1264640607}
 --- !u!223 &1521511245
 Canvas:
   m_ObjectHideFlags: 0

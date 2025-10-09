@@ -99,11 +99,13 @@ public class GameNetworkEventSender : MonoBehaviour
         gameNetworkManager.playersList.Clear();
         gameNetworkManager.networkPlayersCanvas.ClearPlayers();
         gameNetworkManager.playersList.AddRange(idList);
+        GameNetworkData.ClearAllIcons();
         foreach (var id in idList)
         {
             var player = NetworkManager.CurrentRoom.GetPlayer(id);
             var playerData = GameNetworkData.GetPlayerData(player);
             gameNetworkManager.networkPlayersCanvas.AddPlayer(player.ActorNumber, playerData);
+            GameNetworkData.AddPlayerIcon(id, playerData.playerIcon);
         }
     }
 

@@ -1,12 +1,12 @@
-using System;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChatOverlay : OverlayCanvas
 {
-    [SerializeField] private Chat chatPrefab;
-    [SerializeField] private Chat chatPrefabOther;
+    [SerializeField] private Chat chatPrefabA;
+    [SerializeField] private Chat chatPrefabB;
     [SerializeField] private RectTransform scrollContentTransform;
 
     [SerializeField] private TMP_InputField chatInput;
@@ -17,6 +17,8 @@ public class ChatOverlay : OverlayCanvas
 
     protected override void AddListener()
     {
+        NetworkCallbackManager.onDisconnected += OnDisconnect;
+        networkSender.OnChatReceived += OnChatReceived;
         chatInput.onValueChanged.AddListener(OnChatSet);
         sendButton.onClick.AddListener(OnSendClick);
         backButton.onClick.AddListener(OnBackClick);
@@ -24,21 +26,23 @@ public class ChatOverlay : OverlayCanvas
 
     protected override void RemoveListener()
     {
+        NetworkCallbackManager.onDisconnected -= OnDisconnect;
+        networkSender.OnChatReceived -= OnChatReceived;
         chatInput.onValueChanged.RemoveListener(OnChatSet);
         sendButton.onClick.RemoveListener(OnSendClick);
         backButton.onClick.RemoveListener(OnBackClick);
     }
 
-    private void Start()
+    private void OnDisconnect(DisconnectCause obj)
     {
-        networkSender.OnChatReceived += OnChatReceived;
+        foreach (Transform data in scrollContentTransform)
+        {
+           Destroy(data.gameObject);
+        }
+        chatInput.text = string.Empty;
+        chat = string.Empty;
     }
 
-
-    private void OnDestroy()
-    {
-        networkSender.OnChatReceived -= OnChatReceived;
-    }
 
     private void OnBackClick()
     {
@@ -66,13 +70,12 @@ public class ChatOverlay : OverlayCanvas
         var icon = GameNetworkData.GetPlayerIcon(id);
         if (id == NetworkManager.LocalPlayer.ActorNumber)
         {
-            var chatInstance = Instantiate(chatPrefab, scrollContentTransform);
-
+            var chatInstance = Instantiate(chatPrefabA, scrollContentTransform);
             chatInstance.SetText(icon, message);
         }
         else
         {
-            var chatInstance = Instantiate(chatPrefabOther, scrollContentTransform);
+            var chatInstance = Instantiate(chatPrefabB, scrollContentTransform);
             chatInstance.SetText(icon, message);
         }
     }
