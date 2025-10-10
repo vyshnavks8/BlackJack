@@ -149,6 +149,11 @@ public class BlackJackPlayer
     {
         NetworkID = id;
         var icon = GameNetworkData.GetPlayerIcon(id);
+        SetIcon(icon);
+    }
+
+    public void SetIcon(Sprite icon)
+    {
         blackJackPlayerUI.SetIcon(icon);
     }
 }

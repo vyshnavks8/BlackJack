@@ -35,6 +35,7 @@ public class BlackJackStateContext : MonoBehaviour
 
     public void DiscardAllPlayerCard(Action completedRound)
     {
+        if (currentPlayers.Count<=0) return;
         var blackJackPlayer = currentPlayers[PlayerCounter];
         blackJackPlayer.ClearCards();
         blackJackPlayer.blackJackPlayerUI.RemoveAllCards();
@@ -83,9 +84,9 @@ public class BlackJackStateContext : MonoBehaviour
         }
     }
 
-    public void PlacePlayerCardAllCustom(Deck customDeck, Action<bool> completedRound, bool doIncrement = false,
-        bool visible = true)
+    public void PlacePlayerCardAllCustom(Deck customDeck, Action<bool> completedRound, bool doIncrement = false, bool visible = true)
     {
+        if(currentPlayers.Count<=0) return;
         if (cardPlaceCounter < currentPlayers.Count)
         {
             var card = customDeck.DrawTopCard();
@@ -166,6 +167,8 @@ public class BlackJackStateContext : MonoBehaviour
         currentPlayers.Clear();
         totalPlayers.Clear();
         PlayerCounter = 0;
+        cardPlaceCounter=0;
+        cardRemoveCounter=0;
         passCounter = 0;
         FirstGame = false;
         deck = null;

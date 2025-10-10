@@ -41,5 +41,7 @@ public class CardPlacer : MonoBehaviour
     public void StopAnimation()
     {
         tween.Kill();
+        demoCard.transform.position = position;
+        demoCard.transform.rotation = rotation;
     }
 }

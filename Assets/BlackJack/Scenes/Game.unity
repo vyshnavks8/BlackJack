@@ -17782,11 +17782,11 @@ MonoBehaviour:
     NetworkID: 0
   removedPlayers: []
   totalPlayers:
-  - playerPosition: 1
+  - playerPosition: 2
     blackJackPlayerUI: {fileID: 968836557}
     cards: []
     NetworkID: 0
-  - playerPosition: 4
+  - playerPosition: 5
     blackJackPlayerUI: {fileID: 305002747}
     cards: []
     NetworkID: 0
@@ -17794,11 +17794,11 @@ MonoBehaviour:
     blackJackPlayerUI: {fileID: 1491126733}
     cards: []
     NetworkID: 0
-  - playerPosition: 5
+  - playerPosition: 4
     blackJackPlayerUI: {fileID: 175362982}
     cards: []
     NetworkID: 0
-  - playerPosition: 2
+  - playerPosition: 1
     blackJackPlayerUI: {fileID: 172798981}
     cards: []
     NetworkID: 0

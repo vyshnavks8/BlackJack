@@ -119,6 +119,11 @@ public class BlackJackManager : MonoBehaviour
             foreach (var player in currentPlayers)
             {
                 SetData(player, player.playerPosition == PlayerPosition.Bottom ? PlayerType.Player : PlayerType.Bot);
+                if (player.PlayerType != PlayerType.Player) continue;
+                if (AppData.profileIcon != null)
+                {
+                    player.SetIcon(AppData.profileIcon);
+                }
             }
         }
         else

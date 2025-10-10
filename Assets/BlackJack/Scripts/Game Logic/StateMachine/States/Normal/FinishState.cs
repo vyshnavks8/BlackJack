@@ -51,5 +51,6 @@ public class FinishState : BlackJackState
 
     public override void ExitState()
     {
+        StopCoroutine(waitToFinish);
     }
 }

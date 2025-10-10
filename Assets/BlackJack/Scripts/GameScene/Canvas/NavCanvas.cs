@@ -116,6 +116,7 @@ public class NavCanvas : CanvasBase
     {
         PopUpController.ClosePopUp();
         BlackJackSave.ClearLoginData();
+        AppData.ClearData();
         SceneManager.LoadScene(SceneKey.Login);
     }
 

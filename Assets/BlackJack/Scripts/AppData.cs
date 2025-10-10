@@ -47,4 +47,17 @@ public static class AppData
     {
         profileIcon=texture;
     }
+
+    public static void ClearData()
+    {
+        username = null;
+        email = null;
+        mobile = null;
+        iconUrl = null;
+        profileIcon = null;
+        onlineGameCode = null;
+        onlineGameMessage = null;
+        forgotPasswordID = null;
+        
+    }
 }
