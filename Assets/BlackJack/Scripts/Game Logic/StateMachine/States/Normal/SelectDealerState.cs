@@ -96,7 +96,11 @@ public class SelectDealerState : BlackJackState
         stateMachine.Context.passCounter = 0;
         startPlayer = 0;
         AI = false;
-        StopCoroutine(waitForDiscard);
+        if (waitForDiscard != null)
+        {
+            StopCoroutine(waitForDiscard);
+        }
+        
     }
 
     private void SetDealer()

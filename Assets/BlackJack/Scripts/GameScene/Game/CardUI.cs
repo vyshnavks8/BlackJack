@@ -14,7 +14,12 @@ public class CardUI : MonoBehaviour
     private bool cardVisible;
     private const float duration = 0.5f;
     private IEnumerator wait;
-    private Tweener tweener;
+    private Tweener ColorTween;
+
+    private void OnDisable()
+    {
+        ColorTween?.Kill();
+    }
 
     public void SetData(Card card, bool visible)
     {
@@ -60,14 +65,11 @@ public class CardUI : MonoBehaviour
     {
         if (highlight)
         {
-            tweener = cardImage.DOColor(Color.yellow, 0.4f).SetLoops(-1, LoopType.Yoyo);
+            ColorTween = cardImage.DOColor(Color.yellow, 0.4f).SetLoops(-1, LoopType.Yoyo);
         }
         else
         {
-            if (tweener!=null)
-            {
-                tweener.Kill();
-            }
+            ColorTween?.Kill();
             cardImage.color = Color.white;
         }
        

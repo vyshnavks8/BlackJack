@@ -58,6 +58,10 @@ public class DiscardState : BlackJackState
 
     public override void ExitState()
     {
-        StopCoroutine(waitForDiscard);
+        if (waitForDiscard != null)
+        {
+            StopCoroutine(waitForDiscard);
+        }
+       
     }
 }
